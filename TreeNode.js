@@ -35,3 +35,35 @@ const invertTree = function (root) {
   }
   return root
 }
+
+/**
+ * @description 左叶子之和
+ * @param {TreeNode} root
+ * @returns {number} 左叶子之和
+ */
+const sumOfLeftLeaves = function (root) {
+  if (root === null) return 0 // 为空返回0
+  let sum = 0 // 总和
+  let isLeft = false // 左树标识
+
+  const def = (root) => {
+    // 子节点为空时，只有是左节点才能累加
+    if (root.left === null && root.right === null) {
+      if (isLeft) sum += root.val
+      return
+    }
+    // 左节点存在，isLeft为true，传入左节点
+    if (root.left) {
+      isLeft = true
+      def(root.left)
+    }
+    // 右节点存在，isLeft为false，传入右节点
+    if (root.right) {
+      isLeft = false
+      def(root.right)
+    }
+  }
+
+  def(root)
+  return sum
+}

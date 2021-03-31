@@ -13,8 +13,6 @@ const lengthOfLongestSubstring = s => {
     max = Math.max(max, i - j + 1)
   }
   return max
-
 }
-
 console.log(lengthOfLongestSubstring(' '))
 
