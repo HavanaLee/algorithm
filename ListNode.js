@@ -65,4 +65,3 @@ const addTwoNum = (l1, l2) => {
   carry && (tail.next = new ListNode(carry)) // 最后的进位
   return head
 }
-

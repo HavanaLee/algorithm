@@ -29,6 +29,23 @@ var maxArea = function (height) {
     height[l] >= height[r] ? --r : ++l
   }
   return ans
+}
 
+/**
+ * @description 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
+ * @type 二分查找
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+const search = (nums, target) => {
+  let l = 0, r = nums.length - 1  // 形成一个左右闭区间
+  while (l <= r) {
+    let mid = Math.floor(l + (r - l) / 2) // l+(r-l)/2 避免溢出
+    if (target < nums[mid]) r = mid - 1 // 因为nums[mid] != target，所以target必然在mid右侧，即从mid+1开始
+    else if (target > nums[mid]) l = mid + 1
+    else return mid
+  }
+  return -1 // 没有找到结果，返回-1
 }
 
