@@ -65,3 +65,47 @@ const removeElement = function (nums, val) {
   }
   return slow
 }
+
+/**
+ * @description 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
+ * @type 双指针
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+const sortedSquares = (nums) => {
+  let k = nums.length - 1
+  let res = new Array(nums.length).fill(0)
+  for (let i = 0, j = nums.length - 1; i <= j;) { // 因为数组有序，所以最大值一定在最左或者最右
+    if (Math.pow(nums[i], 2) <= Math.pow(nums[j], 2)) {
+      res[k--] = Math.pow(nums[j], 2)
+      j--
+    } else {
+      res[k--] = Math.pow(nums[i], 2)
+      i++
+    }
+  }
+  return res
+}
+
+/**
+ * @description 给定一个含有 n 个正整数的数组和一个正整数 target 。找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
+ * @type 滑动窗口
+ * @param {number} target
+ * @param {number[]} nums
+ * @return {number}
+ */
+const minSubArrayLen = (target, nums) => {
+  let max_length = 0 // 满足条件的数组长度
+  let i = 0 // 起始位置
+  let sum = 0 // 数组总和
+  let result = Number.MAX_VALUE
+  for (let j = 0; j < nums.length; j++) {
+    sum += nums[j] // 滑动数组的值
+    while (sum >= target) {
+      max_length = j - i + 1 // 滑动区间长度
+      result = Math.min(max_length, result)
+      sum -= nums[i++] // 起始位置向前滑动
+    }
+  }
+  return result === Number.MAX_VALUE ? 0 : result
+}
