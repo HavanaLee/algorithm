@@ -83,6 +83,15 @@ const removeElements = function (head, val) {
   return dummyNode.next
 }
 
+// /**
+//  * Your MyLinkedList object will be instantiated and called as such:
+//  * var obj = new MyLinkedList()
+//  * var param_1 = obj.get(index)
+//  * obj.addAtHead(val)
+//  * obj.addAtTail(val)
+//  * obj.addAtIndex(index,val)
+//  * obj.deleteAtIndex(index)
+//  */
 class MyLinkedList {
   /**
    * Initialize your data structure here.
@@ -175,12 +184,41 @@ class MyLinkedList {
   }
 }
 
-// /**
-//  * Your MyLinkedList object will be instantiated and called as such:
-//  * var obj = new MyLinkedList()
-//  * var param_1 = obj.get(index)
-//  * obj.addAtHead(val)
-//  * obj.addAtTail(val)
-//  * obj.addAtIndex(index,val)
-//  * obj.deleteAtIndex(index)
-//  */
+
+/**
+ * @description 反转链表
+ * @type 双指针
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const reverseList = head => {
+  let cur = head // 指针指向头节点
+  let prev = null // 翻转节点
+  let temp // 保存节点下一级
+  while (cur) {
+    temp = cur.next
+    cur.next = prev
+    prev = cur
+    cur = temp
+  }
+  return prev
+}
+
+/**
+ * @description 两两交换节点
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+const exchangeBetween = head => {
+  let dummyNode = new ListNode(0) // 虚拟头结点
+  dummyNode.next = head
+  let cur = dummyNode
+  while (cur.next && cur.next.next) {
+    let temp = cur.next, temp1 = cur.next.next
+    temp.next = temp1.next // 因为调换了顺序，1号节点指针要指向3号节点
+    cur.next = temp1
+    cur.next.next = temp
+    cur = cur.next.next  //  移动位置，准备下一轮交换
+  }
+  return dummyNode.next
+}
