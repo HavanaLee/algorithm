@@ -64,8 +64,9 @@ function debounce (fn, delay = 500) {
   return f
 }
 
-let myObj = { value: 2 }
+let myObj = { value: 3 }
 myObj.a = function (fn) {
+  console.log('adssad')
   function f () {
     console.log(this)
     fn.apply(this, arguments)
@@ -76,13 +77,15 @@ myObj.a = function (fn) {
 
 let b = {
   hl: 1,
-  c: myObj.a(() => { console.log('aaa', this.value) })
+  value: 2,
+  c: myObj.a(function () { console.log('aaa', this.value) }),
+  d: function () { console.log(this.value) }
 }
-// b.c()
+b.d.bind(myObj)()
 
 
 // 验证
-document.getElementById('input').addEventListener('input', debounce(function (e) {
-  console.log(e.target.value)
-}), 600)
+// document.getElementById('input').addEventListener('input', debounce(function (e) {
+//   console.log(e.target.value)
+// }), 600)
 
