@@ -222,3 +222,27 @@ const exchangeBetween = head => {
   }
   return dummyNode.next
 }
+
+
+/**
+ * @description 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+ * @param {ListNode} head
+ * @type 双指针
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function (head, n) {
+  let dummyNode = new ListNode(0) // 虚拟节点
+  dummyNode.next = head
+  let slow = dummyNode, fast = dummyNode
+  while (n-- && fast != null) {
+    fast = fast.next  // 移动n位，剩余的就是倒数第n
+  }
+  fast = fast.next // 让slow最后指向倒数n - 1，删除第n个
+  while (fast != null) {
+    fast = fast.next
+    slow = slow.next
+  }
+  slow.next = slow.next.next
+  return dummyNode.next
+}

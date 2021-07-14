@@ -44,5 +44,45 @@ function fn () {
 var x = fn()
 x()
 x()
-// fn()()
-// fn()()
+
+// debounce
+function debounce (fn, delay = 500) {
+  // timer 写在闭包中，因此防抖也是闭包的一个应用
+  let timer = null
+  console.log(this)
+  function f () {
+    console.log(this, arguments)
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(() => {
+
+      fn.apply(this, arguments)
+      timer = null
+    }, delay)
+  }
+  return f
+}
+
+let myObj = { value: 2 }
+myObj.a = function (fn) {
+  function f () {
+    console.log(this)
+    fn.apply(this, arguments)
+  }
+  return f
+}
+// myObj.a(() => { console.log('aaa', this.value) })
+
+let b = {
+  hl: 1,
+  c: myObj.a(() => { console.log('aaa', this.value) })
+}
+// b.c()
+
+
+// 验证
+document.getElementById('input').addEventListener('input', debounce(function (e) {
+  console.log(e.target.value)
+}), 600)
+
