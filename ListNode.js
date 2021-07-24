@@ -246,3 +246,39 @@ var removeNthFromEnd = function (head, n) {
   slow.next = slow.next.next
   return dummyNode.next
 }
+
+/**
+ * @description 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function (headA, headB) {
+  // 取到当前链表长度
+  const getHeadLength = (head) => {
+    let len = 0, cur = head
+    while (cur) {
+      len++
+      cur = cur.next
+    }
+    return len
+  }
+  let curA = headA, curB = headB
+  let lenA = getHeadLength(headA)
+  let lenB = getHeadLength(headB)
+  // 以a为标准，如果a小于b，调换顺序
+  if (lenA < lenB) {
+    [lenA, lenB] = [lenB, lenA]
+    [curA, curB] = [curB, curA]
+  }
+  let i = lenA - lenB
+  // a的末尾对准b的末尾
+  while (i-- > 0) {
+    curA = curA.next
+  }
+  while (curA && curA !== curB) {
+    curA = curA.next
+    curB = curB.next
+  }
+  return curA
+}

@@ -85,7 +85,8 @@ b.d.bind(myObj)()
 
 
 // 验证
-// document.getElementById('input').addEventListener('input', debounce(function (e) {
-//   console.log(e.target.value)
-// }), 600)
+document.getElementById('input').addEventListener('input', debounce((e) => {
+  console.log(e.target.value)
+  console.log(this, 'sdssss')
+}), 600)
 

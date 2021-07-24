@@ -5,9 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .left {
+        width: 100px;
+        height: 100vh;
+        float: left;
+        /* background: red; */
+      }
+      .middle {
+        /* float: left; */
+        background: blue;
+        min-width: 220px;
+        height: 100%;
+        margin: 0 100px;
+      }
+      .middle img {
+        width: 100%;
+        height: auto;
+      }
+      .right {
+        float: right;
+        width: 100px;
+        height: 100vh;
+        /* background: #000; */
+      }
+      body,
+      html {
+        /* height: 100vh; */
+        margin: 0;
+        height: 100%;
+        /* background: lightblue; */
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
-    <input type="text" id="input" />
-    <script src="./interview.js"></script>
+    <!-- <input type="text" id="input" /> -->
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="middle">
+      <!-- <img src="../6732643_135755345139_2.png" srcset="" /> -->
+    </div>
+    <!-- <script src="./interview.js"></script> -->
   </body>
 </html>
