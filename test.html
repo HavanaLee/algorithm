@@ -14,14 +14,24 @@
       }
       .middle {
         /* float: left; */
-        background: blue;
+        /* background: blue; */
+        box-sizing: border-box;
         min-width: 220px;
+        border: 1px solid orange;
         height: 100%;
         margin: 0 100px;
+        padding: 20px;
+        /* display: flex; */
+        flex-direction: column;
       }
-      .middle img {
+      .middle .center {
+        /* flex: 1; */
+        /* height: 100%; */
         width: 100%;
-        height: auto;
+        background: #000;
+        margin: 0 auto;
+        max-height: 1000px;
+        aspect-ratio: 16/9;
       }
       .right {
         float: right;
@@ -34,17 +44,22 @@
         /* height: 100vh; */
         margin: 0;
         height: 100%;
+        box-sizing: border-box;
         /* background: lightblue; */
-        overflow: hidden;
+        /* overflow: hidden; */
+      }
+      body {
+        padding: 20px 0;
       }
     </style>
   </head>
   <body>
     <!-- <input type="text" id="input" /> -->
-    <div class="left"></div>
-    <div class="right"></div>
+    <!-- <div class="left"></div>
+    <div class="right"></div> -->
     <div class="middle">
-      <!-- <img src="../6732643_135755345139_2.png" srcset="" /> -->
+      <div style="height: 200px"></div>
+      <div class="center"></div>
     </div>
     <!-- <script src="./interview.js"></script> -->
   </body>

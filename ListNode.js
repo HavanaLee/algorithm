@@ -80,7 +80,7 @@ const removeElements = function (head, val) {
     if (dummyNode.next.val === val) dummyNode.next = dummyNode.next.next
     else dummyNode = dummyNode.next
   }
-  return dummyNode.next
+  return temp.next
 }
 
 // /**
@@ -281,4 +281,34 @@ var getIntersectionNode = function (headA, headB) {
     curB = curB.next
   }
   return curA
+}
+
+/**
+ * @description 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。
+ * @type 快慢指针 或者 哈希
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+  // if (!head || !head.next) return null // 长度小于2直接返回null
+  // let slow = head.next, fast = head.next.next
+  // while (fast && fast.next && fast !== slow) {
+  //   slow = slow.next
+  //   fast = fast.next.next
+  // }
+  // if (!fast || !fast.next) return null
+  // slow = head
+  // while (fast !== slow) {
+  //   slow = slow.next
+  //   fast = fast.next
+  // }
+  // return slow
+
+  let set = new Set()
+  while (head && head.next) {
+    if (set.has(head)) return head
+    set.add(head)
+    head = head.next
+  }
+  return null
 }
