@@ -33,4 +33,56 @@ const isAnagram = function (s, t) {
   return true
 }
 
-console.log(isAnagram("aacc", "ccac"))
+/**
+ * @description 给定仅有小写字母组成的字符串数组 A，返回列表中的每个字符串中都显示的全部字符（包括重复字符）组成的列表。例如，如果一个字符在每个字符串中出现 3 次，但不是 4 次，则需要在最终答案中包含该字符 3 次。你可以按任意顺序返回答案。
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var commonChars = function (words) {
+  let res = []
+  let map = new Map()
+  // 先把words第一项的值存到map中
+  words[0].split('').forEach(e => {
+    map.set(e, (map.get(e) || 0) + 1)
+  })
+  for (let i = 1; i < words.length; i++) {
+    let map1 = new Map()
+    for (let j = 0; j < words[i].length; j++) {
+      map.has(words[i][j]) && map1.set(words[i][j], (map1.get(words[i][j]) || 0) + 1)
+    }
+    Array.from(map1.keys()).forEach(e => {
+      map.has(e) && map1.set(e, Math.min(map.get(e), map1.get(e)))
+    })
+    map = map1
+  }
+  Array.from(map.keys()).forEach(e => {
+    while (map.get(e) > 0) {
+      res.push(e)
+      map.set(e, map.get(e) - 1)
+    }
+    // for (let i = 0; i < map.get(e); i++) {
+    //   res.push(e)
+    // }
+  })
+  console.log(res)
+  return res
+}
+
+/**
+ * @description 给定两个数组，编写一个函数来计算它们的交集。
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersection = function (nums1, nums2) {
+  nums1 = new Set(nums1)
+  nums2 = new Set(nums2)
+  let res = []
+  nums2.forEach(e => {
+    nums1.has(e) && res.push(e)
+  })
+  return res
+}
+
+commonChars(["bella", "label", "roller"])
+// console.log(isAnagram("aacc", "ccac"))
