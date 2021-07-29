@@ -84,5 +84,32 @@ var intersection = function (nums1, nums2) {
   return res
 }
 
+/**
+ * @description 编写一个算法来判断一个数 n 是不是快乐数。「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。如果 n 是快乐数就返回 true ；不是，则返回 false 。
+ * @param {number} n
+ * @return {boolean}
+ */
+const isHappy = function (n) {
+  // 先求和
+  const getNum = (n) => {
+    if (n === 1 || n === 0) return n
+    let num = 0
+    while (n) {
+      num += Math.pow((n % 10), 2)
+      n = ~~(n / 10)
+    }
+    num += Math.pow(n, 2)
+    return num
+  }
+  // 如果求和后的值重复出现，说明是一个无线循环的数
+  let set = new Set()
+  while (n !== 1 && !set.has(n)) {
+    set.add(n)
+    n = getNum(n)
+  }
+  return n === 1
+}
+
+isHappy(23)
 commonChars(["bella", "label", "roller"])
 // console.log(isAnagram("aacc", "ccac"))
