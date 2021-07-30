@@ -20,7 +20,7 @@ const isInstance = (l, r) => {
  * @description bind方法
  */
 Function.prototype.bind1 = function () {
-  // 将参数抓换为数组
+  // 将参数转换为数组
   const args = Array.prototype.slice.call(arguments)
   // 把改变的第一项this提取出来
   const t = args.shift()
