@@ -124,6 +124,32 @@ const twoSum = function (nums, target) {
   }
 }
 
+/**
+ * @description 给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 (i, j, k, l) ，使得 A[i] + B[j] + C[k] + D[l] = 0。为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -228 到 228 - 1 之间，最终结果不会超过 231 - 1
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @param {number[]} nums3
+ * @param {number[]} nums4
+ * @return {number}
+ */
+var fourSumCount = function (nums1, nums2, nums3, nums4) {
+  let map = new Map()
+  let count = 0 // 元组个数
+  // 先计算a和b的大数组，把a和b的合以及出现的次数存入map
+  for (const n of nums1) {
+    for (const m of nums2) {
+      map.set(m + n, (map.get(m + n) || 0) + 1)
+    }
+  }
+  for (const n of nums3) {
+    for (const m of nums4) {
+      let sum = n + m
+      count += map.get(0 - sum) || 0
+    }
+  }
+  return count
+}
+
 isHappy(23)
 commonChars(["bella", "label", "roller"])
 // console.log(isAnagram("aacc", "ccac"))
