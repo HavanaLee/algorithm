@@ -150,6 +150,25 @@ var fourSumCount = function (nums1, nums2, nums3, nums4) {
   return count
 }
 
+/**
+ * @description 给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串 ransom 能不能由第二个字符串 magazines 里面的字符构成。如果可以构成，返回 true ；否则返回 false。(题目说明：为了不暴露赎金信字迹，要从杂志上搜索各个需要的字母，组成单词来表达意思。杂志字符串中的每个字符只能在赎金信字符串中使用一次。)
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function (ransomNote, magazine) {
+  if (magazine.length < ransomNote.length) return false
+  let map = new Map()
+  for (const i of magazine) {
+    map.set(i, (map.get(i) || 0) + 1)
+  }
+  for (const i of ransomNote) {
+    if (!map.has(i) || !map.get(i)) return false
+    map.set(i, map.get(i) - 1)
+  }
+  return true
+}
+
 isHappy(23)
 commonChars(["bella", "label", "roller"])
 // console.log(isAnagram("aacc", "ccac"))
