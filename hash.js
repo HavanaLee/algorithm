@@ -169,6 +169,63 @@ var canConstruct = function (ransomNote, magazine) {
   return true
 }
 
+/**
+ * @description 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。注意：答案中不可以包含重复的三元组。
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function (nums) {
+  if (nums.length < 3) return []
+  // 双指针法，i从0开始，left从i+1开始，right=nums.length - 1,如果下标对应的三个数相加>0，right向左移，小于0left右移
+  let len = nums.length
+  let res = []
+  nums = nums.sort((a, b) => a - b)
+  for (let i = 0; i < len - 2; i++) {
+    if (nums[i] > 0) break // 因为数组已经排序，num[i] > 0说明三数相加肯定 > 0
+    if (i > 0 && nums[i] === nums[i - 1]) continue
+    let l = i + 1, r = len - 1
+    while (r > l) {
+      let sum = nums[i] + nums[l] + nums[r]
+      if (sum > 0) { r--; continue }
+      if (sum < 0) { l++; continue }
+      res.push([nums[i], nums[l], nums[r]])
+      while (l < r && nums[l] === nums[++l]);
+      while (l < r && nums[r] === nums[--r]);
+    }
+  }
+  return res
+}
+
+/**
+ * @description 给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。注意：答案中不可以包含重复的四元组。
+ * @type 双指针法
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+var fourSum = function (nums, target) {
+  if (nums.length < 4) return []
+  let res = []
+  nums.sort((a, b) => a - b)
+  for (let i = 0; i < nums.length - 3; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue
+    for (let k = i + 1; k < nums.length - 2; k++) {
+      if (k > i + 1 && nums[k] === nums[k - 1]) continue
+      let l = k + 1, r = nums.length - 1
+      while (r > l) {
+        let sum = nums[i] + nums[k] + nums[l] + nums[r]
+        if (sum > target) { r--; continue }
+        if (sum < target) { l++; continue }
+        res.push([nums[i], nums[k], nums[l], nums[r]])
+        while (r > l && nums[l] === nums[++l]);
+        while (r > l && nums[r] === nums[--r]);
+      }
+    }
+  }
+  return res
+}
+
+
 isHappy(23)
 commonChars(["bella", "label", "roller"])
 // console.log(isAnagram("aacc", "ccac"))
