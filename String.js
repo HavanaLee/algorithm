@@ -46,7 +46,7 @@ const getPalindrome = s => {
 const intToRoman = num => {
   const symbloArr = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]
   let res = ''
-  for (const [k, v] of object) {
+  for (const [k, v] of symbloArr) {
     while (num >= k) {
       num -= k
       res += v
@@ -56,5 +56,20 @@ const intToRoman = num => {
   return res
 }
 
+/**
+ * @description 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
+ * @return {void} Do not return anything, modify s in-place instead.
+ */
+var reverseString = function (s) {
+  let l = 0, r = s.length - 1, m
+  while (r > l) {
+    m = s[l]
+    s[l] = s[r]
+    s[r] = m
+    l++
+    r--
+  }
+  return s
+}
 
 console.log(getPalindrome('acdfd'))
