@@ -89,6 +89,80 @@ var reverseStr = function (s, k) {
   return arr.join('')
 }
 
-reverseStr('abcdefg', 2)
+/**
+ * @description 请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
+ * @param {string} s
+ * @return {string}
+ */
+var replaceSpace = function (s) {
+  let arr = s.split('')
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === ' ') arr[i] = '%20'
+  }
+  return arr.join('')
+}
 
-console.log(getPalindrome('acdfd'))
+/**
+ * @description 给你一个字符串 s ，逐个翻转字符串中的所有 单词 。单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。请你返回一个翻转 s 中单词顺序并用单个空格相连的字符串。说明：输入字符串 s 可以在前面、后面或者单词间包含多余的空格。翻转后单词间应当仅用一个空格分隔。翻转后的字符串中不应包含额外的空格。
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+  const arr = Array.from(s)
+
+  removeSpace(arr) // 先去除多余的空格
+
+  reverseArr(arr, 0, arr.length - 1)
+
+  let start = 0
+  for (let i = 0; i <= arr.length; i++) {
+    if (arr[i] === ' ' || i === arr.length) {
+      reverseArr(arr, start, i - 1)
+      start = i + 1
+    }
+  }
+
+  // 去除空格的方法
+  function removeSpace (len) {
+    // 快慢指针去除空格
+    let slow = 0, quick = 0
+    while (quick < len.length) {
+      // 如果快指针下标是空串且是0或者前一位=空串时，快指针前进
+      if (len[quick] === ' ' && (quick === 0 || len[quick - 1] === ' ')) quick++
+      else len[slow++] = len[quick++]
+    }
+    len.length = len[slow - 1] === ' ' ? slow - 1 : slow // 去除末尾的空格
+  }
+
+  // 反转
+  function reverseArr (ast, start, end) {
+    let l = start, r = end
+    while (r > l) {
+      [ast[l], ast[r]] = [ast[r], ast[l]]
+      l++
+      r--
+    }
+  }
+
+  return arr.join('')
+}
+
+/**
+ * @description 实现 strStr() 函数。给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。说明：当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与 C 语言的 strstr() 以及 Java 的 indexOf() 定义相符。
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function (haystack, needle) {
+  if (needle === '' || needle === haystack) return 0
+  let len = needle.length
+  for (let i = 0; i <= haystack.length - len; i++) {
+    if (haystack.substr(i, len) === needle) return i
+  }
+  return - 1
+}
+
+console.log(reverseWords("  hello world  "))
+// reverseStr('abcdefg', 2)
+
+// console.log(getPalindrome('acdfd'))
