@@ -312,3 +312,28 @@ var detectCycle = function (head) {
   }
   return null
 }
+
+/**
+ * @description 请实现 copyRandomList 函数，复制一个复杂链表。在复杂链表中，每个节点除了有一个 next 指针指向下一个节点，还有一个 random 指针指向链表中的任意节点或者 null。
+ * @summary 时间复杂度O(n)，空间复杂度O(n)
+ * @param {Node} head
+ * @return {Node}
+ */
+var copyRandomList = function (head) {
+  if (!head) return null
+  let copyHead = head
+  let map = new Map()
+  // 循环遍历，把链表所有值存到map当中
+  while (copyHead) {
+    map.set(copyHead, new ListNode(copyHead.val))
+    copyHead = copyHead.next
+  }
+  copyHead = head
+  // 再次循环遍历，拼接链表的random
+  while (copyHead) {
+    map.get(copyHead).next = map.get(copyHead.next) === null ? null : map.get(copyHead.next)
+    map.get(copyHead).random = map.get(copyHead.random)
+    copyHead = copyHead.next
+  }
+  return map.get(head)
+}
