@@ -168,7 +168,89 @@ var findRepeatNumber = function (nums) {
       }
     }
   }
+}
 
+/**
+ * @description 统计一个数字在排序数组中出现的次数。
+ * @method 双指针 时间复杂度O(n)，空间复杂度O(1)
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function (nums, target) {
+  let l = 0, r = nums.length - 1
+  while (nums[l] < target) l++
+  while (nums[r] > target) r--
+  return r - l > 0 ? r - l + 1 : 0
+}
+
+/**
+ * @description 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。
+ * @method 二分法{有序数组搜索就用二分法} 时间复杂度O(logN)，空间复杂度O(1)
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function (nums) {
+  let l = 0, r = nums.length, mid
+  while (l <= r) {
+    mid = Math.floor((l + r) / 2)
+    nums[mid] === mid ? l = mid + 1 : r = mid - 1
+  }
+  return l
+}
+
+/**
+ * @description 在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+ * @method 二分法{相当于从二维数组的右上角开始找} 时间复杂度O(n+m)，循环体最多执行m+n次,空间复杂度O(1)
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var findNumberIn2DArray = function (matrix, target) {
+  if (!matrix.length || !matrix[0]['length']) return false
+  let rows = matrix.length, colmuns = matrix[0].length // 取到行数和列数
+  let row = 0, colmun = colmuns - 1
+  while (row < rows && colmun >= 0) {
+    if (matrix[row][colmun] === target) return true // 相等，返回true
+    else if (matrix[row][colmun] > target) colmun-- // 大于目标数，说明只有这一列往前的数才有可能等于目标
+    else if (matrix[row][colmun] < target) row++ // 小于目标数，只有这一行下面的数才可能等于目标
+  }
+  return false
+}
+
+/**
+ * @description 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如，数组 [3,4,5,1,2] 为 [1,2,3,4,5] 的一个旋转，该数组的最小值为1。
+ * @method 二分法 时间复杂度O(n)，空间复杂度O(1)
+ * @param {number[]} numbers
+ * @return {number}
+ */
+var minArray = function (numbers) {
+  let l = 0, r = numbers.length - 1, mid
+  while (l < r) {
+    mid = l + Math.floor((r - l) / 2) // 先减后加，避免栈溢出
+    if (numbers[mid] < numbers[r]) r = mid // 中间数大于数组最左端，所以中位数右侧属于反常数组，最小值一定在[0,mid]之中，所以不能把mid排除
+    else if (numbers[mid] > numbers[r]) l = mid + 1
+    else r--
+  }
+  return numbers[l]
+}
+
+/**
+ * @description 在字符串 s 中找出第一个只出现一次的字符。如果没有，返回一个单空格。 s 只包含小写字母。
+ * @method 哈希遍历 时间复杂度O(n)，最多循环s的长度即n次，空间复杂度O(∣Σ∣)
+ * @param {string} s
+ * @return {character}
+ */
+var firstUniqChar = function (s) {
+  if (!s) return ' '
+  let map = new Map()
+  for (let i = 0; i < s.length; i++) {
+    map.set(s[i], map.has(s[i]) ? map.get(s[i]) + 1 : 1)
+  }
+  for (let i = 0; i < s.length; i++) {
+    if (map.get(s[i]) === 1) return s[i]
+  }
+  return ' '
 }
 
 findRepeatNumber([2, 3, 1, 0, 2, 5, 3])
