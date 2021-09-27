@@ -67,3 +67,65 @@ const sumOfLeftLeaves = function (root) {
   def(root)
   return sum
 }
+
+/**
+ * @description 从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
+ * @method 队列，先入先出 时间复杂度O(n)，空间复杂度O(n)
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+const levelOrder = function (root) {
+  if (!root) return []
+  const res = [], queen = [root]
+  while (queen.length) {
+    const node = queen.shift() // 从上往下
+    res.push(node.val)
+    node.left && queen.push(node.left)
+    node.right && queen.push(node.right)
+  }
+  return res
+}
+
+/**
+ * @description 从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。
+ * @method 时间复杂度O(n)，空间复杂度O(n)
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+const levelOrder2 = function (root) {
+  if (!root) return []
+  const res = [], queen = [root]
+  while (queen.length) {
+    const tmp = [] // 保存当前层数据
+    for (let i = queen.length; i > 0; i--) { // 倒序循环{循环时的i只会初始化一次，所以可以保存下来queen的长度}，因为要插入左右节点，所以正序循环会死循环
+      let node = queen.shift()
+      tmp.push(node.val)
+      node.left && queen.push(node.left)
+      node.right && queen.push(node.right)
+    }
+    res.push(tmp)
+  }
+  return res
+}
+
+/**
+ * @description 请实现一个函数按照之字形顺序打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，第三行再按照从左到右的顺序打印，其他行以此类推。
+ * @method 时间复杂度O(n)，空间复杂度O(n)
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+  if (!root) return []
+  const res = [], queen = [root]
+  while (queen.length) {
+    const tmp = []
+    for (let i = queen.length; i > 0; i--) {
+      const node = queen.shift()
+      res.length % 2 !== 0 ? tmp.unshift(node.val) : tmp.push(node.val) // 根据res的数组长度和2的余数来判断奇数和偶数行
+      node.left && queen.push(node.left)
+      node.right && queen.push(node.right)
+    }
+    res.push(tmp)
+  }
+  return res
+}
