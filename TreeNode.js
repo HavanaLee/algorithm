@@ -129,3 +129,71 @@ var levelOrder = function (root) {
   }
   return res
 }
+
+/**
+ * @description 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+ * @method 递归 时间复杂度O(n)，空间复杂度O(1)
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function (p, q) {
+  if (!p && !q) return true // 都为空相等
+  else if (!q || !p) return false
+  else if (q.val !== p.val) return false // 值不相等
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+}
+
+/**
+ * @description 输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构),B是A的子结构， 即 A中有出现和B相同的结构和节点值。
+ * @method 递归 和isSameTree相似，利用递归的方法找到a的子级节点是否和b相等，所以判断条件不同，时间复杂度O(n)
+ * @param {TreeNode} A
+ * @param {TreeNode} B
+ * @return {boolean}
+ */
+var isSubStructure = function (A, B) {
+  if (!A || !B) return false
+  return isSameTree2(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B)
+}
+
+function isSameTree2 (A, B) {
+  if (!B) return true // b为空，是所有的子集
+  if (!A) return false // a不能为空
+  if (A.val !== B.val) return false
+  return isSameTree2(A.left, B.left) && isSameTree2(A.right, B.right)
+}
+
+/**
+ * @description 请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+ * @method 递归 时间复杂度O(n)
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var mirrorTree = function (root) {
+  if (!root) return null
+  // 递归找到子叶节点
+  const left = mirrorTree(root.left)
+  const right = mirrorTree(root.right)
+  // 从子叶节点开始翻转左右节点
+  root.left = right
+  root.right = left
+  return root
+}
+
+/**
+ * @description 请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+ * @method 递归 时间复杂度O(n) 比较的关键在于清楚镜像的定义，即左节点的左=右节点的右，左节点的右=右节点的左
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function (root) {
+  if (!root) return true
+  return Symmetries(root.left, root.right)
+}
+
+function Symmetries (l, r) {
+  if (!l && !r) return true
+  else if (!l || !r) return false
+  else if (l.val !== r.val) return false
+  return Symmetries(l.left, r.right) && Symmetries(l.right, r.left)
+}
