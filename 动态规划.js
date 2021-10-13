@@ -51,3 +51,37 @@ var maxProfit = function (prices) {
   }
   return Profits
 }
+
+/**
+ * @description 输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。要求时间复杂度为O(n)。
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+  let max = nums[0], pre = nums[0]
+  for (let i = 1; i < nums.length; i++) {
+    pre = Math.max(pre + nums[i], nums[i])
+    max = Math.max(max, pre)
+  }
+  return max
+}
+
+/**
+ * @description 在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、直到到达棋盘的右下角。给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？
+ * @link https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var maxValue = function (grid) {
+  const c = grid.length, r = grid[0].length // c列数，r行数
+  // dp方程有四种状态
+  for (let i = 0; i < c; i++) {
+    for (let j = 0; j < r; j++) {
+      if (i === 0 && j === 0) continue
+      else if (i === 0 && j !== 0) grid[0][j] += grid[0][j - 1]
+      else if (i !== 0 && j === 0) grid[i][0] += grid[i - 1][0]
+      else grid[i][j] += Math.max(grid[i - 1][j], grid[i][j - 1]) // dp[i][j]实际就是i-1或者j-1的最大值+grid[i][j]
+    }
+  }
+  return grid[c - 1][r - 1]
+}
