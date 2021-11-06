@@ -197,3 +197,56 @@ function Symmetries (l, r) {
   else if (l.val !== r.val) return false
   return Symmetries(l.left, r.right) && Symmetries(l.right, r.left)
 }
+
+/**
+ * @description 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。根节点-左数节点-右树节点
+ * @link https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+ * @method 递归 时间复杂度：O(n) 其中nn是二叉树的节点数。每一个节点恰好被遍历一次。空间复杂度：O(n)，为递归过程中栈的开销，平均情况下为 O(logn)，最坏情况下树呈现链状，为 O(n)。
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root) {
+  let res = []
+  const dep = (root, res) => {
+    if (!root) return res
+    res.push(root.val)
+    preorderTraversal(root.left, res)
+    preorderTraversal(root.right, res)
+  }
+  dep(root, res)
+  return res
+}
+
+/**
+ * @description 给定一个二叉树，返回它的 后序 遍历。 左数节点-右数节点-根节点
+ * @link https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
+ * @method 递归 时间复杂度和空间复杂度都为O(n)
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function (root) {
+  let res = []
+  let dep = (root, res) => {
+    if (!root) return res
+    dep(root.left, res)
+    dep(root.right, res)
+    res.push(root.val)
+  }
+  dep(root, res)
+  return res
+}
+
+/**
+ * @description 给定一个二叉树，找出其最大深度。二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。说明: 叶子节点是指没有子节点的节点。
+ * @link https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function (root) {
+  if (!root) return 0
+  else {
+    let leftHeight = maxDepth(root.left)
+    let rightHeight = maxDepth(root.right)
+    return Math.max(leftHeight, rightHeight) + 1
+  }
+}
