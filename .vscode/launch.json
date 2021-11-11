@@ -15,7 +15,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "stopOnEntry": true,
+      "stopOnEntry": false,
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\Array.js"
     },

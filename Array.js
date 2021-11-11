@@ -38,7 +38,7 @@ var maxArea = function (height) {
  * @param {number} target
  * @return {number}
  */
-const search = (nums, target) => {
+var search = (nums, target) => {
   let l = 0, r = nums.length - 1  // 形成一个左右闭区间
   while (l <= r) {
     let mid = Math.floor(l + (r - l) / 2) // l+(r-l)/2 避免溢出
@@ -277,5 +277,76 @@ const merge = function (nums1, m, nums2, n) {
 
 }
 
-findRepeatNumber([2, 3, 1, 0, 2, 5, 3])
-generateMatrix(3)
+/**
+ * @description 冒泡排序
+ * @method 时间复杂度O(n²)
+ * @param {number[]} nums
+ * @returns {number[]} nums
+ */
+const bubbleSort = nums => {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 0; j <= nums.length - i; j++) {
+      let tmp
+      if (nums[j] > nums[j + 1]) {
+        [nums[j], nums[j + 1]] = [nums[j + 1], nums[j]]
+      }
+    }
+  }
+  return nums
+}
+
+/**
+ * @description 快速排序
+ * @method 时间复杂度O(n²)
+ * @param {number[]} nums
+ * @returns {number[]} nums
+ */
+const quickSort = nums => {
+  if (nums.length < 2) {
+    return nums
+  } else {
+    var left = [], right = []
+    var middle = nums.splice(Math.floor(nums.length / 2), 1)[0]
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] <= middle) left.push(nums[i])
+      else right.push(nums[i])
+    }
+  }
+  return quickSort(left).concat([middle], quickSort(right))
+}
+
+/**
+ * @description 原地排序
+ * @method 时间复杂度O(n²)
+ * @param {number[]} arr
+ * @returns {number[]} nums
+ */
+function placekSort (arr, i, j) {
+  if (i < j) {
+    let left = i
+    let right = j
+    let pivot = arr[left] //备份基准值
+    while (i < j) {
+      while (arr[j] >= pivot && i < j) { // 从后往前找比基准小的数
+        j--
+      }
+      if (i < j) {
+        arr[i++] = arr[j]
+      }
+      while (arr[i] <= pivot && i < j) { // 从前往后找比基准大的数
+        i++
+      }
+      if (i < j) {
+        arr[j--] = arr[i]
+      }
+    }
+    arr[i] = pivot
+    placekSort(arr, left, i - 1)
+    placekSort(arr, i + 1, right)
+    return arr
+  }
+}
+
+// findRepeatNumber([2, 3, 1, 0, 2, 5, 3])
+// generateMatrix(3)
+console.log(placekSort([5, 2, 4, 7, 9, 8, 3, 6, 3, 8, 3], 0, 10))

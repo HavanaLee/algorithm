@@ -39,4 +39,21 @@ var wiggleMaxLength = function (nums) {
   return res
 }
 
+/**
+ * @link https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+  let dp = [], res = 0
+  for (let i = 1; i < prices.length; i++) {
+    dp.push(prices[i] - prices[i - 1])
+  }
+  for (const iterator in dp) {
+    iterator > 0 && (res += iterator)
+  }
+  return res
+}
+
+
 wiggleMaxLength([1, 7, 4, 9, 2, 5])
