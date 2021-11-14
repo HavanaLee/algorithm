@@ -55,5 +55,43 @@ var maxProfit = function (prices) {
   return res
 }
 
+/**
+ * @link https://leetcode-cn.com/problems/jump-game/
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function (nums) {
+  let cover = 0 // 能覆盖到的格子数
+  for (let index = 0; index <= cover; index++) {
+    cover = Math.max(index + nums[index], cover)
+    if (cover >= nums.length - 1) return true
+  }
+  return false
+}
+
+/**
+ * @link https://leetcode-cn.com/problems/jump-game-ii/
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function (nums) {
+  let ans = 0 // 走的步数
+  let curCover = 0 // 当前覆盖最大距离
+  let nextCover = 0 // 下一步最大距离
+  for (let index = 0; index < nums.length; index++) {
+    nextCover = Math.max(nums[index] + index, nextCover)
+    if (index === curCover) {
+      if (curCover < nums.length - 1) { // 如果当前覆盖步数 < 最后一位下标，说明还要走一步
+        ans++
+        curCover = nextCover  // 当前覆盖距离更新
+        if (nextCover >= nums.length - 1) break
+      } else break
+    }
+  }
+  return ans
+}
+
+jump([2, 2, 1])
+
 
 wiggleMaxLength([1, 7, 4, 9, 2, 5])
