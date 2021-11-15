@@ -91,7 +91,25 @@ var jump = function (nums) {
   return ans
 }
 
-jump([2, 2, 1])
+/**
+ * @link https://leetcode-cn.com/problems/maximize-sum-of-array-after-k-negations/
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var largestSumAfterKNegations = function (nums, k) {
+  nums.sort((a, b) => a - b)
+  let start = 0
+  while (start < k) {
+    if (nums[start] < 0) nums[start] = -nums[start]
+    else if ((k - start) % 2 === 0) break
+    else {
+      nums.sort((a, b) => a - b)
+      nums[0] = -nums[0]
+    }
+    start++
+  }
+  return nums.reduce((pre, cur) => pre + cur, 0)
+}
 
-
-wiggleMaxLength([1, 7, 4, 9, 2, 5])
+largestSumAfterKNegations([4, 2, 3], 1)
