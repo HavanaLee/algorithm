@@ -112,4 +112,24 @@ var largestSumAfterKNegations = function (nums, k) {
   return nums.reduce((pre, cur) => pre + cur, 0)
 }
 
+/**
+ * @link https://leetcode-cn.com/problems/gas-station/
+ * @param {number[]} gas
+ * @param {number[]} cost
+ * @return {number}
+ */
+var canCompleteCircuit = function (gas, cost) {
+  let total_sum = 0, cur_sum = 0, start = 0
+  for (let i = 0; i < cost.length; i++) {
+    total_sum += gas[i] - cost[i]
+    cur_sum += gas[i] - cost[i]
+    if (cur_sum < 0) {
+      cur_sum = 0
+      start = i + 1 // 当前总和小于0，说明一定出现在当前下标的后方
+    }
+  }
+  if (total_sum < 0) return -1
+  return start
+}
+
 largestSumAfterKNegations([4, 2, 3], 1)
