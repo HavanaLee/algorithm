@@ -132,4 +132,21 @@ var canCompleteCircuit = function (gas, cost) {
   return start
 }
 
+/**
+ * @link https://leetcode-cn.com/problems/candy/
+ * @param {number[]} ratings
+ * @return {number}
+ */
+var candy = function (ratings) {
+  let candys = Array.from({ length: ratings.length }, v => 1)
+  for (let i = 1; i < ratings.length; i++) {
+    if (ratings[i] > ratings[i - 1]) candys[i] = candys[i - 1] + 1
+  } // 从前往后遍历，先确定右侧的糖果数量
+  for (let i = ratings.length - 2; i >= 0; i--) {
+    if (ratings[i] > ratings[i + 1]) candys[i] = Math.max(candys[i], candys[i + 1] + 1)
+  }
+  let res = candys.reduce((pre, cur) => pre + cur, 0)
+  return res
+}
+
 largestSumAfterKNegations([4, 2, 3], 1)
