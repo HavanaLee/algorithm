@@ -149,4 +149,37 @@ var candy = function (ratings) {
   return res
 }
 
+/**
+ * @link https://leetcode-cn.com/problems/lemonade-change/
+ * @param {number[]} bills
+ * @return {boolean}
+ */
+function lemonadeChange(bills: number[]): boolean {
+  let map = new Map<number, number>()
+  for (let i = 0; i < bills.length; i++) {
+    switch (bills[i] - 5) {
+      case 0:
+        map.set(5, map.get(5) ? map.get(5) + 1 : 1)
+        break;
+      case 5:
+        if (map.get(5)) {
+          map.set(5, map.get(5) - 1)
+          map.set(10, map.get(10) ? map.get(10) + 1 : 1)
+          break
+        }
+        else return false
+      case 15:
+        if (map.get(5) >= 1 && map.get(10) >= 1) {
+          map.set(5, map.get(5) - 1)
+          map.set(10, map.get(10) - 1)
+          break
+        } else if (map.get(5) >= 3) {
+          map.set(5, map.get(5) - 3)
+          break
+        } else return false
+    }
+  }
+  return true
+};
+
 largestSumAfterKNegations([4, 2, 3], 1)
