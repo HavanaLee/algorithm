@@ -45,12 +45,12 @@ var wiggleMaxLength = function (nums) {
  * @return {number}
  */
 var maxProfit = function (prices) {
-  let dp = [], res = 0
+  let dp: number[] = [], res = 0
   for (let i = 1; i < prices.length; i++) {
     dp.push(prices[i] - prices[i - 1])
   }
   for (const iterator in dp) {
-    iterator > 0 && (res += iterator)
+    Number(iterator) > 0 && (res += +iterator)
   }
   return res
 }
@@ -180,6 +180,27 @@ function lemonadeChange(bills: number[]): boolean {
     }
   }
   return true
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/queue-reconstruction-by-height/
+ * @method 贪心 时间复杂度O(n²)
+ */
+function reconstructQueue(people: number[][]): number[][] {
+  people.sort((a, b) => b[0] - a[0] || a[1] - b[1]) // 先按身高排序，从大到小，k小的在前面
+  for (let i = 1; i < people.length; i++) {
+    if (people[i][1] === 0) {
+      people.unshift(people.splice(i, 1)[0])
+      continue
+    } else if (people[i][1] === i) {
+      continue
+    } else {
+      let index = people[i][1]
+      people.splice(index, 0, people.splice(i, 1)[0])
+      continue
+    }
+  }
+  return people
 };
 
 largestSumAfterKNegations([4, 2, 3], 1)
