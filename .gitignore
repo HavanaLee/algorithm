@@ -1,2 +1,10 @@
-/.vscode
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.local
+贪心.js
+node_modules

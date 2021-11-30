@@ -12,12 +12,15 @@
       "webRoot": "${workspaceFolder}\\interview.js"
     },
     {
+      "name": "Current TS File",
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "stopOnEntry": false,
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\贪心.js"
+      "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
+      "args": [
+        "${relativeFile}"
+      ],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
     },
     {
       "name": "Launch",
