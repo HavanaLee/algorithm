@@ -226,7 +226,6 @@ function findMinArrowShots(points: number[][]): number {
  * @method 贪心 时间复杂度O(nlogn) 从左往右排序就要从右往左遍历，不重复的数+1
  */
 function eraseOverlapIntervals(intervals: number[][]): number {
-  debugger
   intervals.sort((a, b) => a[0] - b[0])
   let count = 1
   for (let i = intervals.length - 2; i >= 0; i--) {
@@ -235,6 +234,30 @@ function eraseOverlapIntervals(intervals: number[][]): number {
   }
   return intervals.length - count
 };
+
+type str = {
+  [name in string]: number
+}
+/**
+ * @link https://leetcode-cn.com/problems/partition-labels/
+ * @method 贪心 时间复杂度O(n)
+ */
+function partitionLabels(s: string): number[] {
+  debugger
+  let res = [] as number[], strObj: str = {}, maxLen = 0, start = 0
+  for (let i = 0; i < s.length; i++) {
+    strObj[s[i]] = i
+  }
+  for (let i = 0; i < s.length; i++) {
+    maxLen = Math.max(maxLen, strObj[s[i]])
+    if (maxLen === i) {
+      res.push(maxLen - start + 1)
+      start = maxLen + 1
+    }
+  }
+  return res
+};
+partitionLabels("ababcbacadefegdehijhklij")
 // findMinArrowShots([[-1, 1], [0, 1], [2, 3], [1, 2]])
 eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]])
 
