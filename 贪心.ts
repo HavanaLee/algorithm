@@ -243,7 +243,6 @@ type str = {
  * @method 贪心 时间复杂度O(n)
  */
 function partitionLabels(s: string): number[] {
-  debugger
   let res = [] as number[], strObj: str = {}, maxLen = 0, start = 0
   for (let i = 0; i < s.length; i++) {
     strObj[s[i]] = i
@@ -255,6 +254,26 @@ function partitionLabels(s: string): number[] {
       start = maxLen + 1
     }
   }
+  return res
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/merge-intervals/
+ * @method 贪心
+ */
+function merge(intervals: number[][]): number[][] {
+  intervals.sort((a, b) => a[0] - b[0])
+  let res = [] as number[][], min = intervals[0][0], max = intervals[0][1]
+  for (let i = 1; i < intervals.length; i++) {
+    if (intervals[i][0] <= max) {
+      max = Math.max(max, intervals[i][1])
+    } else {
+      res.push([min, max])
+      min = intervals[i][0]
+      max = intervals[i][1]
+    }
+  }
+  res.push([min, max])
   return res
 };
 partitionLabels("ababcbacadefegdehijhklij")
