@@ -8,3 +8,4 @@
 *.local
 贪心.js
 node_modules
+.devcontainer

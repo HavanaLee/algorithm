@@ -240,7 +240,7 @@ type str = {
 }
 /**
  * @link https://leetcode-cn.com/problems/partition-labels/
- * @method 贪心 时间复杂度O(n)
+ * @method 贪心 时间复杂度O(nlogn) sort排序复杂度为o(nlogn)
  */
 function partitionLabels(s: string): number[] {
   let res = [] as number[], strObj: str = {}, maxLen = 0, start = 0
@@ -259,7 +259,7 @@ function partitionLabels(s: string): number[] {
 
 /**
  * @link https://leetcode-cn.com/problems/merge-intervals/
- * @method 贪心
+ * @method 贪心 时间复杂度o(nlogn)
  */
 function merge(intervals: number[][]): number[][] {
   intervals.sort((a, b) => a[0] - b[0])
@@ -275,6 +275,34 @@ function merge(intervals: number[][]): number[][] {
   }
   res.push([min, max])
   return res
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/monotone-increasing-digits/
+ */
+function monotoneIncreasingDigits(n: number): number {
+  let s = n.toString().split('')
+  let floor = false
+  for (let i = s.length - 1; i >= 1; i--) {
+    if (floor) {
+      if (s[i]) {
+        s[i] = +s[i] - 1 + ''
+        floor = false
+      }
+      else {
+        s[i] = '9'
+        s.fill('9', i + 1)
+        floor = true
+      }
+    }
+    if (s[i] < s[i - 1]) {
+      s[i] = '9'
+      s.fill('9', i + 1)
+      floor = true
+    } else floor = false
+  }
+  floor && (s[0] = +s[0] - 1 + '')
+  return Number(s.join(''))
 };
 partitionLabels("ababcbacadefegdehijhklij")
 // findMinArrowShots([[-1, 1], [0, 1], [2, 3], [1, 2]])
