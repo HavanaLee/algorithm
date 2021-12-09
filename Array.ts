@@ -33,23 +33,6 @@
 //   return ans
 // }
 
-// /**
-//  * @description 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
-//  * @type 二分查找
-//  * @param {number[]} nums
-//  * @param {number} target
-//  * @return {number}
-//  */
-// var search = (nums, target) => {
-//   let l = 0, r = nums.length - 1  // 形成一个左右闭区间
-//   while (l <= r) {
-//     let mid = Math.floor(l + (r - l) / 2) // l+(r-l)/2 避免溢出
-//     if (target < nums[mid]) r = mid - 1 // 因为nums[mid] != target，所以target必然在mid右侧，即从mid+1开始
-//     else if (target > nums[mid]) l = mid + 1
-//     else return mid
-//   }
-//   return -1 // 没有找到结果，返回-1
-// }
 
 // /**
 //  * @description 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
@@ -367,7 +350,23 @@ function smallerNumbersThanCurrent(nums: number[]): number[] {
   }
   return res
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/binary-search/ 
+ * @method 二分法 时间复杂度O(logn)，空间复杂度O(1)
+ */
+function search(nums: number[], target: number): number {
+  let l = 0, r = nums.length - 1
+  while (l <= r) {
+    let m = Math.floor((l + r) / 2)
+    if (nums[m] === target) return m
+    else if (nums[m] < target) l = m + 1
+    else if (nums[m] > target) r = m - 1
+  }
+  return -1
+};
 smallerNumbersThanCurrent([8, 1, 2, 2, 3])
+search([-1, 0, 3, 5, 9, 12], 9)
 
 // findRepeatNumber([2, 3, 1, 0, 2, 5, 3])
 // generateMatrix(3)
