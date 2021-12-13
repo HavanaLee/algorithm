@@ -360,6 +360,24 @@ function removeElement(nums: number[], val: number): number {
   }
   return index
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/squares-of-a-sorted-array/
+ * @method 双指针 因为本身是有序数组，所以最大必然在左侧或者右侧 时间复杂度O(n)
+ */
+function sortedSquares(nums: number[]): number[] {
+  let res = Array.from({ length: nums.length }).fill(0) as number[], k = nums.length - 1
+  for (let i = 0, j = nums.length - 1; i <= j;) {
+    if (Math.pow(nums[i], 2) <= Math.pow(nums[j], 2)) {
+      res[k--] = Math.pow(nums[j], 2)
+      j--
+    } else {
+      res[k--] = Math.pow(nums[i], 2)
+      i++
+    }
+  }
+  return res
+};
 smallerNumbersThanCurrent([8, 1, 2, 2, 3])
 search([-1, 0, 3, 5, 9, 12], 9)
 
