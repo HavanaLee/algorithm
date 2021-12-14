@@ -33,28 +33,6 @@
 //   return ans
 // }
 
-
-// /**
-//  * @description 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
-//  * @type 双指针
-//  * @param {number[]} nums
-//  * @return {number[]}
-//  */
-// const sortedSquares = (nums) => {
-//   let k = nums.length - 1
-//   let res = new Array(nums.length).fill(0)
-//   for (let i = 0, j = nums.length - 1; i <= j;) { // 因为数组有序，所以最大值一定在最左或者最右
-//     if (Math.pow(nums[i], 2) <= Math.pow(nums[j], 2)) {
-//       res[k--] = Math.pow(nums[j], 2)
-//       j--
-//     } else {
-//       res[k--] = Math.pow(nums[i], 2)
-//       i++
-//     }
-//   }
-//   return res
-// }
-
 // /**
 //  * @description 给定一个含有 n 个正整数的数组和一个正整数 target 。找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
 //  * @type 滑动窗口
@@ -378,9 +356,23 @@ function sortedSquares(nums: number[]): number[] {
   }
   return res
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/minimum-size-subarray-sum/
+ */
+function minSubArrayLen(target: number, nums: number[]): number {
+  let min = 0, l = 0, r = 0, min_len = 0
+  while (r <= nums.length) {
+    if (min < target) min += nums[r++]
+    else {
+      min_len = min_len ? Math.min(min_len, r - l) : r - l
+      min -= nums[l++]
+    }
+  }
+  return min_len
+};
+
+minSubArrayLen(7,
+  [2, 3, 1, 2, 4, 3])
 smallerNumbersThanCurrent([8, 1, 2, 2, 3])
 search([-1, 0, 3, 5, 9, 12], 9)
-
-// findRepeatNumber([2, 3, 1, 0, 2, 5, 3])
-// generateMatrix(3)
-// console.log(placekSort([5, 2, 4, 7, 9, 8, 3, 6, 3, 8, 3], 0, 10))
