@@ -34,30 +34,6 @@
 // }
 
 // /**
-//  * @description 给定一个含有 n 个正整数的数组和一个正整数 target 。找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
-//  * @type 滑动窗口
-//  * @param {number} target
-//  * @param {number[]} nums
-//  * @return {number}
-//  */
-// const minSubArrayLen = (target, nums) => {
-//   let max_length = 0 // 满足条件的数组长度
-//   let i = 0 // 起始位置
-//   let sum = 0 // 数组总和
-//   let result = Number.MAX_VALUE
-//   for (let j = 0; j < nums.length; j++) {
-//     sum += nums[j] // 滑动数组的值
-//     while (sum >= target) {
-//       max_length = j - i + 1 // 滑动区间长度
-//       result = Math.min(max_length, result)
-//       sum -= nums[i++] // 起始位置向前滑动
-//     }
-//   }
-//   return result === Number.MAX_VALUE ? 0 : result
-// }
-
-
-// /**
 //  * @param {number} n
 //  * @return {number[][]}
 //  */
@@ -372,7 +348,43 @@ function minSubArrayLen(target: number, nums: number[]): number {
   return min_len
 };
 
-minSubArrayLen(7,
-  [2, 3, 1, 2, 4, 3])
+/**
+ * @link https://leetcode-cn.com/problems/spiral-matrix-ii/
+ * @method 矩形生成 时间复杂度O(n²) 空间复杂度O(1)
+ */
+function generateMatrix(n: number): number[][] {
+  debugger
+  let res = new Array(n).fill(0).map(() => new Array(n).fill(0))
+  let l = 0, r = n - 1, t = 0, b = n - 1, num = 1
+  while (l <= r && t <= b) {
+    // 上方一行
+    for (let column = l; column <= r; column++) {
+      res[t][column] = num++
+    }
+    // 右侧
+    for (let row = t + 1; row <= b; row++) {
+      res[row][r] = num++
+    }
+    if (l < r && t < b) {
+      // 下方
+      for (let column = r - 1; column >= l; column--) {
+        res[b][column] = num++
+      }
+      // 左侧
+      for (let row = b - 1; row > t; row--) {
+        res[row][l] = num++
+      }
+    }
+    // 缩窄矩形范围，即缩小一圈
+    l++
+    r--
+    t++
+    b--
+  }
+  return res
+};
+
+minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
 smallerNumbersThanCurrent([8, 1, 2, 2, 3])
 search([-1, 0, 3, 5, 9, 12], 9)
+generateMatrix(3)
