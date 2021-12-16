@@ -34,44 +34,6 @@
 // }
 
 // /**
-//  * @param {number} n
-//  * @return {number[][]}
-//  */
-// const generateMatrix = function (n) {
-//   // new Array(n).fill(new Array(n))
-//   // 使用fill --> 填充的是同一个数组地址
-//   const res = Array.from({ length: n }).map(() => new Array(n))
-//   let loop = n >> 1, i = 0, //循环次数
-//     count = 1,
-//     startX = 0, startY = 0 // 起始位置 
-//   while (++i <= loop) {
-//     // 定义行列
-//     let row = startX, column = startY
-//     // [ startY, n - i)
-//     while (column < n - i) {
-//       res[row][column++] = count++
-//     }
-//     // [ startX, n - i)
-//     while (row < n - i) {
-//       res[row++][column] = count++
-//     }
-//     // [n - i ,  startY)
-//     while (column > startY) {
-//       res[row][column--] = count++
-//     }
-//     // [n - i ,  startX)
-//     while (row > startX) {
-//       res[row--][column] = count++
-//     }
-//     startX = ++startY
-//   }
-//   if (n & 1) {
-//     res[startX][startY] = count
-//   }
-//   return res
-// }
-
-// /**
 //  * @description 找出数组中重复的数字。在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。
 //  * @method 原地交换 空间复杂度O(1)，时间复杂度O(n²)
 //  * @param {number[]} nums
