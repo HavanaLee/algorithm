@@ -37,3 +37,21 @@ export function reverseList(head: ListNode | null): ListNode | null {
   }
   return pre
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/swap-nodes-in-pairs/
+ * @method 迭代 时间复杂度O(n)，空间复杂度O(1)
+ */
+export function swapPairs(head: ListNode | null): ListNode | null {
+  let dummy = new ListNode(0)
+  dummy.next = head
+  let temp = dummy
+  while (temp.next && temp.next.next) {
+    let temp1 = temp.next, temp2 = temp.next.next
+    temp1.next = temp2.next
+    temp.next = temp2
+    temp.next.next = temp1
+    temp = temp.next.next
+  }
+  return dummy.next
+};
