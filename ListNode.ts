@@ -55,3 +55,58 @@ export function swapPairs(head: ListNode | null): ListNode | null {
   }
   return dummy.next
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
+ * @method 快慢指针 时间复杂度O(n)，空间复杂度O(1)
+ */
+export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
+  let dummy_node = new ListNode(0)
+  dummy_node.next = head
+  let slow = dummy_node, fast = dummy_node
+  while (n-- && fast) {
+    fast = fast.next
+  }
+  fast = fast.next // 让slow能走到要删除的节点前面，没有这一步会走到删除的节点上面
+  while (fast) {
+    slow = slow.next
+    fast = fast.next
+  }
+  slow.next = slow.next.next
+  return dummy_node.next
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/intersection-of-two-linked-lists-lcci/
+ * @method 迭代 时间复杂度O(m + n)链表1和2的长度，空间复杂度O(1)
+ */
+export function getIntersectionNode(head1: ListNode | null, head2: ListNode | null): ListNode | null {
+  let dummy1 = head1, dummy2 = head2
+  let lenA = 0, lenB = 0
+  while (dummy1) {
+    lenA++
+    dummy1 = dummy1.next
+  }
+  while (dummy2) {
+    lenB++
+    dummy2 = dummy2.next
+  }
+  dummy1 = head1
+  dummy2 = head2
+  let gap = Math.abs(lenA - lenB)
+  if (lenA > lenB) {
+    while (gap--) {
+      dummy1 = dummy1.next
+    }
+  } else {
+    while (gap--) {
+      dummy2 = dummy2.next
+    }
+  }
+  while (dummy1) {
+    if (dummy1 === dummy2) return dummy1
+    dummy1 = dummy1.next
+    dummy2 = dummy2.next
+  }
+  return null
+}
