@@ -83,6 +83,7 @@ export function removeNthFromEnd(head: ListNode | null, n: number): ListNode | n
 export function getIntersectionNode(head1: ListNode | null, head2: ListNode | null): ListNode | null {
   let dummy1 = head1, dummy2 = head2
   let lenA = 0, lenB = 0
+  // 先遍历链表，得出各自的长度
   while (dummy1) {
     lenA++
     dummy1 = dummy1.next
@@ -93,6 +94,9 @@ export function getIntersectionNode(head1: ListNode | null, head2: ListNode | nu
   }
   dummy1 = head1
   dummy2 = head2
+  // 计算差值，链表长的向前走
+
+
   let gap = Math.abs(lenA - lenB)
   if (lenA > lenB) {
     while (gap--) {
@@ -109,4 +113,87 @@ export function getIntersectionNode(head1: ListNode | null, head2: ListNode | nu
     dummy2 = dummy2.next
   }
   return null
+}
+
+/**
+ * @link https://leetcode-cn.com/problems/design-linked-list/
+ * @method 双链表 维护两个头尾两个链表，添加的时候要判断头尾是否为空，为空就要相应进行赋值，同时size++。删除的时候同样要对头尾重新赋值，size--，这样在计算的时候可以比对下标和size，减少计算复杂度
+ */
+export class MyLinkedList {
+  size: number
+  head: ListNode
+  tail: ListNode
+  constructor() {
+    this.size = 0
+    this.tail = null
+    this.head = null
+  }
+
+  getNode(index: number): ListNode {
+    if (index < 0 || index >= this.size) return null
+    let cur = new ListNode(0)
+    cur.next = this.head
+    while (index-- >= 0) {
+      cur = cur.next
+    }
+    return cur
+  }
+
+  get(index: number): number {
+    if (index < 0 || index >= this.size) return -1
+    return this.getNode(index).val
+  }
+
+  addAtHead(val: number): void {
+    let cur = new ListNode(val)
+    cur.next = this.head
+    this.head = cur
+    this.size++
+    if (!this.tail) this.tail = cur
+  }
+
+  addAtTail(val: number): void {
+    let cur = new ListNode(val)
+    cur.next = null
+    this.size++
+    if (this.tail) {
+      this.tail.next = cur
+      this.tail = cur
+    } else {
+      this.tail = cur
+      this.head = cur
+    }
+  }
+
+  addAtIndex(index: number, val: number): void {
+    if (index <= 0) {
+      this.addAtHead(val)
+      return
+    }
+    else if (index > this.size) return null
+    else if (index === this.size) {
+      this.addAtTail(val)
+      return
+    }
+    let cur = new ListNode(val)
+    const prev = this.getNode(index - 1)
+    cur.next = prev.next
+    prev.next = cur
+    this.size++
+  }
+
+  deleteAtIndex(index: number): void {
+    if (index < 0 || index >= this.size) return null
+    else if (index === 0) {
+      let cur = new ListNode(null)
+      cur.next = this.head.next
+      this.head = cur.next
+      this.size--
+      return
+    }
+    let prev = this.getNode(index - 1)
+    prev.next = prev.next.next
+    if (index === this.size - 1) this.tail = prev
+    this.size--
+  }
 }
