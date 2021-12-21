@@ -346,6 +346,26 @@ function generateMatrix(n: number): number[][] {
   return res
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/fruit-into-baskets/
+ * @method 滑动窗口 时间复杂度O(n)，空间复杂度O(n)
+ */
+function totalFruit(fruits: number[]): number {
+  let map = new Map<number, number>()
+  let l = 0, r = 0, max = 0
+  while (r < fruits.length) {
+    map.set(fruits[r], map.has(fruits[r]) ? map.get(fruits[r]) + 1 : 1)
+    if (map.size > 2) {
+      map.get(fruits[l]) > 1 ? map.set(fruits[l], map.get(fruits[l]) - 1) : map.delete(fruits[l])
+      map.get(fruits[r]) > 1 ? map.set(fruits[r], map.get(fruits[r]) - 1) : map.delete(fruits[r])
+      l++
+    } else r++
+    max = Math.max(max, r - l)
+  }
+  return max
+};
+
+totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4])
 minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
 smallerNumbersThanCurrent([8, 1, 2, 2, 3])
 search([-1, 0, 3, 5, 9, 12], 9)
