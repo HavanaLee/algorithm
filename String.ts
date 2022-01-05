@@ -123,7 +123,7 @@ var reverseWords = function (s) {
   }
 
   // 去除空格的方法
-  function removeSpace (len) {
+  function removeSpace(len) {
     // 快慢指针去除空格
     let slow = 0, quick = 0
     while (quick < len.length) {
@@ -135,7 +135,7 @@ var reverseWords = function (s) {
   }
 
   // 反转
-  function reverseArr (ast, start, end) {
+  function reverseArr(ast, start, end) {
     let l = start, r = end
     while (r > l) {
       [ast[l], ast[r]] = [ast[r], ast[l]]
@@ -184,7 +184,7 @@ console.log(reverseWords("  hello world  "))
  * @return {string}
  */
 var reverseLeftWords = function (s, n) {
-  let l = r = ''
+  let l = '', r = ''
   for (const iterator of s) {
     n-- > 0 ? (l += iterator) : (r += iterator)
   }
