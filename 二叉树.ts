@@ -25,3 +25,43 @@ export function levelOrder(root: TreeNode | null): number[][] {
   }
   return res
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/
+ */
+function levelOrderBottom(root: TreeNode | null): number[][] {
+  let res: number[][] = [], free = [root]
+  if (!root) return res
+  while (free.length) {
+    let layer = [], len = free.length
+    for (let i = len; i > 0; i--) {
+      const node = free.shift()
+      layer.push(node.val)
+      node.left && free.push(node.left)
+      node.right && free.push(node.right)
+    }
+    res.unshift(layer)
+  }
+  return res
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/binary-tree-right-side-view/
+ */
+function rightSideView(root: TreeNode | null): number[] {
+  let res: number[] = [], free = [root]
+  if (!root) return res
+  while (free.length) {
+    let len = free.length
+    while (len--) {
+      const node = free.shift()
+      !len && res.push(node.val)
+      node.left && free.push()
+    }
+    let node = free.shift()
+    res.push(node.val)
+    node.left && free.push(node.left)
+    node.right && free.push(node.right)
+  }
+  return res
+};
