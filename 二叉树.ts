@@ -56,12 +56,25 @@ function rightSideView(root: TreeNode | null): number[] {
     while (len--) {
       const node = free.shift()
       !len && res.push(node.val)
-      node.left && free.push()
+      node.left && free.push(node.left)
+      node.right && free.push(node.right)
     }
-    let node = free.shift()
-    res.push(node.val)
-    node.left && free.push(node.left)
-    node.right && free.push(node.right)
   }
   return res
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/symmetric-tree/
+ */
+function isSymmetric(root: TreeNode | null): boolean {
+  if (!root) return true
+  function symmetries(left: TreeNode, right: TreeNode) {
+    if ((!left && right) || (!right && left)) return false
+    if (!left && !right) return true
+    if (left.val !== right.val) return false
+    let out = symmetries(left.left, right.right)
+    let inner = symmetries(left.right, right.left)
+    return out && inner
+  }
+  return symmetries(root.left, root.right)
 };
