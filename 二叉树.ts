@@ -78,3 +78,60 @@ function isSymmetric(root: TreeNode | null): boolean {
   }
   return symmetries(root.left, root.right)
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+ */
+function maxDepth(root: TreeNode | null): number {
+  function getDept(root: TreeNode) {
+    if (!root) return 0
+    const left_len = getDept(root.left)
+    const right_len = getDept(root.right)
+    return 1 + Math.max(left_len, right_len)
+  }
+  return getDept(root)
+};
+
+
+/**
+ * @link https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
+ */
+function minDepth(root: TreeNode | null): number {
+  function getDept(root: TreeNode) {
+    if (!root) return 0
+    const left_len = getDept(root.left)
+    const right_len = getDept(root.right)
+    return 1 + Math.min(left_len, right_len)
+  }
+  return getDept(root)
+
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/count-complete-tree-nodes/
+ */
+function countNodes(root: TreeNode | null): number {
+  const getNum = (root: TreeNode): number => {
+    if (!root) return 0
+    const left_len = getNum(root.left)
+    const right_len = getNum(root.right)
+    const sum = left_len + right_len + 1  // 加上自身节点
+    return sum
+  }
+  return getNum(root)
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/balanced-binary-tree/
+ */
+function isBalanced(root: TreeNode | null): boolean {
+  const getHeight = (root: TreeNode | null): number => {
+    if (!root) return 0
+    const left_len = getHeight(root.left)
+    if (left_len === -1) return -1
+    const right_len = getHeight(root.right)
+    if (right_len === -1) return -1
+    return Math.abs(left_len - right_len) > 1 ? -1 : 1 + Math.max(left_len, right_len)
+  }
+  return getHeight(root) === -1 ? false : true
+};
