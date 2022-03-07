@@ -135,3 +135,22 @@ function isBalanced(root: TreeNode | null): boolean {
   }
   return getHeight(root) === -1 ? false : true
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/binary-tree-paths/
+ */
+function binaryTreePaths(root: TreeNode | null): string[] {
+  const res = []
+  const getPath = (root: TreeNode, path: string): void => {
+    if (!root.left && !root.right) {
+      path += root.val
+      res.push(path)
+      return
+    }
+    path += root.val + '->'
+    root.left && getPath(root.left, path)
+    root.right && getPath(root.right, path)
+  }
+  getPath(root, '')
+  return res
+};
