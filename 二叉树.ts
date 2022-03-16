@@ -8,8 +8,16 @@ class TreeNode {
     this.right = right
   }
 }
+class Node {
+  val: number
+  children: Node[]
+  constructor(val?: number) {
+    this.val = (val === undefined ? 0 : val)
+    this.children = []
+  }
+}
 export function levelOrder(root: TreeNode | null): number[][] {
-  let res = [], free: TreeNode[] = []
+  let res: number[][] = [], free: TreeNode[] = []
   if (!root) return res
   free.push(root)
   while (free.length) {
@@ -140,7 +148,7 @@ function isBalanced(root: TreeNode | null): boolean {
  * @link https://leetcode-cn.com/problems/binary-tree-paths/
  */
 function binaryTreePaths(root: TreeNode | null): string[] {
-  const res = []
+  const res: string[] = []
   const getPath = (root: TreeNode, path: string): void => {
     if (!root.left && !root.right) {
       path += root.val
@@ -153,4 +161,54 @@ function binaryTreePaths(root: TreeNode | null): string[] {
   }
   getPath(root, '')
   return res
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/n-ary-tree-preorder-traversal/
+ */
+function preorder(root: Node | null): number[] {
+  // 递归法
+  let res: number[] = []
+  const getNode = (root: Node, res: number[]) => {
+    if (!root) return
+    res.push(root.val)
+    for (const item of root.children) {
+      getNode(item, res)
+    }
+  }
+  getNode(root, res)
+  return res
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/sum-of-left-leaves/
+ */
+function sumOfLeftLeaves(root: TreeNode | null): number {
+  if (!root) return 0
+  let left_val = sumOfLeftLeaves(root.left)
+  let right_val = sumOfLeftLeaves(root.right)
+  let mid_val = 0
+  if (root.left && !root.left.left && !root.left.right) {
+    mid_val = root.left.val
+  }
+  return mid_val + left_val + right_val
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/find-bottom-left-tree-value/
+ */
+function findBottomLeftValue(root: TreeNode | null): number {
+  let free: TreeNode[] = []
+  free.push(root)
+  while (free.length) {
+    const len = free.length, layer = []
+    let isBottom = true
+    for (let i = len; i > 0; i--) {
+      const node: TreeNode = free.shift()
+      layer.push(node.val)
+      node.left && free.push(node.left) && (isBottom = false)
+      node.right && free.push(node.right) && (isBottom = false)
+    }
+    if (isBottom) return layer[0]
+  }
 };
