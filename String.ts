@@ -190,3 +190,23 @@ var reverseLeftWords = function (s, n) {
   }
   return l + r
 }
+
+/**
+ * @link https://leetcode-cn.com/problems/longest-word-in-dictionary/
+ */
+function longestWord(words: string[]): string {
+  words.sort((a, b) => {
+    if (a.length != b.length) return a.length - b.length
+    else return b.localeCompare(a)
+  })
+  let max_len = '', set = new Set()
+  set.add('')
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i]
+    if (set.has(word.slice(0, word.length - 1))) {
+      set.add(words[i])
+      max_len = words[i]
+    }
+  }
+  return max_len
+};
