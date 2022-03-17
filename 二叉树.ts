@@ -212,3 +212,19 @@ function findBottomLeftValue(root: TreeNode | null): number {
     if (isBottom) return layer[0]
   }
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/path-sum/
+ */
+function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
+  if (!root) return false
+  let res = []
+  const getPathSum = (root: TreeNode | null, pathSum: number) => {
+    if (!root) return 0
+    pathSum += root.val
+    root.left && getPathSum(root.left, pathSum)
+    root.right && getPathSum(root.right, pathSum)
+    !root.left && !root.right && res.push(pathSum)
+  }
+  return res.includes(targetSum)
+};
