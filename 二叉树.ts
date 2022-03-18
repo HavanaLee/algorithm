@@ -2,10 +2,10 @@ class TreeNode {
   val: number
   left: TreeNode | null
   right: TreeNode | null
-  constructor(val: number, left: TreeNode | null, right: TreeNode | null) {
-    this.val = val
-    this.left = left
-    this.right = right
+  constructor(val: number, left?: TreeNode | null, right?: TreeNode | null) {
+    this.val = (val === undefined ? 0 : val)
+    this.left = (left === undefined ? null : left)
+    this.right = (right === undefined ? null : right)
   }
 }
 class Node {
@@ -227,4 +227,17 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
     !root.left && !root.right && res.push(pathSum)
   }
   return res.includes(targetSum)
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+ */
+function buildTree(inorder: number[], postorder: number[]): TreeNode | null {
+  if (!postorder.length) return null
+  const root = postorder.pop()  // 后序遍历（左右中），所以最后一个就是构造二叉树的中间节点
+  const rootIdx = inorder.indexOf(root) // 前序遍历（左中右），找到中间节点在前序遍历里面的下标
+  let tree = new TreeNode(root)
+  tree.left = buildTree(inorder.slice(0, rootIdx), postorder.slice(0, rootIdx))
+  tree.right = buildTree(inorder.slice(rootIdx + 1), postorder.slice(rootIdx))
+  return tree
 };
