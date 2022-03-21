@@ -241,3 +241,19 @@ function buildTree(inorder: number[], postorder: number[]): TreeNode | null {
   tree.right = buildTree(inorder.slice(rootIdx + 1), postorder.slice(rootIdx))
   return tree
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/
+ */
+function findTarget(root: TreeNode | null, k: number): boolean {
+  if (!root) return false
+  const free = [root], map = []
+  while (free.length) {
+    const node = free.shift()
+    if (map.includes(k - node.val)) return true
+    map.push(node.val)
+    node.left && free.push(node.left)
+    node.right && free.push(node.right)
+  }
+  return false
+};
