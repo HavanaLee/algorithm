@@ -90,3 +90,17 @@ document.getElementById('input').addEventListener('input', debounce((e) => {
   console.log(this, 'sdssss')
 }), 600)
 
+
+// function winnerOfGame (colors) {
+//   if (colors.length >= 2) return false
+//   let n = colors[0], a_time = 0, b_time = 0
+//   for (let i = 1; i < colors.length; i++) {
+//     const cur = colors[i], next = colors[i + 1]
+//     if (cur === n && next === n) n === 'A' ? a_time++ : b_time++
+//     else if (cur === n && next !== n) break
+//     else if (cur !== n) n === 'A' ? n = 'B' : n = 'A'
+//   }
+//   return a_time > b_time
+// };
+
+// winnerOfGame("AAAABBBB")

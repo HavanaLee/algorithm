@@ -6,5 +6,5 @@
     "outDir": "./dist",
     "sourceMap": true
   },
-  "include": ["./贪心.ts","./Array.ts"]
+  "include": ["./贪心.ts","./Array.ts","./String.ts"]
 }

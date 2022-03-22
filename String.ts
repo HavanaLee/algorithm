@@ -4,15 +4,15 @@
  * @returns {number}
  */
 
-const lengthOfLongestSubstring = s => {
-  let max = 0, j = 0
-  let map = new Map()
-  for (let i = 0; i < s.length; i++) {
-    map.has(s[i]) && (j = Math.max(j, map.get(s[i]) + 1))
-    map.set(s[i], i)
-    max = Math.max(max, i - j + 1)
-  }
-  return max
+const lengthOfLongestSubstring = (s: string | any[]) => {
+  // let max = 0, j = 0
+  // let map = new Map()
+  // for (let i = 0; i < s.length; i++) {
+  //   map.has(s[i]) && (j = Math.max(j, map.get(s[i]) + 1))
+  //   map.set(s[i], i)
+  //   max = Math.max(max, i - j + 1)
+  // }
+  // return max
 }
 // console.log(lengthOfLongestSubstring(' '))
 
@@ -21,7 +21,7 @@ const lengthOfLongestSubstring = s => {
  * @param {string} s
  * @return {string}
  */
-const getPalindrome = s => {
+const getPalindrome = (s: string) => {
   let n = s.length
   let res = ''
   let dp = Array.from(new Array(n), () => new Array(n).fill(0)) // 生成一个二维数组记录回文串的状态
@@ -43,7 +43,7 @@ const getPalindrome = s => {
  * @param {number} num
  * @return {string}
  */
-const intToRoman = num => {
+const intToRoman = (num: number) => {
   const symbloArr = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]
   let res = ''
   for (const [k, v] of symbloArr) {
@@ -60,16 +60,16 @@ const intToRoman = num => {
  * @description 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
  * @return {void} Do not return anything, modify s in-place instead.
  */
-var reverseString = function (s) {
-  let l = 0, r = s.length - 1, m
-  while (r > l) {
-    m = s[l]
-    s[l] = s[r]
-    s[r] = m
-    l++
-    r--
-  }
-  return s
+var reverseString = function (s: string | any[]) {
+  // let l = 0, r = s.length - 1, m
+  // while (r > l) {
+  //   m = s[l]
+  //   s[l] = s[r]
+  //   s[r] = m
+  //   l++
+  //   r--
+  // }
+  // return s
 }
 
 /**
@@ -78,7 +78,7 @@ var reverseString = function (s) {
  * @param {number} k
  * @return {string}
  */
-var reverseStr = function (s, k) {
+var reverseStr = function (s: string, k: number) {
   let arr = s.split('')
   for (let i = 0; i < s.length; i += (k * 2)) {
     let l = i - 1, r = i + k > s.length ? s.length : i + k
@@ -94,7 +94,7 @@ var reverseStr = function (s, k) {
  * @param {string} s
  * @return {string}
  */
-var replaceSpace = function (s) {
+var replaceSpace = function (s: string) {
   let arr = s.split('')
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === ' ') arr[i] = '%20'
@@ -107,7 +107,7 @@ var replaceSpace = function (s) {
  * @param {string} s
  * @return {string}
  */
-var reverseWords = function (s) {
+var reverseWords = function (s: string) {
   const arr = Array.from(s)
 
   removeSpace(arr) // 先去除多余的空格
@@ -123,19 +123,19 @@ var reverseWords = function (s) {
   }
 
   // 去除空格的方法
-  function removeSpace(len) {
-    // 快慢指针去除空格
-    let slow = 0, quick = 0
-    while (quick < len.length) {
-      // 如果快指针下标是空串且是0或者前一位=空串时，快指针前进
-      if (len[quick] === ' ' && (quick === 0 || len[quick - 1] === ' ')) quick++
-      else len[slow++] = len[quick++]
-    }
-    len.length = len[slow - 1] === ' ' ? slow - 1 : slow // 去除末尾的空格
+  function removeSpace(len: string | any[]) {
+    // // 快慢指针去除空格
+    // let slow = 0, quick = 0
+    // while (quick < len.length) {
+    //   // 如果快指针下标是空串且是0或者前一位=空串时，快指针前进
+    //   if (len[quick] === ' ' && (quick === 0 || len[quick - 1] === ' ')) quick++
+    //   else len[slow++] = len[quick++]
+    // }
+    // len.length = len[slow - 1] === ' ' ? slow - 1 : slow // 去除末尾的空格
   }
 
   // 反转
-  function reverseArr(ast, start, end) {
+  function reverseArr(ast: { [x: string]: any }, start: number, end: number) {
     let l = start, r = end
     while (r > l) {
       [ast[l], ast[r]] = [ast[r], ast[l]]
@@ -153,7 +153,7 @@ var reverseWords = function (s) {
  * @param {string} needle
  * @return {number}
  */
-var strStr = function (haystack, needle) {
+var strStr = function (haystack: string, needle: string | any[]) {
   if (needle === '' || needle === haystack) return 0
   let len = needle.length
   for (let i = 0; i <= haystack.length - len; i++) {
@@ -167,7 +167,7 @@ var strStr = function (haystack, needle) {
  * @param {string} s
  * @return {boolean}
  */
-var repeatedSubstringPattern = function (s) {
+var repeatedSubstringPattern = function (s: any) {
   let s1 = (s + s).slice(1, -1)
   return s1.indexOf(s) !== -1
 }
@@ -183,7 +183,7 @@ console.log(reverseWords("  hello world  "))
  * @param {number} n
  * @return {string}
  */
-var reverseLeftWords = function (s, n) {
+var reverseLeftWords = function (s: any, n: number) {
   let l = '', r = ''
   for (const iterator of s) {
     n-- > 0 ? (l += iterator) : (r += iterator)
@@ -210,3 +210,21 @@ function longestWord(words: string[]): string {
   }
   return max_len
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/
+ * @method 贪心，比较A,B的次数，如果Alice操作的次数小于Bob，不成立，因为Alice先操作
+ */
+function winnerOfGame(colors: string): boolean {
+  if (colors.length <= 2) return false
+  let n = colors[0], a_time = 0, b_time = 0
+  for (let i = 1; i < colors.length - 1; i++) {
+    const cur = colors[i], next = colors[i + 1]
+    if (cur === n && next === n) n === 'A' ? a_time++ : b_time++
+    else if (cur === n && next !== n) continue
+    else if (cur !== n) n === 'A' ? n = 'B' : n = 'A'
+  }
+  return a_time > b_time
+};
+
+winnerOfGame("AAAABBBB")
