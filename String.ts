@@ -48,7 +48,7 @@ const intToRoman = (num: number) => {
   let res = ''
   for (const [k, v] of symbloArr) {
     while (num >= k) {
-      num -= k
+      num -= k as number
       res += v
     }
     if (num === 0) break
@@ -60,7 +60,7 @@ const intToRoman = (num: number) => {
  * @description 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。你可以假设数组中的所有字符都是 ASCII 码表中的可打印字符。
  * @return {void} Do not return anything, modify s in-place instead.
  */
-var reverseString = function (s: string | any[]) {
+var reverseString = function (s: string) {
   // let l = 0, r = s.length - 1, m
   // while (r > l) {
   //   m = s[l]
@@ -225,6 +225,24 @@ function winnerOfGame(colors: string): boolean {
     else if (cur !== n) n === 'A' ? n = 'B' : n = 'A'
   }
   return a_time > b_time
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/maximize-the-confusion-of-an-exam/
+ */
+function maxConsecutiveAnswers(answerKey: string, k: number): number {
+  const getMaxLen = (key: string, tar: string, k: number): number => {
+    let ans = 0
+    for (let l = 0, r = 0, noEq = 0; r < key.length; r++) {
+      noEq += key[r] !== tar ? 1 : 0  // 记录不等于给定字符串的数量
+      while (noEq > k) {  // 不等于给定字符串的数量>可操作次数就需要缩减区间
+        noEq -= key[l++] !== tar ? 1 : 0
+      }
+      ans = Math.max(ans, r - l + 1)  // 滑动区间，取最大的一个区间为最长连续数
+    }
+    return ans
+  }
+  return Math.max(getMaxLen(answerKey, 'T', k), getMaxLen(answerKey, 'F', k))
 };
 
 winnerOfGame("AAAABBBB")

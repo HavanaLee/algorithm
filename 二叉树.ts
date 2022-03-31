@@ -257,3 +257,21 @@ function findTarget(root: TreeNode | null, k: number): boolean {
   }
   return false
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/maximum-binary-tree/
+ */
+function constructMaximumBinaryTree(nums: number[]): TreeNode | null {
+  if (nums.length) return null
+  let max = nums[0], max_idx = 0
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > max) {
+      max = nums[i]
+      max_idx = i
+    }
+  }
+  let tree = new TreeNode(max)
+  tree.left = constructMaximumBinaryTree(nums.slice(0, max_idx))
+  tree.right = constructMaximumBinaryTree(nums.slice(max_idx + 1))
+  return tree
+};

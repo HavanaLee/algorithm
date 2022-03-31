@@ -365,6 +365,7 @@ function totalFruit(fruits: number[]): number {
   return max
 };
 
+
 totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4])
 minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
 smallerNumbersThanCurrent([8, 1, 2, 2, 3])
