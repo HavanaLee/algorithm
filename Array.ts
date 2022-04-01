@@ -365,6 +365,25 @@ function totalFruit(fruits: number[]): number {
   return max
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/array-of-doubled-pairs/
+ */
+function canReorderDoubled(arr: number[]): boolean {
+  const map = new Map<number, number>()
+  for (const v of arr) {
+    map.set(v, map.has(v) ? map.get(v) + 1 : 1)
+  }
+  if (map.get(0) % 2 === 1) return false // 规避0
+  let keys = Array.from(map.keys())
+  keys.sort((a, b) => Math.abs(a) - Math.abs(b)) // 因为有负数存在，所以需要用绝对值比较大小排序
+  for (const key of keys) {
+    if ((map.get(2 * key) || 0) < map.get(key)) return false // map中没有2key或者2key数量小于当前值的数量就要return false，已经排序了
+    map.set(key * 2, map.get(2 * key) - map.get(key))
+  }
+  return true
+};
+
+canReorderDoubled([4, -2, 2, -4])
 
 totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4])
 minSubArrayLen(7, [2, 3, 1, 2, 4, 3])
