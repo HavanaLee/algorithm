@@ -245,4 +245,11 @@ function maxConsecutiveAnswers(answerKey: string, k: number): number {
   return Math.max(getMaxLen(answerKey, 'T', k), getMaxLen(answerKey, 'F', k))
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/rotate-string/
+ */
+function rotateString(s: string, goal: string): boolean {
+  return s.length === goal.length && (s + s).includes(goal) // 翻转字符串，那么goal一定是s+s的子集
+};
+
 winnerOfGame("AAAABBBB")
