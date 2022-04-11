@@ -252,4 +252,38 @@ function rotateString(s: string, goal: string): boolean {
   return s.length === goal.length && (s + s).includes(goal) // 翻转字符串，那么goal一定是s+s的子集
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/prime-number-of-set-bits-in-binary-representation/
+ */
+function countPrimeSetBits(left: number, right: number): number {
+  const isPrime = (x: number): boolean => {
+    if (x === 0 || x === 1) return false
+    for (let i = 2; i * i <= x; i++) {
+      if (!(x % 2)) return false
+    }
+    return true
+  }
+  const to2Len = (x: number): number => {
+    return x.toString(2).split('0').join('').length
+  }
+  let ans = 0
+  for (let x = left; x <= right; ++x) {
+    if (isPrime(to2Len(x))) ++ans
+  }
+  return ans
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/count-numbers-with-unique-digits/
+ */
+function countNumbersWithUniqueDigits(n: number): number {
+  if (!n) return 1
+  if (n === 1) return 10 // n=1,0-9共10个数字都不相等
+  let dp = [1, 10]
+  for (let i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + (dp[i - 1] - dp[i - 2]) * (10 - i + 1) // n=2和n=1相比增加了9*9个不相等数字，同理n=3和n=2相比增加了9*9*8,因为n=3处于100和999之间，尾部只能增加8个数字
+  }
+  return dp[n]
+};
+
 winnerOfGame("AAAABBBB")
