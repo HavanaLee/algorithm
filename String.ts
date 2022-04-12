@@ -286,4 +286,28 @@ function countNumbersWithUniqueDigits(n: number): number {
   return dp[n]
 };
 
+interface obj {
+  [prop: string]: number
+}
+/**
+ * @link https://leetcode-cn.com/problems/number-of-lines-to-write-string/
+ */
+function numberOfLines(widths: number[], s: string): number[] {
+  let letter_map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+  let obj: obj = {}
+  for (let i = 0; i < widths.length; i++) {
+    obj[letter_map[i]] = widths[i]
+  }
+  let row = 1, sum = 0
+  for (let i = 0; i < s.length; i++) {
+    if (sum + obj[s[i]] > 100) {
+      sum = obj[s[i]]
+      row++
+      continue
+    }
+    else sum += obj[s[i]]
+  }
+  return [row, sum]
+};
+
 winnerOfGame("AAAABBBB")
