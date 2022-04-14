@@ -232,7 +232,7 @@
 // }
 
 type map = {
-  [key in number]: number
+  [key in string]?: number;
 }
 /**
  * @link https://leetcode-cn.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
@@ -381,6 +381,75 @@ function canReorderDoubled(arr: number[]): boolean {
     map.set(key * 2, map.get(2 * key) - map.get(key))
   }
   return true
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/insert-delete-getrandom-o1/
+ */
+class RandomizedSet {
+  children: Array<number>;
+  children_map
+  constructor() {
+    this.children = [],
+      this.children_map = new Map<number, number>()
+  }
+
+  insert(val: number): boolean {
+    if (!this.children_map.has(val)) {
+      this.children_map.set(val, this.children.length)
+      this.children.push(val)
+      return true
+    } else return false
+  }
+
+  // 每次删除时把要删除的那个数放到数组末尾，且可以保证在删除操作之后变长数组中的所有元素的下标都连续，方便插入操作和获取随机元素操作
+  remove(val: number): boolean {
+    if (!this.children_map.has(val)) return false
+    else {
+      const idx = this.children_map.get(val)
+      this.children[idx] = this.children[this.children.length - 1]
+      this.children_map.set(this.children[this.children.length - 1], idx)
+      this.children_map.delete(val)
+      this.children.pop()
+      return true
+    }
+  }
+
+  getRandom(): number {
+    let len = Math.floor(Math.random() * this.children.length)
+    return this.children[len]
+  }
+}
+
+/**
+ * @link https://leetcode-cn.com/problems/richest-customer-wealth/
+ */
+function maximumWealth(accounts: number[][]): number {
+  let max = 0
+  for (const ary of accounts) {
+    let sum = 0
+    for (const money of ary) {
+      sum += money
+    }
+    if (sum >= max) max = sum
+  }
+  return max
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/unique-morse-code-words/
+ */
+function uniqueMorseRepresentations(words: string[]): number {
+  const map = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."]
+  let set = new Set<string>()
+  for (const key of words) {
+    let sum: string
+    for (const s of key) {
+      sum += map[s.charCodeAt(0) - 97]
+    }
+    set.add(sum)
+  }
+  return set.size
 };
 
 canReorderDoubled([4, -2, 2, -4])
