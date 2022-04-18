@@ -452,6 +452,25 @@ function uniqueMorseRepresentations(words: string[]): number {
   return set.size
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/lexicographical-numbers/
+ */
+function lexicalOrder(n: number): number[] {
+  // 
+  let ret: number[] = [], number = 1
+  for (let i = 0; i < n; i++) {
+    ret.push(number)
+    if (number * 10 <= n) number *= 10
+    else {
+      while (number % 10 === 9 || number + 1 > n) {
+        number = Math.floor(number / 10)
+      }
+      number++
+    }
+  }
+  return ret
+};
+
 canReorderDoubled([4, -2, 2, -4])
 
 totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4])

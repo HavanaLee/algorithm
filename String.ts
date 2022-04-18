@@ -310,4 +310,31 @@ function numberOfLines(widths: number[], s: string): number[] {
   return [row, sum]
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/most-common-word/
+ */
+function mostCommonWord(paragraph: string, banned: string[]): string {
+  let map = new Map<string, number>(), word: string = ''
+  for (let i = 0; i <= paragraph.length; i++) {
+    if (i < paragraph.length && paragraph[i].toLowerCase().charCodeAt(0) >= 65 && paragraph[i].toLowerCase().charCodeAt(0) <= 122) {
+      word += paragraph[i].toLowerCase()
+    } else if (word.length) {
+      if (!banned.includes(word)) {
+        map.set(word, (map.get(word) || 0) + 1)
+      }
+      word = ''
+    }
+  }
+  let max = 0
+  return Array.from(map.keys()).reduce((pre, cur) => {
+    if (banned.indexOf(cur) === -1 && map.get(cur) > max) {
+      max = map.get(cur)
+      return cur
+    }
+    else return pre
+  }, '')
+};
+
+mostCommonWord("Bob", ["hit"])
+
 winnerOfGame("AAAABBBB")

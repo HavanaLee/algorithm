@@ -275,3 +275,10 @@ function constructMaximumBinaryTree(nums: number[]): TreeNode | null {
   tree.right = constructMaximumBinaryTree(nums.slice(max_idx + 1))
   return tree
 };
+
+/**
+ * @link https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/
+ */
+function levelOrdern(root: Node | null): number[][] {
+
+};
