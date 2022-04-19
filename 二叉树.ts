@@ -280,5 +280,18 @@ function constructMaximumBinaryTree(nums: number[]): TreeNode | null {
  * @link https://leetcode-cn.com/problems/n-ary-tree-level-order-traversal/
  */
 function levelOrdern(root: Node | null): number[][] {
-
+  if (!root) return []
+  const nodes: Node[] = [root], res: number[][] = []
+  while (nodes.length) {
+    let layer: number[] = []
+    for (let i = nodes.length - 1; i >= 0; i--) {
+      const node: Node = nodes.shift()
+      layer.push(node.val)
+      for (let i = 0; i < node.children.length; i++) {
+        nodes.push(node.children[i])
+      }
+    }
+    res.push(layer)
+  }
+  return res
 };
