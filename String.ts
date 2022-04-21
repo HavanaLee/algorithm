@@ -358,6 +358,25 @@ function shortestToChar(s: string, c: string): number[] {
   return ans;
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/goat-latin/
+ */
+function toGoatLatin(sentence: string): string {
+  const vowels = ['a', 'e', 'i', 'o', 'u']
+  const words = sentence.split(' ')
+  for (let i = 0; i < words.length; i++) {
+    let n = i + 2
+    if (!vowels.includes(words[i][0].toLowerCase())) {
+      words[i] = words[i].substring(1) + words[i][0]
+    }
+    words[i] += 'ma'
+    while (--n >= 1) {
+      words[i] += 'a'
+    }
+  }
+  return words.join(' ')
+};
+
 shortestToChar('aaab', 'b')
 
 mostCommonWord("Bob", ["hit"])

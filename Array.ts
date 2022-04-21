@@ -471,6 +471,38 @@ function lexicalOrder(n: number): number[] {
   return ret
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/first-bad-version/
+ */
+var solution = function (isBadVersion: any) {
+
+  return function (n: number): number {
+    let l = 1, r = n
+    while (l <= r) {
+      let m = Math.floor((l + r) / 2)
+      if (isBadVersion(m)) r = m - 1
+      else l = m + 1
+    }
+    return l
+  };
+};
+
+/**
+ * @link https://leetcode-cn.com/problems/search-insert-position/
+ */
+function searchInsert(nums: number[], target: number): number {
+  let l = 0, r = nums.length - 1
+  while (l <= r) {
+    for (let i = 0; i < nums.length; i++) {
+      const m = Math.floor(l + (r - l) / 2)
+      if (nums[m] === target) return m
+      else if (nums[m] < target) l = m + 1
+      else if (nums[m] > target) r = m - 1
+    }
+  }
+  return l
+};
+
 canReorderDoubled([4, -2, 2, -4])
 
 totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4])
