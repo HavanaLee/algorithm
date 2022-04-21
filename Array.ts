@@ -503,6 +503,31 @@ function searchInsert(nums: number[], target: number): number {
   return l
 };
 
+type func = {
+  (nums: number[], start: number, end: number): number[]
+}
+/**
+ * @link https://leetcode-cn.com/problems/rotate-array/
+ * @method 双指针，空间复杂度O(1)
+ */
+function rotate(nums: number[], k: number): void {
+  k %= nums.length // 因为翻转次数不限，k=num.length时候相当于一次轮回，翻转成了原数组，所以取出来余数相当于是要翻转的中间数
+
+  // 双指针翻转给定的数组
+  const rotateAry: func = (nums, start, end) => {
+    while (start < end) {
+      [nums[start], nums[end]] = [nums[end], nums[start]]
+      end--
+      start++
+    }
+    return nums
+  }
+
+  rotateAry(nums, 0, nums.length - 1) // 先整体翻转
+  rotateAry(nums, 0, k - 1) // 取到的k就是真正要翻转的数组长度
+  rotateAry(nums, k, nums.length - 1) // 翻转剩余的数组
+};
+
 canReorderDoubled([4, -2, 2, -4])
 
 totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4])
