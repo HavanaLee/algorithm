@@ -528,6 +528,46 @@ function rotate(nums: number[], k: number): void {
   rotateAry(nums, k, nums.length - 1) // 翻转剩余的数组
 };
 
+/**
+ * @link https://leetcode-cn.com/problems/random-pick-index/
+ */
+class Solution {
+  nums: number[]
+  // private sets = new Map<number, number[]>()
+  // constructor(nums: number[]) {
+  //   this.nums = nums
+  //   for (let i = 0; i < nums.length; i++) {
+  //     const ary = this.sets.get(nums[i]) || []
+  //     ary.push(i)
+  //     this.sets.set(nums[i], ary)
+  //   }
+  // }
+
+  // pick(target: number): number {
+  //   if (this.sets.get(target).length < 2) return this.sets.get(target)[0]
+  //   else {
+  //     const idx = Math.floor(Math.random() * this.sets.get(target).length)
+  //     return this.sets.get(target)[idx]
+  //   }
+  // }
+  constructor(nums: number[]) {
+    this.nums = nums
+  }
+
+  pick(target: number): number {
+    let res
+    for (let i = 0, j = 0; i < this.nums.length; i++) {
+      if (this.nums[i] === target) {
+        j++ // 第n次遇到，在区间[0, j)之间随机一个=0的下标
+        if (Math.floor(Math.random() * j) === 0) {
+          res = i
+        }
+      }
+    }
+    return res
+  }
+}
+
 canReorderDoubled([4, -2, 2, -4])
 
 totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4])
