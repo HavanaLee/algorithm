@@ -315,7 +315,6 @@ function minSubArrayLen(target: number, nums: number[]): number {
  * @method 矩形生成 时间复杂度O(n²) 空间复杂度O(1)
  */
 function generateMatrix(n: number): number[][] {
-  debugger
   let res = new Array(n).fill(0).map(() => new Array(n).fill(0))
   let l = 0, r = n - 1, t = 0, b = n - 1, num = 1
   while (l <= r && t <= b) {
@@ -567,6 +566,31 @@ class Solution {
     return res
   }
 }
+
+/**
+ * @link https://leetcode.cn/problems/koko-eating-bananas/
+ */
+function minEatingSpeed(piles: number[], h: number): number {
+  let r = Math.max(...piles)
+  let l = 1, m = r
+  while (l < r) {
+    let h1 = 0
+    for (let i = 0; i < piles.length; i++) {
+      if (piles[i] % m) h1 += ~~(piles[i] / m) + 1
+      else h1 += ~~(piles[i] / m)
+    }
+    if (h1 <= h) {
+      r = m
+      m = Math.floor((r - l) / 2) + l
+    } else {
+      l = m + 1
+      m = Math.floor((r - l) / 2) + l
+    }
+  }
+  return m
+};
+
+minEatingSpeed([3, 6, 7, 11], 8)
 
 canReorderDoubled([4, -2, 2, -4])
 
