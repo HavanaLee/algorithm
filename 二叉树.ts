@@ -198,10 +198,11 @@ function sumOfLeftLeaves(root: TreeNode | null): number {
  * @link https://leetcode-cn.com/problems/find-bottom-left-tree-value/
  */
 function findBottomLeftValue(root: TreeNode | null): number {
-  let free: TreeNode[] = []
+  if (!root) return 0
+  let free = [] as TreeNode[]
   free.push(root)
   while (free.length) {
-    const len = free.length, layer = []
+    const len = free.length, layer: number[] = []
     let isBottom = true
     for (let i = len; i > 0; i--) {
       const node: TreeNode = free.shift()
@@ -295,3 +296,25 @@ function levelOrdern(root: Node | null): number[][] {
   }
   return res
 };
+
+/**
+ * @link https://leetcode.cn/problems/most-frequent-subtree-sum/
+ */
+function findFrequentTreeSum(root: TreeNode | null): number[] {
+  let cnt = new Map<number, number>()
+  let max = 0
+  function def(node: TreeNode | null): number {
+    if (!node) return 0
+    const sum = node.val + def(node.left) + def(node.right) // 子树和
+    cnt.set(sum, (cnt.get(sum) || 0) + 1) // 存入map
+    max = Math.max(max, cnt.get(sum) || 0) // 更新最大子树和
+    return sum
+  }
+  def(root)
+  const list: number[] = []
+  for (const [k, v] of cnt) {
+    if (v === max) list.push(k)
+  }
+  return list
+};
+

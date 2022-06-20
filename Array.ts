@@ -569,28 +569,39 @@ class Solution {
 
 /**
  * @link https://leetcode.cn/problems/koko-eating-bananas/
+ * @description 因为求的是最小值，所以花费时间小于等于保安出去的时间时的速度也是可以存在的，此处r=m而不是r=m+1，并不是说最小速度一度存在于[l,m-1]。但是当花费时间大于出去的时间那么这个速度一定不是最小速度，即最小速度一定存在于[m+1，r]之中
  */
 function minEatingSpeed(piles: number[], h: number): number {
   let r = Math.max(...piles)
   let l = 1, m = r
   while (l < r) {
+
     let h1 = 0
     for (let i = 0; i < piles.length; i++) {
       if (piles[i] % m) h1 += ~~(piles[i] / m) + 1
       else h1 += ~~(piles[i] / m)
     }
-    if (h1 <= h) {
-      r = m
-      m = Math.floor((r - l) / 2) + l
-    } else {
-      l = m + 1
-      m = Math.floor((r - l) / 2) + l
-    }
+    if (h1 <= h) r = m
+    else l = m + 1
+
+    m = Math.floor((r - l) / 2) + l
   }
   return m
 };
 
-minEatingSpeed([3, 6, 7, 11], 8)
+/**
+ * @link https://leetcode.cn/problems/valid-boomerang/
+ * @description 「三点各不相同且不在一条直线上」等价于「这两个向量的叉乘结果不为零
+ */
+function isBoomerang(points: number[][]): boolean {
+  let v1 = [points[1][0] - points[0][0], points[1][1] - points[0][1]]
+  let v2 = [points[1][0] - points[2][0], points[1][1] - points[2][1]]
+  return v1[0] * v2[1] - v1[1] * v2[0] != 0
+};
+
+
+
+minEatingSpeed([4, 4, 4, 4], 4)
 
 canReorderDoubled([4, -2, 2, -4])
 
