@@ -16,7 +16,7 @@ class Node {
     this.children = []
   }
 }
-export function levelOrder(root: TreeNode | null): number[][] {
+function levelOrder(root: TreeNode | null): number[][] {
   let res: number[][] = [], free: TreeNode[] = []
   if (!root) return res
   free.push(root)
@@ -197,7 +197,7 @@ function sumOfLeftLeaves(root: TreeNode | null): number {
 /**
  * @link https://leetcode-cn.com/problems/find-bottom-left-tree-value/
  */
-function findBottomLeftValue(root: TreeNode | null): number {
+function findBottomLeftValue(root: TreeNode | null): number | undefined {
   if (!root) return 0
   let free = [] as TreeNode[]
   free.push(root)
@@ -205,7 +205,7 @@ function findBottomLeftValue(root: TreeNode | null): number {
     const len = free.length, layer: number[] = []
     let isBottom = true
     for (let i = len; i > 0; i--) {
-      const node: TreeNode = free.shift()
+      const node = free.shift() as TreeNode
       layer.push(node.val)
       node.left && free.push(node.left) && (isBottom = false)
       node.right && free.push(node.right) && (isBottom = false)
@@ -317,4 +317,5 @@ function findFrequentTreeSum(root: TreeNode | null): number[] {
   }
   return list
 };
+
 

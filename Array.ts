@@ -599,6 +599,27 @@ function isBoomerang(points: number[][]): boolean {
   return v1[0] * v2[1] - v1[1] * v2[0] != 0
 };
 
+/**
+ * @link https://leetcode.cn/problems/k-diff-pairs-in-an-array/
+ */
+function findPairs(nums: number[], k: number): number {
+  nums.sort((a, b) => a - b)
+  let map = new Map<number, number>(), obj: map = {}
+  for (let i = 0; i < nums.length; i++) {
+    map.set(nums[i], (map.get(nums[i]) || 0) + 1)
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (map.has(k + nums[i])) {
+      if (k === 0 && map.get(k + nums[i]) < 2) continue
+      obj[nums[i]] = k + nums[i]
+    }
+  }
+  return Object.keys(obj).length
+};
+
+findPairs([1, 3, 1, 5, 4]
+  , 0)
+
 
 
 minEatingSpeed([4, 4, 4, 4], 4)
