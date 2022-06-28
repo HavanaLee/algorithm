@@ -617,8 +617,48 @@ function findPairs(nums: number[], k: number): number {
   return Object.keys(obj).length
 };
 
-findPairs([1, 3, 1, 5, 4]
-  , 0)
+/**
+ * @link https://leetcode.cn/problems/longest-uncommon-subsequence-ii/
+ */
+function findLUSlength(strs: string[]): number {
+  let k = 0
+  for (let i = 0; i < strs.length; i++) {
+    const son = strs[i]
+    const ary = strs.filter(str => str !== son)
+    if (ary.length + 1 < strs.length) continue
+    const isBol = ary.every(k => isSubsequence(k, son))
+    isBol ? k++ : k
+  }
+
+
+
+  function isSubsequence(father: string, son: string): boolean {
+    let ptS = 0, ptT = 0;
+    while (ptS < father.length && ptT < son.length) {
+      if (father[ptS] === son[ptT]) {
+        ++ptS;
+      }
+      ++ptT;
+    }
+    return ptS !== son.length;
+  }
+  return k ? k : -1
+};
+
+/**
+ * @link https://leetcode.cn/problems/wiggle-sort-ii/
+ */
+function wiggleSort(nums: number[]): void {
+  const [...cp] = nums, n = nums.length
+  cp.sort((a, b) => a - b)
+  for (let i = Math.floor((n + 1) / 2) - 1, j = n - 1, idx = 0; idx < n; idx++, i--, j--) {
+    nums[idx++] = cp[i]
+    if (idx < n) {
+      nums[idx] = cp[j]
+    }
+  }
+};
+wiggleSort([1, 5, 1, 1, 6, 4])
 
 
 
