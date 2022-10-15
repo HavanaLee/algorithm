@@ -435,6 +435,23 @@ function oneEditAway(first: string, second: string): boolean {
   return s1 - s2 <= 1
 };
 
+/**
+ * @link https://leetcode.cn/problems/compress-string-lcci/?favorite=xb9lfcwi 
+ */
+function compressString(S: string): string {
+  if (!S.length) return S
+  let fast = 0, cur = S[0], res = ''
+  for (let i = 0; i <= S.length; i++) {
+    if (S[i] === cur) fast++
+    else {
+      res += `${cur}${fast}`
+      fast = 1
+      cur = S[i]
+    }
+  }
+  return res.length >= S.length ? S : res
+};
+
 shortestToChar('aaab', 'b')
 
 mostCommonWord("Bob", ["hit"])
