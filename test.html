@@ -1,66 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .left {
-        width: 100px;
-        height: 100vh;
-        float: left;
-        /* background: red; */
-      }
-      .middle {
-        /* float: left; */
-        /* background: blue; */
-        box-sizing: border-box;
-        min-width: 220px;
-        border: 1px solid orange;
-        height: 100%;
-        margin: 0 100px;
-        padding: 20px;
-        /* display: flex; */
-        flex-direction: column;
-      }
-      .middle .center {
-        /* flex: 1; */
-        /* height: 100%; */
-        width: 100%;
-        background: #000;
-        margin: 0 auto;
-        max-height: 1000px;
-        aspect-ratio: 16/9;
-      }
-      .right {
-        float: right;
-        width: 100px;
-        height: 100vh;
-        /* background: #000; */
-      }
-      body,
-      html {
-        /* height: 100vh; */
-        margin: 0;
-        height: 100%;
-        box-sizing: border-box;
-        /* background: lightblue; */
-        /* overflow: hidden; */
-      }
-      body {
-        padding: 20px 0;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- <input type="text" id="input" /> -->
-    <!-- <div class="left"></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .left {
+      width: 100px;
+      height: 100vh;
+      float: left;
+      /* background: red; */
+    }
+
+    .middle {
+      /* float: left; */
+      /* background: blue; */
+      box-sizing: border-box;
+      min-width: 220px;
+      border: 1px solid orange;
+      height: 100%;
+      margin: 0 100px;
+      padding: 20px;
+      /* display: flex; */
+      flex-direction: column;
+    }
+
+    .middle .center {
+      /* flex: 1; */
+      /* height: 100%; */
+      width: 100%;
+      background: #000;
+      margin: 0 auto;
+      max-height: 1000px;
+      aspect-ratio: 16/9;
+    }
+
+    .right {
+      float: right;
+      width: 100px;
+      height: 100vh;
+      /* background: #000; */
+    }
+
+    body,
+    html {
+      /* height: 100vh; */
+      margin: 0;
+      height: 100%;
+      box-sizing: border-box;
+      /* background: lightblue; */
+      /* overflow: hidden; */
+    }
+
+    body {
+      padding: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <input type="text" id="input" /> -->
+  <!-- <div class="left"></div>
     <div class="right"></div> -->
-    <div class="middle">
-      <div style="height: 200px"></div>
-      <div class="center"></div>
-    </div>
-    <!-- <script src="./interview.js"></script> -->
-  </body>
+  <div class="middle" id="mid">
+    <div style="height: 200px"></div>
+    <div class="center"></div>
+  </div>
+  <!-- <script src="./interview.js"></script> -->
+</body>
+<script>
+  const dom = document.getElementById('mid')
+  // 观察器的配置（需要观察什么变动）
+  const config = { attributes: true, attributeFilter: ['style.width'], attributeOldValue: true }
+
+  // 当观察到变动时执行的回调函数
+  const callback = function (mutationsList) {
+    // Use traditional 'for loops' for IE 11
+    console.log(...arguments)
+  }
+
+  // 创建一个观察器实例并传入回调函数
+  const observer = new ResizeObserver(callback)
+
+  // 以上述配置开始观察目标节点
+  observer.observe(dom)
+
+  // setTimeout(() => {
+  //   dom.style.background = 'green'
+  // }, 5000)
+</script>
+
 </html>

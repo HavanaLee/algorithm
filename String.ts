@@ -377,8 +377,70 @@ function toGoatLatin(sentence: string): string {
   return words.join(' ')
 };
 
+/**
+ * @link https://leetcode.cn/problems/string-to-url-lcci/solution/
+ */
+function replaceSpaces(S: string, length: number): string {
+  let space = 0
+  for (let s1 of S) {
+    if (s1 === ' ') space++
+  }
+  if (!space) return S
+  let lastIdx = length + space * 2
+  const str = new Array(lastIdx)
+  for (let i = length - 1; i >= 0; i--) {
+    if (S[i] === '') {
+      str[lastIdx--] = '0'
+      str[lastIdx--] = '2'
+      str[lastIdx--] = '%'
+    } else {
+      str[lastIdx--] = S[i]
+    }
+  }
+  return str.join('')
+};
+
+/**
+ * @link https://leetcode.cn/problems/palindrome-permutation-lcci/
+ */
+function canPermutePalindrome(s: string): boolean {
+  let insert: string[] = []
+  for (let i = 0; i < s.length; i++) {
+    if (insert.includes(s[i])) {
+      let idx = insert.indexOf(s[i])
+      insert.splice(idx, 1)
+    }
+    else insert.push(s[i])
+  }
+  return insert.length === 1 || insert.length === 0
+};
+
+/**
+ * @link https://leetcode.cn/problems/one-away-lcci/?favorite=xb9lfcwi
+ */
+function oneEditAway(first: string, second: string): boolean {
+  if (first.length - second.length > 1) return false
+  let n1 = first, n2 = second
+  if (first.length < second.length) {
+    n1 = second
+    n2 = first
+  }
+
+  let s1 = 0, s2 = 0
+  for (let i = 0; i < n1.length; i++) {
+    if (n1[i] === n2[n1.length === n2.length ? i : s2]) s2++
+    s1++
+  }
+
+  return s1 - s2 <= 1
+};
+
 shortestToChar('aaab', 'b')
 
 mostCommonWord("Bob", ["hit"])
 
 winnerOfGame("AAAABBBB")
+
+replaceSpaces("Mr John Smith    ", 13)
+
+canPermutePalindrome("carerac")
