@@ -452,7 +452,13 @@ function compressString(S: string): string {
   return res.length >= S.length ? S : res
 };
 
-
+/**
+ * @link https://leetcode.cn/problems/string-rotation-lcci/?favorite=xb9lfcwi
+ */
+function isFlipedString(s1: string, s2: string): boolean {
+  if (s1.length !== s2.length) return false
+  return (s1 + s1).indexOf(s2) !== -1
+};
 
 shortestToChar('aaab', 'b')
 
