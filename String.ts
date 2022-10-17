@@ -452,21 +452,7 @@ function compressString(S: string): string {
   return res.length >= S.length ? S : res
 };
 
-/**
- * @link https://leetcode.cn/problems/rotate-matrix-lcci/?favorite=xb9lfcwi
- */
-function rotate(matrix: number[][]): void {
-  const n = matrix.length
-  for (let r = 0; r < Math.floor(n / 2); r++) {
-    for (let c = 0; c < Math.floor((n + 1) / 2); c++) {
-      let temp = matrix[r][c]
-      matrix[r][c] = matrix[n - c - 1][r]
-      matrix[n - c - 1][r] = matrix[n - r - 1][n - c - 1]
-      matrix[n - r - 1][n - c - 1] = matrix[c][n - r - 1]
-      matrix[c][n - r - 1] = temp
-    }
-  }
-};
+
 
 shortestToChar('aaab', 'b')
 

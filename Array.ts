@@ -528,6 +528,22 @@ function rotate(nums: number[], k: number): void {
 };
 
 /**
+ * @link https://leetcode.cn/problems/rotate-matrix-lcci/?favorite=xb9lfcwi
+ */
+function rotateRect(matrix: number[][]): void {
+  const n = matrix.length
+  for (let r = 0; r < Math.floor(n / 2); r++) {
+    for (let c = 0; c < Math.floor((n + 1) / 2); c++) {
+      let temp = matrix[r][c]
+      matrix[r][c] = matrix[n - c - 1][r]
+      matrix[n - c - 1][r] = matrix[n - r - 1][n - c - 1]
+      matrix[n - r - 1][n - c - 1] = matrix[c][n - r - 1]
+      matrix[c][n - r - 1] = temp
+    }
+  }
+};
+
+/**
  * @link https://leetcode-cn.com/problems/random-pick-index/
  */
 class Solution {
@@ -658,6 +674,30 @@ function wiggleSort(nums: number[]): void {
     }
   }
 };
+
+/**
+ * @link https://leetcode.cn/problems/zero-matrix-lcci/?favorite=xb9lfcwi
+ */
+function setZeroes(matrix: number[][]): void {
+  let m = matrix.length, n = matrix[0].length, colIs0 = false
+  for (let i = 0; i < m; i++) {
+    if (matrix[i][0] === 0) colIs0 = true // 第一列有0，记录下来
+    for (let j = 1; j < n; j++) {
+      if (matrix[i][j] === 0) {
+        matrix[i][0] = matrix[0][j] = 0 // 通过首行和首列来记录矩阵状态
+      }
+    }
+  }
+  for (let i = m - 1; i >= 0; i--) {
+    for (let j = 1; j < n; j++) {
+      if (matrix[i][0] === 0 || matrix[0][j] === 0) matrix[i][j] = 0
+    }
+    if (colIs0) matrix[i][0] = 0
+  }
+};
+
+setZeroes([[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]])
+
 wiggleSort([1, 5, 1, 1, 6, 4])
 
 
