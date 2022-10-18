@@ -337,3 +337,43 @@ var copyRandomList = function (head) {
   }
   return map.get(head)
 }
+
+/**
+ * @link https://leetcode.cn/problems/kth-node-from-end-of-list-lcci/?favorite=xb9lfcwi
+ */
+function kthToLast (head, k) {
+  let dummy = new ListNode(0)
+  dummy.next = head
+  let slow = dummy, fast = dummy
+  while (k--) {
+    fast = fast.next
+  }
+  while (fast) {
+    fast = fast.next
+    slow = slow.next
+  }
+  return slow.val
+};
+
+/**
+ * @link https://leetcode.cn/problems/partition-list-lcci/?favorite=xb9lfcwi
+ */
+var partition = function (head, x) {
+  let dummy = new ListNode(0)
+  const dummyNode = dummy
+  let temp = new ListNode(0)
+  const tempHead = temp
+  while (head) {
+    if (head.val < x) {
+      dummy.next = head
+      dummy = dummy.next
+    } else {
+      temp.next = head
+      temp = temp.next
+    }
+    head = head.next
+  }
+  temp.next = null // 清除大于x的链表引用关系
+  dummy.next = tempHead.next // 小于x的链表尾部指向大于x的链表头部
+  return dummyNode.next
+};

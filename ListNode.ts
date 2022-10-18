@@ -1,6 +1,6 @@
 class ListNode {
   val: number
-  next: ListNode | null
+  next: ListNode | null = null
   constructor(val?: number, next?: ListNode | null) {
     this.val = (val === undefined ? 0 : val)
     this.next = (next === undefined ? null : next)
@@ -197,3 +197,28 @@ export class MyLinkedList {
     this.size--
   }
 }
+
+/**
+ * @link https://leetcode.cn/problems/remove-duplicate-node-lcci/?favorite=xb9lfcwi
+ */
+function removeDuplicateNodes(head: ListNode | null): ListNode | null {
+  if (!head) return head
+  let set = new Set()
+  set.add(head.val)
+  let prev: ListNode | null = head;     // head是存在的，赋给prev
+  let cur: ListNode | null = head.next; // head是存在的，它的next赋给cur
+
+  while (cur) {
+    if (set.has(cur.val)) { // 如果当前节点是重复的
+      if (prev?.next) prev.next = cur.next; // 让prev的next直接指向cur的next，完成删除
+
+      cur = cur.next;       // 更新一下cur
+    } else {
+      set.add(cur.val);     // 当前节点是第一次出现，存储一下
+      if (prev?.next) prev = prev.next;     // prev和cur都更新一下，跳到下一个
+      cur = cur.next;
+    }
+  }
+  return head; // 返回删除重复节点后的链表
+};
+
