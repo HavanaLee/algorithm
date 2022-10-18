@@ -377,3 +377,27 @@ var partition = function (head, x) {
   dummy.next = tempHead.next // 小于x的链表尾部指向大于x的链表头部
   return dummyNode.next
 };
+
+/**
+ * link https://leetcode.cn/problems/sum-lists-lcci/?favorite=xb9lfcwi
+ */
+var addTwoNumbers = function (l1, l2) {
+  let str1 = 0, str2 = 0, carry = 0, dummy = new ListNode(0)
+  const dummyNode = dummy
+  while (l1 || l2) {
+    str1 = l1?.val ?? 0
+    str2 = l2?.val ?? 0
+    let sum = str1 + str2 + carry
+    dummy.next = new ListNode(sum % 10)
+    carry = sum >= 10 ? 1 : 0
+    dummy = dummy.next
+    if (l1) {
+      l1 = l1.next;
+    }
+    if (l2) {
+      l2 = l2.next;
+    }
+  }
+  if (carry) dummy.next = new ListNode(1)
+  return dummyNode.next
+};
