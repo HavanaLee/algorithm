@@ -696,6 +696,65 @@ function setZeroes(matrix: number[][]): void {
   }
 };
 
+/**
+ * @link https://leetcode.cn/problems/three-in-one-lcci/?favorite=xb9lfcwi
+ */
+class TripleInOne {
+  size: number = 0
+  stack: number[][]
+  indexs: number[]
+  constructor(stackSize: number) {
+    this.size = stackSize
+    this.stack = Array.from({ length: 3 }, e => new Array(stackSize))
+    this.indexs = [0, 1, 2]
+  }
+
+  push(stackNum: number, value: number): void {
+    if (this.stack[stackNum].length < this.size) this.stack[stackNum].push(value)
+  }
+
+  pop(stackNum: number): number {
+    if (this.stack[stackNum].length) return this.stack[stackNum].pop()
+    return -1
+  }
+
+  peek(stackNum: number): number {
+    if (this.stack[stackNum].length) return this.stack[stackNum][this.stack[stackNum].length - 1]
+    return -1
+  }
+
+  isEmpty(stackNum: number): boolean {
+    return this.stack[stackNum].length <= 0
+  }
+}
+
+class MinStack {
+  stack: number[]
+  min_stack: number[]
+  constructor() {
+    this.stack = []
+    this.min_stack = [Infinity]
+  }
+
+  push(x: number): void {
+    this.stack.push(x)
+    this.min_stack.push(Math.min(this.min_stack[this.min_stack.length - 1], x))
+  }
+
+  pop(): void {
+    this.stack.pop()
+    this.min_stack.pop()
+  }
+
+  top(): number {
+    return this.stack[this.stack.length - 1]
+  }
+
+  getMin(): number {
+    return this.min_stack[this.min_stack.length - 1]
+  }
+}
+
 setZeroes([[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]])
 
 wiggleSort([1, 5, 1, 1, 6, 4])

@@ -10,39 +10,6 @@ function ListNode (val, next) {
   this.next = (next === undefined ? null : next)
 }
 
-const isPalindrome = (head) => {
-  let fast = head, slow = head
-  // 找到链表的中间节点
-  while (fast !== null && fast.next !== null) {
-    slow = slow.next
-    fast = fast.next.next
-  }
-  // fast不为空说明链表为奇数个
-  if (fast !== null) slow = slow.next
-  slow = reverse(slow)
-  fast = head
-
-  while (slow !== null) {
-    if (slow.val !== fast.val) return false
-    slow = slow.next
-    fast = fast.next
-  }
-  return true
-
-  // 翻转链表
-  function reverse (node) {
-    // 新建null节点
-    let prev = null
-    while (node !== null) {
-      let next = node.next
-      node.next = prev
-      prev = node
-      node = next
-    }
-    return prev
-  }
-}
-
 /**
  * @description 给你两个非空的链表，表示两个非负的整数。它们每位数字都是按照逆序的方式存储的，并且每个节点只能存储 一位数字。请你将两个数相加，并以相同形式返回一个表示和的链表。你可以假设除了数字0之外，这两个数都不会以0开头。
  * @param {ListNode} l1
@@ -284,36 +251,6 @@ var getIntersectionNode = function (headA, headB) {
 }
 
 /**
- * @description 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。
- * @type 快慢指针 或者 哈希
- * @param {ListNode} head
- * @return {ListNode}
- */
-var detectCycle = function (head) {
-  // if (!head || !head.next) return null // 长度小于2直接返回null
-  // let slow = head.next, fast = head.next.next
-  // while (fast && fast.next && fast !== slow) {
-  //   slow = slow.next
-  //   fast = fast.next.next
-  // }
-  // if (!fast || !fast.next) return null
-  // slow = head
-  // while (fast !== slow) {
-  //   slow = slow.next
-  //   fast = fast.next
-  // }
-  // return slow
-
-  let set = new Set()
-  while (head && head.next) {
-    if (set.has(head)) return head
-    set.add(head)
-    head = head.next
-  }
-  return null
-}
-
-/**
  * @description 请实现 copyRandomList 函数，复制一个复杂链表。在复杂链表中，每个节点除了有一个 next 指针指向下一个节点，还有一个 random 指针指向链表中的任意节点或者 null。
  * @summary 时间复杂度O(n)，空间复杂度O(n)
  * @param {Node} head
@@ -400,4 +337,93 @@ var addTwoNumbers = function (l1, l2) {
   }
   if (carry) dummy.next = new ListNode(1)
   return dummyNode.next
+};
+
+/**
+ * @link https://leetcode.cn/problems/palindrome-linked-list-lcci/?favorite=xb9lfcwi
+ */
+var isPalindrome = function (head) {
+  let slow = head, fast = head // slow慢指针前进一个，fast快指针前进两格，fast走完时slow正好走到中间
+  while (fast && fast.next) {
+    slow = slow.next
+    fast = fast.next.next
+  }
+  if (fast) slow = slow.next // fast不为null说明是链表长度是奇数,slow再往前走一位
+  slow = reverse(slow)
+  fast = head
+  while (slow) {
+    if (slow.val !== fast.val) return fast
+    slow = slow.next
+    fast = fast.next
+  }
+  return true
+
+  function reverse (node) {
+    let prev = null, cur = node
+    while (cur) {
+      let next = cur.next
+      cur.next = prev
+      prev = cur
+      cur = next
+    }
+    return prev
+  }
+};
+
+/**
+ * @link https://leetcode.cn/problems/intersection-of-two-linked-lists-lcci/?favorite=xb9lfcwi
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+
+var getIntersectionNode = function (headA, headB) {
+  var getListLen = function (head) {
+    let len = 0, cur = head;
+    while (cur) {
+      len++;
+      cur = cur.next;
+    }
+    return len;
+  }
+  let curA = headA, curB = headB
+
+  let lenA = getListLen(headA)
+  let lenB = getListLen(headB)
+  if (lenA < lenB) {
+    [curA, curB] = [curB, curA];
+    [lenA, lenB] = [lenB, lenA]
+  }
+  let i = lenA - lenB
+  while (i-- > 0) {
+    curA = curA.next
+  }
+  while (curA && curA !== curB) {
+    curA = curA.next
+    curB = curB.next
+  }
+  return curA
+};
+
+
+/**
+ * @link https://leetcode.cn/problems/linked-list-cycle-lcci/?favorite=xb9lfcwi
+ * @method 双指针
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function (head) {
+  if (!head || !head.next) return null
+  let slow = head.next, fast = head.next.next
+  while (fast && fast.next && fast !== slow) {
+    slow = slow.next
+    fast = fast.next.next
+  }
+  if (!fast || !fast.next) return null
+  let ptr = head
+  while (ptr !== slow) {
+    ptr = ptr.next
+    slow = slow.next
+  }
+  return slow
 };
