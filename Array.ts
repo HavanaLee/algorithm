@@ -755,6 +755,44 @@ class MinStack {
   }
 }
 
+/**
+ * @link https://leetcode.cn/problems/stack-of-plates-lcci/comments/
+ */
+class StackOfPlates {
+  size: number
+  stack: number[][]
+  constructor(cap: number) {
+    this.size = cap
+    this.stack = []
+  }
+
+  push(val: number): void {
+    if (this.size <= 0) return
+    if (!this.stack.length || this.stack[this.stack.length - 1].length === this.size) this.stack.push([val])
+    else this.stack[this.stack.length - 1].push(val)
+  }
+
+  pop(): number {
+    const last = this.stack[this.stack.length - 1]
+    if (!last || !last.length) {
+      this.stack.pop()
+      return -1
+    } else {
+      const pop = last.pop()
+      if (!last.length) this.stack.pop()
+      return pop
+    }
+  }
+
+  popAt(index: number): number {
+    const cur = this.stack[index]
+    if (cur) {
+      const pop = cur.pop()
+      if (cur.length === 0) this.stack.splice(index, 1)
+      return pop
+    } else return -1
+  }
+}
 setZeroes([[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]])
 
 wiggleSort([1, 5, 1, 1, 6, 4])
