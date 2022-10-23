@@ -793,6 +793,81 @@ class StackOfPlates {
     } else return -1
   }
 }
+
+/**
+ * @link https://leetcode.cn/problems/implement-queue-using-stacks-lcci/?favorite=xb9lfcwi
+ */
+class MyQueue {
+  inner: number[]
+  outter: number[]
+  constructor() {
+    this.inner = []
+    this.outter = []
+  }
+
+  push(x: number): void {
+    this.inner.push(x)
+  }
+
+  pop(): number {
+    const size = this.outter.length
+    if (size) return this.outter.pop()
+    while (this.inner.length) {
+      this.outter.push(this.inner.pop())
+    }
+    return this.outter.pop()
+  }
+
+  peek(): number {
+    const pop = this.pop()
+    this.outter.push(pop)
+    return pop
+  }
+
+  empty(): boolean {
+    return Boolean(!this.inner.length) && Boolean(!this.outter.length)
+  }
+}
+
+/**
+ * @link https://leetcode.cn/problems/sort-of-stacks-lcci/?favorite=xb9lfcwi
+ * @method 惰性更新
+ */
+class SortedStack {
+  stack: number[]
+  min_stack: number[]
+  constructor() {
+    this.stack = []
+    this.min_stack = []
+  }
+
+  // 临时栈 < val <= 栈
+  push(val: number): void {
+    if (this.isEmpty()) this.stack.push(val)
+    else {
+      while (!this.isEmpty() && this.peek() < val) {
+        this.min_stack.push(this.stack.pop()) // 小于val的值从stack里取出暂存到临时栈中
+      }
+      this.stack.push(val)
+      while (this.min_stack.length) {
+        this.stack.push(this.min_stack.pop()) // 插入val后再把临时栈中清空，push到stack中
+      }
+    }
+
+  }
+
+  pop(): void {
+    this.stack.pop()
+  }
+
+  peek(): number {
+    return this.isEmpty() ? -1 : this.stack[this.stack.length - 1]
+  }
+
+  isEmpty(): boolean {
+    return !this.stack.length
+  }
+}
 setZeroes([[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]])
 
 wiggleSort([1, 5, 1, 1, 6, 4])
