@@ -318,4 +318,18 @@ function findFrequentTreeSum(root: TreeNode | null): number[] {
   return list
 };
 
+/**
+ * @link https://leetcode.cn/problems/minimum-height-tree-lcci/?favorite=xb9lfcwi
+ */
+function sortedArrayToBST(nums: number[]): TreeNode | null {
+  return helper(nums, 0, nums.length - 1)
+  function helper(nums: number[], left: number, right: number): TreeNode | null {
+    if (right < left) return null
+    const mid = ~~((right - left) / 2 + left)
+    const root = new TreeNode(nums[mid])
+    root.left = helper(nums, left, mid - 1)
+    root.right = helper(nums, mid + 1, right)
+    return root
+  }
+};
 

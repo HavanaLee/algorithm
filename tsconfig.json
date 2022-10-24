@@ -6,5 +6,11 @@
     "outDir": "./dist",
     "sourceMap": true
   },
-  "include": ["./贪心.ts","./Array.ts","./String.ts"]
+  "include": [
+    "./贪心.ts",
+    "./Array.ts",
+    "./String.ts",
+    "./stackAndQueen.ts",
+    "./二叉树.ts"
+  ]
 }
