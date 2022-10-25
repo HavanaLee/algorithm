@@ -1,3 +1,5 @@
+import { ListNode } from "./ListNode"
+
 class TreeNode {
   val: number
   left: TreeNode | null
@@ -333,3 +335,26 @@ function sortedArrayToBST(nums: number[]): TreeNode | null {
   }
 };
 
+/**
+ * @link https://leetcode.cn/problems/list-of-depth-lcci/?favorite=xb9lfcwi
+ */
+function listOfDepth(tree: TreeNode | null): Array<ListNode | null> {
+  if (!tree) return []
+  const res: ListNode[] = [], temp: TreeNode[] = []
+  temp.push(tree)
+  helper()
+  function helper() {
+    let cur = new ListNode(0), len = temp.length, list = cur
+    while (len--) {
+      let curNode = new ListNode(temp[0].val)
+      list.next = curNode
+      temp[0].left && temp.push(temp[0].left)
+      temp[0].right && temp.push(temp[0].right)
+      temp.shift()
+      list = list.next
+    }
+    res.push(cur.next)
+    if (temp.length) helper()
+  }
+  return res
+};
