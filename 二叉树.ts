@@ -358,3 +358,36 @@ function listOfDepth(tree: TreeNode | null): Array<ListNode | null> {
   }
   return res
 };
+
+/**
+ * @link https://leetcode.cn/problems/legal-binary-search-tree-lcci/?favorite=xb9lfcwi
+ */
+function isValidBST(root: TreeNode | null): boolean {
+  /**
+   * @method 递归 
+   */
+  function helper(tree: TreeNode | null, low: number, up: number): boolean {
+    if (!tree) return true
+    if (tree.val <= low || tree.val >= up) return false
+    return helper(tree.left, low, tree.val) && helper(tree.right, tree.val, up)
+  }
+
+  /**
+   * @method 中序遍历
+   */
+  function midHelper(root: TreeNode | null) {
+    let stack = [], last_val = Number.MIN_SAFE_INTEGER
+    while (stack.length || root) {
+      while (root) {
+        stack.push(root)
+        root = root.left
+      }
+      root = stack.pop()
+      if (root.val <= last_val) return false
+      last_val = root.val
+      root = root.right
+    }
+    return true
+  }
+  return helper(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+};
