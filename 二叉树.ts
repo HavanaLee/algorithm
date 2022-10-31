@@ -78,7 +78,7 @@ function rightSideView(root: TreeNode | null): number[] {
  */
 function isSymmetric(root: TreeNode | null): boolean {
   if (!root) return true
-  function symmetries(left: TreeNode, right: TreeNode) {
+  function symmetries(left: TreeNode, right: TreeNode): boolean {
     if ((!left && right) || (!right && left)) return false
     if (!left && !right) return true
     if (left.val !== right.val) return false
@@ -93,7 +93,7 @@ function isSymmetric(root: TreeNode | null): boolean {
  * @link https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
  */
 function maxDepth(root: TreeNode | null): number {
-  function getDept(root: TreeNode) {
+  function getDept(root: TreeNode): number {
     if (!root) return 0
     const left_len = getDept(root.left)
     const right_len = getDept(root.right)
@@ -107,7 +107,7 @@ function maxDepth(root: TreeNode | null): number {
  * @link https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
  */
 function minDepth(root: TreeNode | null): number {
-  function getDept(root: TreeNode) {
+  function getDept(root: TreeNode): number {
     if (!root) return 0
     const left_len = getDept(root.left)
     const right_len = getDept(root.right)
@@ -221,7 +221,7 @@ function findBottomLeftValue(root: TreeNode | null): number | undefined {
  */
 function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
   if (!root) return false
-  let res = []
+  let res: number[] = []
   const getPathSum = (root: TreeNode | null, pathSum: number) => {
     if (!root) return 0
     pathSum += root.val
@@ -250,7 +250,7 @@ function buildTree(inorder: number[], postorder: number[]): TreeNode | null {
  */
 function findTarget(root: TreeNode | null, k: number): boolean {
   if (!root) return false
-  const free = [root], map = []
+  const free = [root], map: number[] = []
   while (free.length) {
     const node = free.shift()
     if (map.includes(k - node.val)) return true
@@ -390,4 +390,66 @@ function isValidBST(root: TreeNode | null): boolean {
     return true
   }
   return helper(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+};
+
+/**
+ * @link https://leetcode.cn/problems/successor-lcci/?favorite=xb9lfcwi
+ * @method 中序遍历
+ */
+var inorderSuccessor = function (root: TreeNode | null, p: TreeNode | null): TreeNode | null {
+  let stack: TreeNode[] = [], prev = null
+  while (stack.length || root) {
+    while (root) {
+      stack.push(root)
+      root = root.left
+    }
+    root = stack.pop()
+    if (prev === p) return prev
+    prev = root
+    root = root.right
+  }
+  return null
+};
+
+/**
+ * @link https://leetcode.cn/problems/check-subtree-lcci/?favorite=xb9lfcwi
+ * @method 层序遍历
+ */
+function checkSubTree(t1: TreeNode | null, t2: TreeNode | null): boolean {
+  function isSameNode(l: TreeNode | null, r: TreeNode | null): boolean {
+    if (l === null && r === null) return true
+    else if (!l || !r) return false
+    else if (l.val !== r.val) return false
+    return isSameNode(l.left, r.left) && isSameNode(l.right, r.right)
+  }
+
+  let stack = [t1]
+  while (stack.length) {
+    const slice = stack.shift()
+    if (isSameNode(slice, t2)) return true
+    if (slice.left) stack.push(slice.left)
+    if (slice.right) stack.push(slice.right)
+  }
+  return false
+};
+
+/**
+ * @link https://leetcode.cn/problems/paths-with-sum-lcci/?favorite=xb9lfcwi
+ * @method 前缀和
+ */
+function pathSum(root: TreeNode | null, sum: number): number {
+  let prefix = new Map()
+  prefix.set(0, 1)
+  return dfs(root, prefix, 0, sum)
+  function dfs(root: TreeNode | null, prefix: Map<number, number>, cur: number, sum: number): number {
+    if (!root) return 0
+    let ret = 0
+    cur += root.val
+    ret = prefix.get(cur - sum) || 0
+    prefix.set(cur, (prefix.get(cur) || 0) + 1)
+    ret += dfs(root.left, prefix, cur, sum)
+    ret += dfs(root.right, prefix, cur, sum)
+    prefix.set(cur, (prefix.get(cur) || 0) - 1)
+    return ret
+  }
 };

@@ -460,6 +460,33 @@ function isFlipedString(s1: string, s2: string): boolean {
   return (s1 + s1).indexOf(s2) !== -1
 };
 
+/**
+ * @link https://leetcode.cn/problems/is-unique-lcci/?favorite=xb9lfcwi
+ * @method 位运算
+ */
+function isUnique(astr: string): boolean {
+  let mark = 0
+  for (let i of astr) {
+    let code = i.charCodeAt(0) - 97
+    if ((mark & (1 << code)) !== 0) return false
+    else mark = mark | 1 << code
+  }
+  return true
+};
+
+/**
+ * @link https://leetcode.cn/problems/insert-into-bits-lcci
+ * @method 位运算
+ */
+function insertBits(N: number, M: number, i: number, j: number): number {
+  for (let k = i; k <= j; ++k) {
+    N &= ~(1 << k);
+  }
+
+  return N + (M << i);
+
+};
+
 shortestToChar('aaab', 'b')
 
 mostCommonWord("Bob", ["hit"])
