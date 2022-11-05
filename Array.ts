@@ -661,6 +661,28 @@ function findLUSlength(strs: string[]): number {
   return k ? k : -1
 };
 
+/**
+ * @link https://leetcode.cn/problems/multi-search-lcci/?favorite=xb9lfcwi
+ * @method 滑动窗口
+ */
+function multiSearch(big: string, smalls: string[]): number[][] {
+  let l = 0, b_len = big.length, res = []
+  while (l < smalls.length) {
+    let s = 0, r = smalls[l].length, str = smalls[l], temp = []
+    while (r <= b_len) {
+      if (big.substring(s, r) === str && str) temp.push(s)
+      s++
+      r++
+    }
+    l++
+    res.push(temp)
+  }
+  return res
+};
+
+multiSearch("mississippi", ["is", "ppi", "hi", "sis", "i", "ssippi"])
+
+
 minEatingSpeed([4, 4, 4, 4], 4)
 
 canReorderDoubled([4, -2, 2, -4])
