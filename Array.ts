@@ -680,8 +680,25 @@ function multiSearch(big: string, smalls: string[]): number[][] {
   return res
 };
 
-multiSearch("mississippi", ["is", "ppi", "hi", "sis", "i", "ssippi"])
+/**
+ * @link https://leetcode.cn/problems/repeated-dna-sequences/
+ */
+function findRepeatedDnaSequences(s: string): string[] {
+  let l = 0, r = 10, map: Map<string, number> = new Map(), res: string[] = []
+  while (r <= s.length) {
+    let copy = s.slice(l, r)
+    if (map.has(copy)) map.set(copy, map.get(copy) + 1)
+    else map.set(copy, 1)
+    l++
+    r++
+  }
+  map.forEach((v, k) => {
+    if (v > 1) res.push(k)
+  })
+  return res
+};
 
+multiSearch("mississippi", ["is", "ppi", "hi", "sis", "i", "ssippi"])
 
 minEatingSpeed([4, 4, 4, 4], 4)
 
