@@ -682,6 +682,7 @@ function multiSearch(big: string, smalls: string[]): number[][] {
 
 /**
  * @link https://leetcode.cn/problems/repeated-dna-sequences/
+ * @method 滑动窗口
  */
 function findRepeatedDnaSequences(s: string): string[] {
   let l = 0, r = 10, map: Map<string, number> = new Map(), res: string[] = []

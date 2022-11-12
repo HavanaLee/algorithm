@@ -85,3 +85,15 @@ var maxValue = function (grid) {
   }
   return grid[c - 1][r - 1]
 }
+
+/**
+ * @link https://leetcode.cn/problems/three-steps-problem-lcci/?favorite=xb9lfcwi
+ */
+function waysToStep(n: number): number {
+  let dp = [1, 2, 4]  // 第一层只能一次上一个台阶，第二层可以走两次一层台阶或者一次走两层，第三层可以走三次一层台阶，先走一层再走两层或者先走两层再走一层，或者直接上三层台阶
+  for (let i = 3; i < n; i++) {
+    dp[i] = (dp[i - 1] + dp[i - 2] + dp[i - 3]) % 1000000007  // 套用计算公式
+
+  }
+  return dp[n - 1]
+};
