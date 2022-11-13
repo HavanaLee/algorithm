@@ -97,3 +97,4 @@ function waysToStep(n: number): number {
   }
   return dp[n - 1]
 };
+
