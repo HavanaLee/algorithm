@@ -699,6 +699,26 @@ function findRepeatedDnaSequences(s: string): string[] {
   return res
 };
 
+/**
+ * @link https://leetcode.cn/problems/color-fill-lcci/?favorite=xb9lfcwi
+ * @method bfs广度优先
+ */
+function floodFill(image: number[][], sr: number, sc: number, newColor: number): number[][] {
+  let m = image.length, n = image[0].length, oldColor = image[sr][sc], queen = [[sr, sc]]
+  if (oldColor === newColor) return image // 如果新旧颜色相同直接return
+  // 利用队列把上下左右满足条件的下标都存入，修改下标对应的颜色即可
+  while (queen.length) {
+    const [i, j] = queen.shift()
+    image[i][j] = newColor
+
+    if (i - 1 >= 0 && image[i - 1][j] === oldColor) queen.push([i - 1, j]) // 上
+    if (i + 1 < m && image[i + 1][j] === oldColor) queen.push([i + 1, j]) // 下
+    if (j - 1 >= 0 && image[i][j - 1] === oldColor) queen.push([i, j - 1]) // 左
+    if (j + 1 < n && image[i][j + 1] === oldColor) queen.push([i, j + 1]) // 右
+  }
+  return image
+};
+
 multiSearch("mississippi", ["is", "ppi", "hi", "sis", "i", "ssippi"])
 
 minEatingSpeed([4, 4, 4, 4], 4)
