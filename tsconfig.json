@@ -12,6 +12,8 @@
     "./String.ts",
     "./stackAndQueen.ts",
     "./二叉树.ts",
-    "./ListNode.ts"
+    "./ListNode.ts",
+    "./动态规划.ts",
+    "./hash.ts"
   ]
 }
