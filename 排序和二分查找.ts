@@ -13,3 +13,34 @@ function searchMatrix(matrix: number[][], target: number): boolean {
     }
     return false
 };
+
+/**
+ * @link https://leetcode.cn/problems/rank-from-stream-lcci/description/?favorite=xb9lfcwi
+ * @method 二分查找
+ */
+class StreamRank {
+    stack: number[]
+    constructor(x: number[]) {
+        this.stack = x
+    }
+
+    track(x: number): void {
+        if (!this.stack.length) {
+            this.stack.push(x)
+            return
+        }
+        const l = this.getRankOfNumber(x)
+        this.stack.splice(l, 0, x)
+    }
+
+    getRankOfNumber(x: number): number {
+        if (!this.stack.length) return 0
+        let r = this.stack.length - 1, l = 0
+        while (l <= r) {
+            let mid = l + r >> 1
+            if (this.stack[mid] <= x) l = mid + 1
+            else r = mid - 1
+        }
+        return l
+    }
+}
