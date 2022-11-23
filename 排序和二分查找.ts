@@ -44,3 +44,26 @@ class StreamRank {
         return l
     }
 }
+
+/**
+ * @link https://leetcode.cn/problems/peaks-and-valleys-lcci/description/?favorite=xb9lfcwi
+ * @method 快速排序
+ */
+function wiggleSort(nums: number[]): void {
+    function quikcSort(nums: number[]): number[] {
+        if (nums.length < 2) return nums
+        let l = [], r = [], m = ~~(nums.length >> 1)
+        const mid = nums.splice(m, 1)[0]
+        for (let i = 0; i < nums.length; i++) {
+            nums[i] > mid ? r.push(nums[i]) : l.push(nums[i])
+        }
+        return quikcSort(l).concat([mid], quikcSort(r))
+    }
+    // 快速排序，然后每次从快排后的数组尾部和头部按顺序插入nums当中
+    const sorAry = quikcSort(nums)
+    let l = 0, r = sorAry.length - 1, start = 0
+    while (l <= r) {
+        nums[start++] = sorAry[r--]
+        if (l <= r) nums[start++] = sorAry[l++]
+    }
+};
