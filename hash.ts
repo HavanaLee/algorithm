@@ -13,4 +13,22 @@ function groupAnagrams(strs: string[]): string[][] {
     return Array.from(map.values())
 };
 
+/**
+ * @link https://leetcode.cn/problems/words-frequency-lcci/?favorite=xb9lfcwi
+ */
+class WordsFrequency {
+    map = new Map<string, number>()
+    constructor(book: string[]) {
+        for (let i = 0; i < book.length; i++) {
+            let value = this.map.has(book[i]) ? this.map.get(book[i]) : 0
+            value++
+            this.map.set(book[i], value)
+        }
+    }
+
+    get(word: string): number {
+        return this.map.get(word) ?? 0
+    }
+}
+
 groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])

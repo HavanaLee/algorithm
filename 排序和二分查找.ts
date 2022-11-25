@@ -67,3 +67,15 @@ function wiggleSort(nums: number[]): void {
         if (l <= r) nums[start++] = sorAry[l++]
     }
 };
+
+/**
+ * @link https://leetcode.cn/problems/swap-numbers-lcci/?favorite=xb9lfcwi
+ * @method 位运算
+ */
+function swapNumbers(numbers: number[]): number[] {
+    // 利用异位或的特性
+    numbers[0] = numbers[0] ^ numbers[1]
+    numbers[1] = numbers[0] ^ numbers[1]
+    numbers[0] = numbers[0] ^ numbers[1]
+    return numbers
+};
