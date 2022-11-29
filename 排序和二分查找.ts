@@ -79,3 +79,30 @@ function swapNumbers(numbers: number[]): number[] {
     numbers[0] = numbers[0] ^ numbers[1]
     return numbers
 };
+
+/**
+ * @link https://leetcode.cn/problems/smallest-difference-lcci/?favorite=xb9lfcwi
+ */
+function smallestDifference(a: number[], b: number[]): number {
+
+    b.sort((h1, h2) => h1 - h2)
+    let min = Number.MAX_SAFE_INTEGER
+    for (let i = 0; i < a.length; i++) {
+        let l = 0, r = b.length - 1, m: number
+        if (r === 0) { // 处理只有一个数值的情况
+            min = Math.min(min, Math.abs(a[i] - b[0]))
+            continue
+        }
+        while (l <= r) {
+            m = Math.floor((r - l) / 2 + l)
+            const absm = Math.abs(a[i] - b[m])
+            min = Math.min(min, absm)
+            if (b[m] < a[i]) l = m + 1
+            else r = m - 1
+        }
+
+    }
+    return min
+};
+
+smallestDifference([-2147483648, 1], [2147483647, 0])

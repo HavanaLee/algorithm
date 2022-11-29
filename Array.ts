@@ -231,493 +231,493 @@
 //   }
 // }
 
-// type map = {
-//   [key in string]?: number;
-// }
-// /**
-//  * @link https://leetcode-cn.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
-//  * @method 排序 时间复杂度O(nlogn)
-//  */
-// function smallerNumbersThanCurrent(nums: number[]): number[] {
-//   let res = nums.slice(), map: map = {}
-//   res.sort((a, b) => a - b)
-//   for (let i = res.length - 1; i >= 0; i--) {
-//     map[res[i]] = i
-//   }
-//   for (let i = 0; i < nums.length; i++) {
-//     res[i] = map[nums[i]]
-//   }
-//   return res
-// };
+type map = {
+  [key in string]?: number;
+}
+/**
+ * @link https://leetcode-cn.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
+ * @method 排序 时间复杂度O(nlogn)
+ */
+function smallerNumbersThanCurrent(nums: number[]): number[] {
+  let res = nums.slice(), map: map = {}
+  res.sort((a, b) => a - b)
+  for (let i = res.length - 1; i >= 0; i--) {
+    map[res[i]] = i
+  }
+  for (let i = 0; i < nums.length; i++) {
+    res[i] = map[nums[i]]
+  }
+  return res
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/binary-search/ 
-//  * @method 二分法 时间复杂度O(logn)，空间复杂度O(1)
-//  */
-// function search(nums: number[], target: number): number {
-//   let l = 0, r = nums.length - 1
-//   while (l <= r) {
-//     let m = Math.floor((l + r) / 2)
-//     if (nums[m] === target) return m
-//     else if (nums[m] < target) l = m + 1
-//     else if (nums[m] > target) r = m - 1
-//   }
-//   return -1
-// };
+/**
+ * @link https://leetcode-cn.com/problems/binary-search/
+ * @method 二分法 时间复杂度O(logn)，空间复杂度O(1)
+ */
+function search(nums: number[], target: number): number {
+  let l = 0, r = nums.length - 1
+  while (l <= r) {
+    let m = Math.floor((l + r) / 2)
+    if (nums[m] === target) return m
+    else if (nums[m] < target) l = m + 1
+    else if (nums[m] > target) r = m - 1
+  }
+  return -1
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/remove-element/
-//  * @method 双指针 时间复杂度O(n)，空间复杂度O(1)
-//  */
-// function removeElement(nums: number[], val: number): number {
-//   let index = 0
-//   for (let i = 0; i < nums.length; i++) {
-//     if (nums[i] !== val) nums[index++] = nums[i]
-//   }
-//   return index
-// };
+/**
+ * @link https://leetcode-cn.com/problems/remove-element/
+ * @method 双指针 时间复杂度O(n)，空间复杂度O(1)
+ */
+function removeElement(nums: number[], val: number): number {
+  let index = 0
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== val) nums[index++] = nums[i]
+  }
+  return index
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/squares-of-a-sorted-array/
-//  * @method 双指针 因为本身是有序数组，所以最大必然在左侧或者右侧 时间复杂度O(n)
-//  */
-// function sortedSquares(nums: number[]): number[] {
-//   let res = Array.from({ length: nums.length }).fill(0) as number[], k = nums.length - 1
-//   for (let i = 0, j = nums.length - 1; i <= j;) {
-//     if (Math.pow(nums[i], 2) <= Math.pow(nums[j], 2)) {
-//       res[k--] = Math.pow(nums[j], 2)
-//       j--
-//     } else {
-//       res[k--] = Math.pow(nums[i], 2)
-//       i++
-//     }
-//   }
-//   return res
-// };
+/**
+ * @link https://leetcode-cn.com/problems/squares-of-a-sorted-array/
+ * @method 双指针 因为本身是有序数组，所以最大必然在左侧或者右侧 时间复杂度O(n)
+ */
+function sortedSquares(nums: number[]): number[] {
+  let res = Array.from({ length: nums.length }).fill(0) as number[], k = nums.length - 1
+  for (let i = 0, j = nums.length - 1; i <= j;) {
+    if (Math.pow(nums[i], 2) <= Math.pow(nums[j], 2)) {
+      res[k--] = Math.pow(nums[j], 2)
+      j--
+    } else {
+      res[k--] = Math.pow(nums[i], 2)
+      i++
+    }
+  }
+  return res
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/minimum-size-subarray-sum/
-//  */
-// function minSubArrayLen(target: number, nums: number[]): number {
-//   let min = 0, l = 0, r = 0, min_len = 0
-//   while (r <= nums.length) {
-//     if (min < target) min += nums[r++]
-//     else {
-//       min_len = min_len ? Math.min(min_len, r - l) : r - l
-//       min -= nums[l++]
-//     }
-//   }
-//   return min_len
-// };
+/**
+ * @link https://leetcode-cn.com/problems/minimum-size-subarray-sum/
+ */
+function minSubArrayLen(target: number, nums: number[]): number {
+  let min = 0, l = 0, r = 0, min_len = 0
+  while (r <= nums.length) {
+    if (min < target) min += nums[r++]
+    else {
+      min_len = min_len ? Math.min(min_len, r - l) : r - l
+      min -= nums[l++]
+    }
+  }
+  return min_len
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/spiral-matrix-ii/
-//  * @method 矩形生成 时间复杂度O(n²) 空间复杂度O(1)
-//  */
-// function generateMatrix(n: number): number[][] {
-//   let res = new Array(n).fill(0).map(() => new Array(n).fill(0))
-//   let l = 0, r = n - 1, t = 0, b = n - 1, num = 1
-//   while (l <= r && t <= b) {
-//     // 上方一行
-//     for (let column = l; column <= r; column++) {
-//       res[t][column] = num++
-//     }
-//     // 右侧
-//     for (let row = t + 1; row <= b; row++) {
-//       res[row][r] = num++
-//     }
-//     if (l < r && t < b) {
-//       // 下方
-//       for (let column = r - 1; column >= l; column--) {
-//         res[b][column] = num++
-//       }
-//       // 左侧
-//       for (let row = b - 1; row > t; row--) {
-//         res[row][l] = num++
-//       }
-//     }
-//     // 缩窄矩形范围，即缩小一圈
-//     l++
-//     r--
-//     t++
-//     b--
-//   }
-//   return res
-// };
+/**
+ * @link https://leetcode-cn.com/problems/spiral-matrix-ii/
+ * @method 矩形生成 时间复杂度O(n²) 空间复杂度O(1)
+ */
+function generateMatrix(n: number): number[][] {
+  let res = new Array(n).fill(0).map(() => new Array(n).fill(0))
+  let l = 0, r = n - 1, t = 0, b = n - 1, num = 1
+  while (l <= r && t <= b) {
+    // 上方一行
+    for (let column = l; column <= r; column++) {
+      res[t][column] = num++
+    }
+    // 右侧
+    for (let row = t + 1; row <= b; row++) {
+      res[row][r] = num++
+    }
+    if (l < r && t < b) {
+      // 下方
+      for (let column = r - 1; column >= l; column--) {
+        res[b][column] = num++
+      }
+      // 左侧
+      for (let row = b - 1; row > t; row--) {
+        res[row][l] = num++
+      }
+    }
+    // 缩窄矩形范围，即缩小一圈
+    l++
+    r--
+    t++
+    b--
+  }
+  return res
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/fruit-into-baskets/
-//  * @method 滑动窗口 时间复杂度O(n)，空间复杂度O(n)
-//  */
-// function totalFruit(fruits: number[]): number {
-//   let map = new Map<number, number>()
-//   let l = 0, r = 0, max = 0
-//   while (r < fruits.length) {
-//     map.set(fruits[r], map.has(fruits[r]) ? map.get(fruits[r]) + 1 : 1)
-//     if (map.size > 2) {
-//       map.get(fruits[l]) > 1 ? map.set(fruits[l], map.get(fruits[l]) - 1) : map.delete(fruits[l])
-//       map.get(fruits[r]) > 1 ? map.set(fruits[r], map.get(fruits[r]) - 1) : map.delete(fruits[r])
-//       l++
-//     } else r++
-//     max = Math.max(max, r - l)
-//   }
-//   return max
-// };
+/**
+ * @link https://leetcode-cn.com/problems/fruit-into-baskets/
+ * @method 滑动窗口 时间复杂度O(n)，空间复杂度O(n)
+ */
+function totalFruit(fruits: number[]): number {
+  let map = new Map<number, number>()
+  let l = 0, r = 0, max = 0
+  while (r < fruits.length) {
+    map.set(fruits[r], map.has(fruits[r]) ? map.get(fruits[r]) + 1 : 1)
+    if (map.size > 2) {
+      map.get(fruits[l]) > 1 ? map.set(fruits[l], map.get(fruits[l]) - 1) : map.delete(fruits[l])
+      map.get(fruits[r]) > 1 ? map.set(fruits[r], map.get(fruits[r]) - 1) : map.delete(fruits[r])
+      l++
+    } else r++
+    max = Math.max(max, r - l)
+  }
+  return max
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/array-of-doubled-pairs/
-//  */
-// function canReorderDoubled(arr: number[]): boolean {
-//   const map = new Map<number, number>()
-//   for (const v of arr) {
-//     map.set(v, map.has(v) ? map.get(v) + 1 : 1)
-//   }
-//   if (map.get(0) % 2 === 1) return false // 规避0
-//   let keys = Array.from(map.keys())
-//   keys.sort((a, b) => Math.abs(a) - Math.abs(b)) // 因为有负数存在，所以需要用绝对值比较大小排序
-//   for (const key of keys) {
-//     if ((map.get(2 * key) || 0) < map.get(key)) return false // map中没有2key或者2key数量小于当前值的数量就要return false，已经排序了
-//     map.set(key * 2, map.get(2 * key) - map.get(key))
-//   }
-//   return true
-// };
+/**
+ * @link https://leetcode-cn.com/problems/array-of-doubled-pairs/
+ */
+function canReorderDoubled(arr: number[]): boolean {
+  const map = new Map<number, number>()
+  for (const v of arr) {
+    map.set(v, map.has(v) ? map.get(v) + 1 : 1)
+  }
+  if (map.get(0) % 2 === 1) return false // 规避0
+  let keys = Array.from(map.keys())
+  keys.sort((a, b) => Math.abs(a) - Math.abs(b)) // 因为有负数存在，所以需要用绝对值比较大小排序
+  for (const key of keys) {
+    if ((map.get(2 * key) || 0) < map.get(key)) return false // map中没有2key或者2key数量小于当前值的数量就要return false，已经排序了
+    map.set(key * 2, map.get(2 * key) - map.get(key))
+  }
+  return true
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/insert-delete-getrandom-o1/
-//  */
-// class RandomizedSet {
-//   children: Array<number>;
-//   children_map
-//   constructor() {
-//     this.children = [],
-//       this.children_map = new Map<number, number>()
-//   }
+/**
+ * @link https://leetcode-cn.com/problems/insert-delete-getrandom-o1/
+ */
+class RandomizedSet {
+  children: Array<number>;
+  children_map
+  constructor() {
+    this.children = [],
+      this.children_map = new Map<number, number>()
+  }
 
-//   insert(val: number): boolean {
-//     if (!this.children_map.has(val)) {
-//       this.children_map.set(val, this.children.length)
-//       this.children.push(val)
-//       return true
-//     } else return false
-//   }
+  insert(val: number): boolean {
+    if (!this.children_map.has(val)) {
+      this.children_map.set(val, this.children.length)
+      this.children.push(val)
+      return true
+    } else return false
+  }
 
-//   // 每次删除时把要删除的那个数放到数组末尾，且可以保证在删除操作之后变长数组中的所有元素的下标都连续，方便插入操作和获取随机元素操作
-//   remove(val: number): boolean {
-//     if (!this.children_map.has(val)) return false
-//     else {
-//       const idx = this.children_map.get(val)
-//       this.children[idx] = this.children[this.children.length - 1]
-//       this.children_map.set(this.children[this.children.length - 1], idx)
-//       this.children_map.delete(val)
-//       this.children.pop()
-//       return true
-//     }
-//   }
+  // 每次删除时把要删除的那个数放到数组末尾，且可以保证在删除操作之后变长数组中的所有元素的下标都连续，方便插入操作和获取随机元素操作
+  remove(val: number): boolean {
+    if (!this.children_map.has(val)) return false
+    else {
+      const idx = this.children_map.get(val)
+      this.children[idx] = this.children[this.children.length - 1]
+      this.children_map.set(this.children[this.children.length - 1], idx)
+      this.children_map.delete(val)
+      this.children.pop()
+      return true
+    }
+  }
 
-//   getRandom(): number {
-//     let len = Math.floor(Math.random() * this.children.length)
-//     return this.children[len]
-//   }
-// }
+  getRandom(): number {
+    let len = Math.floor(Math.random() * this.children.length)
+    return this.children[len]
+  }
+}
 
-// /**
-//  * @link https://leetcode-cn.com/problems/richest-customer-wealth/
-//  */
-// function maximumWealth(accounts: number[][]): number {
-//   let max = 0
-//   for (const ary of accounts) {
-//     let sum = 0
-//     for (const money of ary) {
-//       sum += money
-//     }
-//     if (sum >= max) max = sum
-//   }
-//   return max
-// };
+/**
+ * @link https://leetcode-cn.com/problems/richest-customer-wealth/
+ */
+function maximumWealth(accounts: number[][]): number {
+  let max = 0
+  for (const ary of accounts) {
+    let sum = 0
+    for (const money of ary) {
+      sum += money
+    }
+    if (sum >= max) max = sum
+  }
+  return max
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/unique-morse-code-words/
-//  */
-// function uniqueMorseRepresentations(words: string[]): number {
-//   const map = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."]
-//   let set = new Set<string>()
-//   for (const key of words) {
-//     let sum: string
-//     for (const s of key) {
-//       sum += map[s.charCodeAt(0) - 97]
-//     }
-//     set.add(sum)
-//   }
-//   return set.size
-// };
+/**
+ * @link https://leetcode-cn.com/problems/unique-morse-code-words/
+ */
+function uniqueMorseRepresentations(words: string[]): number {
+  const map = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."]
+  let set = new Set<string>()
+  for (const key of words) {
+    let sum: string
+    for (const s of key) {
+      sum += map[s.charCodeAt(0) - 97]
+    }
+    set.add(sum)
+  }
+  return set.size
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/lexicographical-numbers/
-//  */
-// function lexicalOrder(n: number): number[] {
-//   // 
-//   let ret: number[] = [], number = 1
-//   for (let i = 0; i < n; i++) {
-//     ret.push(number)
-//     if (number * 10 <= n) number *= 10
-//     else {
-//       while (number % 10 === 9 || number + 1 > n) {
-//         number = Math.floor(number / 10)
-//       }
-//       number++
-//     }
-//   }
-//   return ret
-// };
+/**
+ * @link https://leetcode-cn.com/problems/lexicographical-numbers/
+ */
+function lexicalOrder(n: number): number[] {
+  //
+  let ret: number[] = [], number = 1
+  for (let i = 0; i < n; i++) {
+    ret.push(number)
+    if (number * 10 <= n) number *= 10
+    else {
+      while (number % 10 === 9 || number + 1 > n) {
+        number = Math.floor(number / 10)
+      }
+      number++
+    }
+  }
+  return ret
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/first-bad-version/
-//  */
-// var solution = function (isBadVersion: any) {
+/**
+ * @link https://leetcode-cn.com/problems/first-bad-version/
+ */
+var solution = function (isBadVersion: any) {
 
-//   return function (n: number): number {
-//     let l = 1, r = n
-//     while (l <= r) {
-//       let m = Math.floor((l + r) / 2)
-//       if (isBadVersion(m)) r = m - 1
-//       else l = m + 1
-//     }
-//     return l
-//   };
-// };
+  return function (n: number): number {
+    let l = 1, r = n
+    while (l <= r) {
+      let m = Math.floor((l + r) / 2)
+      if (isBadVersion(m)) r = m - 1
+      else l = m + 1
+    }
+    return l
+  };
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/search-insert-position/
-//  */
-// function searchInsert(nums: number[], target: number): number {
-//   let l = 0, r = nums.length - 1
-//   while (l <= r) {
-//     for (let i = 0; i < nums.length; i++) {
-//       const m = Math.floor(l + (r - l) / 2)
-//       if (nums[m] === target) return m
-//       else if (nums[m] < target) l = m + 1
-//       else if (nums[m] > target) r = m - 1
-//     }
-//   }
-//   return l
-// };
+/**
+ * @link https://leetcode-cn.com/problems/search-insert-position/
+ */
+function searchInsert(nums: number[], target: number): number {
+  let l = 0, r = nums.length - 1
+  while (l <= r) {
+    for (let i = 0; i < nums.length; i++) {
+      const m = Math.floor(l + (r - l) / 2)
+      if (nums[m] === target) return m
+      else if (nums[m] < target) l = m + 1
+      else if (nums[m] > target) r = m - 1
+    }
+  }
+  return l
+};
 
-// type func = {
-//   (nums: number[], start: number, end: number): number[]
-// }
-// /**
-//  * @link https://leetcode-cn.com/problems/rotate-array/
-//  * @method 双指针，空间复杂度O(1)
-//  */
-// function rotate(nums: number[], k: number): void {
-//   k %= nums.length // 因为翻转次数不限，k=num.length时候相当于一次轮回，翻转成了原数组，所以取出来余数相当于是要翻转的中间数
+type func = {
+  (nums: number[], start: number, end: number): number[]
+}
+/**
+ * @link https://leetcode-cn.com/problems/rotate-array/
+ * @method 双指针，空间复杂度O(1)
+ */
+function rotate(nums: number[], k: number): void {
+  k %= nums.length // 因为翻转次数不限，k=num.length时候相当于一次轮回，翻转成了原数组，所以取出来余数相当于是要翻转的中间数
 
-//   // 双指针翻转给定的数组
-//   const rotateAry: func = (nums, start, end) => {
-//     while (start < end) {
-//       [nums[start], nums[end]] = [nums[end], nums[start]]
-//       end--
-//       start++
-//     }
-//     return nums
-//   }
+  // 双指针翻转给定的数组
+  const rotateAry: func = (nums, start, end) => {
+    while (start < end) {
+      [nums[start], nums[end]] = [nums[end], nums[start]]
+      end--
+      start++
+    }
+    return nums
+  }
 
-//   rotateAry(nums, 0, nums.length - 1) // 先整体翻转
-//   rotateAry(nums, 0, k - 1) // 取到的k就是真正要翻转的数组长度
-//   rotateAry(nums, k, nums.length - 1) // 翻转剩余的数组
-// };
+  rotateAry(nums, 0, nums.length - 1) // 先整体翻转
+  rotateAry(nums, 0, k - 1) // 取到的k就是真正要翻转的数组长度
+  rotateAry(nums, k, nums.length - 1) // 翻转剩余的数组
+};
 
-// /**
-//  * @link https://leetcode.cn/problems/rotate-matrix-lcci/?favorite=xb9lfcwi
-//  */
-// function rotateRect(matrix: number[][]): void {
-//   const n = matrix.length
-//   for (let r = 0; r < Math.floor(n / 2); r++) {
-//     for (let c = 0; c < Math.floor((n + 1) / 2); c++) {
-//       let temp = matrix[r][c]
-//       matrix[r][c] = matrix[n - c - 1][r]
-//       matrix[n - c - 1][r] = matrix[n - r - 1][n - c - 1]
-//       matrix[n - r - 1][n - c - 1] = matrix[c][n - r - 1]
-//       matrix[c][n - r - 1] = temp
-//     }
-//   }
-// };
+/**
+ * @link https://leetcode.cn/problems/rotate-matrix-lcci/?favorite=xb9lfcwi
+ */
+function rotateRect(matrix: number[][]): void {
+  const n = matrix.length
+  for (let r = 0; r < Math.floor(n / 2); r++) {
+    for (let c = 0; c < Math.floor((n + 1) / 2); c++) {
+      let temp = matrix[r][c]
+      matrix[r][c] = matrix[n - c - 1][r]
+      matrix[n - c - 1][r] = matrix[n - r - 1][n - c - 1]
+      matrix[n - r - 1][n - c - 1] = matrix[c][n - r - 1]
+      matrix[c][n - r - 1] = temp
+    }
+  }
+};
 
-// /**
-//  * @link https://leetcode-cn.com/problems/random-pick-index/
-//  */
-// class Solution {
-//   nums: number[]
-//   // private sets = new Map<number, number[]>()
-//   // constructor(nums: number[]) {
-//   //   this.nums = nums
-//   //   for (let i = 0; i < nums.length; i++) {
-//   //     const ary = this.sets.get(nums[i]) || []
-//   //     ary.push(i)
-//   //     this.sets.set(nums[i], ary)
-//   //   }
-//   // }
+/**
+ * @link https://leetcode-cn.com/problems/random-pick-index/
+ */
+class Solution {
+  nums: number[]
+  // private sets = new Map<number, number[]>()
+  // constructor(nums: number[]) {
+  //   this.nums = nums
+  //   for (let i = 0; i < nums.length; i++) {
+  //     const ary = this.sets.get(nums[i]) || []
+  //     ary.push(i)
+  //     this.sets.set(nums[i], ary)
+  //   }
+  // }
 
-//   // pick(target: number): number {
-//   //   if (this.sets.get(target).length < 2) return this.sets.get(target)[0]
-//   //   else {
-//   //     const idx = Math.floor(Math.random() * this.sets.get(target).length)
-//   //     return this.sets.get(target)[idx]
-//   //   }
-//   // }
-//   constructor(nums: number[]) {
-//     this.nums = nums
-//   }
+  // pick(target: number): number {
+  //   if (this.sets.get(target).length < 2) return this.sets.get(target)[0]
+  //   else {
+  //     const idx = Math.floor(Math.random() * this.sets.get(target).length)
+  //     return this.sets.get(target)[idx]
+  //   }
+  // }
+  constructor(nums: number[]) {
+    this.nums = nums
+  }
 
-//   pick(target: number): number {
-//     let res
-//     for (let i = 0, j = 0; i < this.nums.length; i++) {
-//       if (this.nums[i] === target) {
-//         j++ // 第n次遇到，在区间[0, j)之间随机一个=0的下标
-//         if (Math.floor(Math.random() * j) === 0) {
-//           res = i
-//         }
-//       }
-//     }
-//     return res
-//   }
-// }
+  pick(target: number): number {
+    let res
+    for (let i = 0, j = 0; i < this.nums.length; i++) {
+      if (this.nums[i] === target) {
+        j++ // 第n次遇到，在区间[0, j)之间随机一个=0的下标
+        if (Math.floor(Math.random() * j) === 0) {
+          res = i
+        }
+      }
+    }
+    return res
+  }
+}
 
-// /**
-//  * @link https://leetcode.cn/problems/koko-eating-bananas/
-//  * @description 因为求的是最小值，所以花费时间小于等于保安出去的时间时的速度也是可以存在的，此处r=m而不是r=m+1，并不是说最小速度一度存在于[l,m-1]。但是当花费时间大于出去的时间那么这个速度一定不是最小速度，即最小速度一定存在于[m+1，r]之中
-//  */
-// function minEatingSpeed(piles: number[], h: number): number {
-//   let r = Math.max(...piles)
-//   let l = 1, m = r
-//   while (l < r) {
+/**
+ * @link https://leetcode.cn/problems/koko-eating-bananas/
+ * @description 因为求的是最小值，所以花费时间小于等于保安出去的时间时的速度也是可以存在的，此处r=m而不是r=m+1，并不是说最小速度一度存在于[l,m-1]。但是当花费时间大于出去的时间那么这个速度一定不是最小速度，即最小速度一定存在于[m+1，r]之中
+ */
+function minEatingSpeed(piles: number[], h: number): number {
+  let r = Math.max(...piles)
+  let l = 1, m = r
+  while (l < r) {
 
-//     let h1 = 0
-//     for (let i = 0; i < piles.length; i++) {
-//       if (piles[i] % m) h1 += ~~(piles[i] / m) + 1
-//       else h1 += ~~(piles[i] / m)
-//     }
-//     if (h1 <= h) r = m
-//     else l = m + 1
+    let h1 = 0
+    for (let i = 0; i < piles.length; i++) {
+      if (piles[i] % m) h1 += ~~(piles[i] / m) + 1
+      else h1 += ~~(piles[i] / m)
+    }
+    if (h1 <= h) r = m
+    else l = m + 1
 
-//     m = Math.floor((r - l) / 2) + l
-//   }
-//   return m
-// };
+    m = Math.floor((r - l) / 2) + l
+  }
+  return m
+};
 
-// /**
-//  * @link https://leetcode.cn/problems/valid-boomerang/
-//  * @description 「三点各不相同且不在一条直线上」等价于「这两个向量的叉乘结果不为零
-//  */
-// function isBoomerang(points: number[][]): boolean {
-//   let v1 = [points[1][0] - points[0][0], points[1][1] - points[0][1]]
-//   let v2 = [points[1][0] - points[2][0], points[1][1] - points[2][1]]
-//   return v1[0] * v2[1] - v1[1] * v2[0] != 0
-// };
+/**
+ * @link https://leetcode.cn/problems/valid-boomerang/
+ * @description 「三点各不相同且不在一条直线上」等价于「这两个向量的叉乘结果不为零
+ */
+function isBoomerang(points: number[][]): boolean {
+  let v1 = [points[1][0] - points[0][0], points[1][1] - points[0][1]]
+  let v2 = [points[1][0] - points[2][0], points[1][1] - points[2][1]]
+  return v1[0] * v2[1] - v1[1] * v2[0] != 0
+};
 
-// /**
-//  * @link https://leetcode.cn/problems/k-diff-pairs-in-an-array/
-//  */
-// function findPairs(nums: number[], k: number): number {
-//   nums.sort((a, b) => a - b)
-//   let map = new Map<number, number>(), obj: map = {}
-//   for (let i = 0; i < nums.length; i++) {
-//     map.set(nums[i], (map.get(nums[i]) || 0) + 1)
-//   }
-//   for (let i = 0; i < nums.length; i++) {
-//     if (map.has(k + nums[i])) {
-//       if (k === 0 && map.get(k + nums[i]) < 2) continue
-//       obj[nums[i]] = k + nums[i]
-//     }
-//   }
-//   return Object.keys(obj).length
-// };
+/**
+ * @link https://leetcode.cn/problems/k-diff-pairs-in-an-array/
+ */
+function findPairs(nums: number[], k: number): number {
+  nums.sort((a, b) => a - b)
+  let map = new Map<number, number>(), obj: map = {}
+  for (let i = 0; i < nums.length; i++) {
+    map.set(nums[i], (map.get(nums[i]) || 0) + 1)
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (map.has(k + nums[i])) {
+      if (k === 0 && map.get(k + nums[i]) < 2) continue
+      obj[nums[i]] = k + nums[i]
+    }
+  }
+  return Object.keys(obj).length
+};
 
-// /**
-//  * @link https://leetcode.cn/problems/longest-uncommon-subsequence-ii/
-//  */
-// function findLUSlength(strs: string[]): number {
-//   let k = 0
-//   for (let i = 0; i < strs.length; i++) {
-//     const son = strs[i]
-//     const ary = strs.filter(str => str !== son)
-//     if (ary.length + 1 < strs.length) continue
-//     const isBol = ary.every(k => isSubsequence(k, son))
-//     isBol ? k++ : k
-//   }
+/**
+ * @link https://leetcode.cn/problems/longest-uncommon-subsequence-ii/
+ */
+function findLUSlength(strs: string[]): number {
+  let k = 0
+  for (let i = 0; i < strs.length; i++) {
+    const son = strs[i]
+    const ary = strs.filter(str => str !== son)
+    if (ary.length + 1 < strs.length) continue
+    const isBol = ary.every(k => isSubsequence(k, son))
+    isBol ? k++ : k
+  }
 
 
 
-//   function isSubsequence(father: string, son: string): boolean {
-//     let ptS = 0, ptT = 0;
-//     while (ptS < father.length && ptT < son.length) {
-//       if (father[ptS] === son[ptT]) {
-//         ++ptS;
-//       }
-//       ++ptT;
-//     }
-//     return ptS !== son.length;
-//   }
-//   return k ? k : -1
-// };
+  function isSubsequence(father: string, son: string): boolean {
+    let ptS = 0, ptT = 0;
+    while (ptS < father.length && ptT < son.length) {
+      if (father[ptS] === son[ptT]) {
+        ++ptS;
+      }
+      ++ptT;
+    }
+    return ptS !== son.length;
+  }
+  return k ? k : -1
+};
 
-// /**
-//  * @link https://leetcode.cn/problems/multi-search-lcci/?favorite=xb9lfcwi
-//  * @method 滑动窗口
-//  */
-// function multiSearch(big: string, smalls: string[]): number[][] {
-//   let l = 0, b_len = big.length, res = []
-//   while (l < smalls.length) {
-//     let s = 0, r = smalls[l].length, str = smalls[l], temp = []
-//     while (r <= b_len) {
-//       if (big.substring(s, r) === str && str) temp.push(s)
-//       s++
-//       r++
-//     }
-//     l++
-//     res.push(temp)
-//   }
-//   return res
-// };
+/**
+ * @link https://leetcode.cn/problems/multi-search-lcci/?favorite=xb9lfcwi
+ * @method 滑动窗口
+ */
+function multiSearch(big: string, smalls: string[]): number[][] {
+  let l = 0, b_len = big.length, res = []
+  while (l < smalls.length) {
+    let s = 0, r = smalls[l].length, str = smalls[l], temp = []
+    while (r <= b_len) {
+      if (big.substring(s, r) === str && str) temp.push(s)
+      s++
+      r++
+    }
+    l++
+    res.push(temp)
+  }
+  return res
+};
 
-// /**
-//  * @link https://leetcode.cn/problems/repeated-dna-sequences/
-//  * @method 滑动窗口
-//  */
-// function findRepeatedDnaSequences(s: string): string[] {
-//   let l = 0, r = 10, map: Map<string, number> = new Map(), res: string[] = []
-//   while (r <= s.length) {
-//     let copy = s.slice(l, r)
-//     if (map.has(copy)) map.set(copy, map.get(copy) + 1)
-//     else map.set(copy, 1)
-//     l++
-//     r++
-//   }
-//   map.forEach((v, k) => {
-//     if (v > 1) res.push(k)
-//   })
-//   return res
-// };
+/**
+ * @link https://leetcode.cn/problems/repeated-dna-sequences/
+ * @method 滑动窗口
+ */
+function findRepeatedDnaSequences(s: string): string[] {
+  let l = 0, r = 10, map: Map<string, number> = new Map(), res: string[] = []
+  while (r <= s.length) {
+    let copy = s.slice(l, r)
+    if (map.has(copy)) map.set(copy, map.get(copy) + 1)
+    else map.set(copy, 1)
+    l++
+    r++
+  }
+  map.forEach((v, k) => {
+    if (v > 1) res.push(k)
+  })
+  return res
+};
 
-// /**
-//  * @link https://leetcode.cn/problems/color-fill-lcci/?favorite=xb9lfcwi
-//  * @method bfs广度优先
-//  */
-// function floodFill(image: number[][], sr: number, sc: number, newColor: number): number[][] {
-//   let m = image.length, n = image[0].length, oldColor = image[sr][sc], queen = [[sr, sc]]
-//   if (oldColor === newColor) return image // 如果新旧颜色相同直接return
-//   // 利用队列把上下左右满足条件的下标都存入，修改下标对应的颜色即可
-//   while (queen.length) {
-//     const [i, j] = queen.shift()
-//     image[i][j] = newColor
+/**
+ * @link https://leetcode.cn/problems/color-fill-lcci/?favorite=xb9lfcwi
+ * @method bfs广度优先
+ */
+function floodFill(image: number[][], sr: number, sc: number, newColor: number): number[][] {
+  let m = image.length, n = image[0].length, oldColor = image[sr][sc], queen = [[sr, sc]]
+  if (oldColor === newColor) return image // 如果新旧颜色相同直接return
+  // 利用队列把上下左右满足条件的下标都存入，修改下标对应的颜色即可
+  while (queen.length) {
+    const [i, j] = queen.shift()
+    image[i][j] = newColor
 
-//     if (i - 1 >= 0 && image[i - 1][j] === oldColor) queen.push([i - 1, j]) // 上
-//     if (i + 1 < m && image[i + 1][j] === oldColor) queen.push([i + 1, j]) // 下
-//     if (j - 1 >= 0 && image[i][j - 1] === oldColor) queen.push([i, j - 1]) // 左
-//     if (j + 1 < n && image[i][j + 1] === oldColor) queen.push([i, j + 1]) // 右
-//   }
-//   return image
-// };
+    if (i - 1 >= 0 && image[i - 1][j] === oldColor) queen.push([i - 1, j]) // 上
+    if (i + 1 < m && image[i + 1][j] === oldColor) queen.push([i + 1, j]) // 下
+    if (j - 1 >= 0 && image[i][j - 1] === oldColor) queen.push([i, j - 1]) // 左
+    if (j + 1 < n && image[i][j + 1] === oldColor) queen.push([i, j + 1]) // 右
+  }
+  return image
+};
 
 /**
  * @link https://leetcode.cn/problems/tic-tac-toe-lcci/?favorite=xb9lfcwi
@@ -761,4 +761,6 @@ function tictactoe(board: string[]): string {
   }
   return status
 };
+
+
 tictactoe(["OOXXOXXX", "XXXOXOXO", "OXOXXXOO", "XOXOXXXX", "OXOOXOOO", "XOOOOOOO", "OXXXOOOX", "XOXOOXXX"])
