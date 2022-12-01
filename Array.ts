@@ -764,6 +764,7 @@ function tictactoe(board: string[]): string {
 
 /**
  * @link https://leetcode.cn/problems/living-people-lcci/description/?favorite=xb9lfcwi
+ * @method 前缀和
  */
 function maxAliveYear(birth: number[], death: number[]): number {
   const len = birth.length
@@ -784,6 +785,24 @@ function maxAliveYear(birth: number[], death: number[]): number {
     }
   }
   return minYear
+};
+
+/**
+ * @link https://leetcode.cn/problems/diving-board-lcci/?favorite=xb9lfcwi
+ */
+function divingBoard(shorter: number, longer: number, k: number): number[] {
+  let res = [] as number[], short_num = k
+  if (!k) return []
+  // short和long一样长时不需要计算机，怎么摆放都是同一结果
+  if (shorter === longer) return [shorter * k]
+
+  while (short_num >= 0) {
+    let long_num = k - short_num
+    res.push(shorter * short_num + longer * long_num)
+    short_num--
+  }
+
+  return res
 };
 
 maxAliveYear([1972, 1908, 1915, 1957, 1960, 1948, 1912, 1903, 1949, 1977, 1900, 1957, 1934, 1929, 1913, 1902, 1903, 1901], [1997, 1932, 1963, 1997, 1983, 2000, 1926, 1962, 1955, 1997, 1998, 1989, 1992, 1975, 1940, 1903, 1983, 1969])
