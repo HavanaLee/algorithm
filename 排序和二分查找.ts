@@ -105,5 +105,30 @@ function smallestDifference(a: number[], b: number[]): number {
     return min
 };
 
+/**
+ * @link https://leetcode.cn/problems/sub-sort-lcci/?favorite=xb9lfcwi
+ * @method 双指针
+ */
+function subSort(array: number[]): number[] {
+    // 这道题默认数组是升序的
+    let l = -1, r = -1, max = Number.MIN_SAFE_INTEGER, min = Number.MAX_SAFE_INTEGER
+    // 先从前往后遍历一次
+    for (let i = 0; i < array.length; i++) {
+        // 如果当前值小于遍历的最大值，说明在这里出现了问题
+        if (array[i] < max) r = i
+        // 正常升序，更新最大值
+        else max = array[i]
+    }
+    // 从后往前遍历一次
+    for (let i = array.length - 1; i >= 0; i--) {
+        // 因为是从后往前，是会越来越小的，如果当前值大于了最小值，说明这里出现了问题
+        if (array[i] > min) l = i
+        // 正常升序，更新最小值
+        else min = array[i]
+    }
+    // 最后的区间按从小到大顺序返回
+    return [Math.min(l, r), Math.max(l, r)]
+};
+
 
 smallestDifference([-2147483648, 1], [2147483647, 0])
