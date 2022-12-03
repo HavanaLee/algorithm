@@ -80,4 +80,6 @@ function generateParenthesis(n: number): string[] {
   }
   return res
 };
+
+
 generateParenthesis(3)

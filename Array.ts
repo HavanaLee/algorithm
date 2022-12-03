@@ -805,6 +805,36 @@ function divingBoard(shorter: number, longer: number, k: number): number[] {
   return res
 };
 
+/**
+ * @link https://leetcode.cn/problems/pond-sizes-lcci/description/?favorite=xb9lfcwi
+ * @method 深度优先搜索
+ */
+function pondSizes(land: number[][]): number[] {
+  const row = land.length, col = land[0].length, res = [] as number[], direction = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]] // 每个水域相连的8个方向如果也是水域就可以连接成池塘
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < col; j++) {
+      // 从水域开始查找，周围的size是多少
+      if (land[i][j] === 0) {
+        const size = dfs(land, i, j)
+        res.push(size)
+      }
+    }
+  }
+  res.sort((a, b) => a - b)
+  return res
+
+  function dfs(land: number[][], i: number, j: number): number {
+    if (i < 0 || j < 0 || i >= row || j >= col) return 0 // 超出边界范围
+    if (land[i][j] != 0) return 0
+    land[i][j] = 1 // 因为是水塘一部分，赋值为1可以避免后续重复查找到这一个水塘
+    let size = 1
+    for (const v of direction) {
+      size += dfs(land, i + v[0], j + v[1])
+    }
+    return size
+  }
+};
+
 maxAliveYear([1972, 1908, 1915, 1957, 1960, 1948, 1912, 1903, 1949, 1977, 1900, 1957, 1934, 1929, 1913, 1902, 1903, 1901], [1997, 1932, 1963, 1997, 1983, 2000, 1926, 1962, 1955, 1997, 1998, 1989, 1992, 1975, 1940, 1903, 1983, 1969])
 
 
