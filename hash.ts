@@ -31,4 +31,29 @@ class WordsFrequency {
     }
 }
 
+/**
+ * @link https://leetcode.cn/problems/t9-lcci/?favorite=xb9lfcwi
+ */
+function getValidT9Words(num: string, words: string[]): string[] {
+    let map = new Map<string, string[]>()
+    map.set('2', ['a', 'b', 'c'])
+    map.set('3', ['d', 'e', 'f'])
+    map.set('4', ['g', 'h', 'i'])
+    map.set('5', ['j', 'k', 'l'])
+    map.set('6', ['m', 'n', 'o'])
+    map.set('7', ['p', 'q', 'r', 's'])
+    map.set('8', ['t', 'u', 'v'])
+    map.set('9', ['w', 'x', 'y', 'z'])
+    const res = [] as string[]
+    for (const word of words) {
+        let isTrue = true
+        for (let i = 0; i < word.length; i++) {
+            const arr = map.get(num[i])
+            if (!arr.includes(word[i])) isTrue = false
+        }
+        isTrue && res.push(word)
+    }
+    return res
+};
+
 groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
