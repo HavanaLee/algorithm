@@ -7,7 +7,7 @@
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
       "args": [
-        "${workspaceRoot}/Array.ts"
+        "${workspaceRoot}/排序和二分查找.ts"
       ],
       "cwd": "${workspaceRoot}",
       "protocol": "inspector"

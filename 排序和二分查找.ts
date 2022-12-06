@@ -130,5 +130,43 @@ function subSort(array: number[]): number[] {
     return [Math.min(l, r), Math.max(l, r)]
 };
 
+/**
+ * @link https://leetcode.cn/problems/sum-swap-lcci/?favorite=xb9lfcwi
+ * @method 二分法
+ */
+function findSwapValues(array1: number[], array2: number[]): number[] {
+    let res = [] as number[]
+    // 先排序
+    array1.sort((a, b) => a - b)
+    array2.sort((a, b) => a - b)
+    let sum1: number = 0, sum2: number = 0
+    for (let i = 0; i < array1.length; i++) {
+        sum1 += array1[i]
+    }
+    for (let i = 0; i < array2.length; i++) {
+        sum2 += array2[i]
+    }
+    const diff = sum1 - sum2
+    if (diff % 2 !== 0) return res
+    for (let i = 0; i < array1.length; i++) {
+        let l = 0, r = array2.length - 1, m
+        const target = array1[i] - diff / 2
+        while (l <= r) {
+            m = Math.floor((r - l) / 2 + l)
+            const mid = array2[m]
+            if (target == mid) break
+            else if (mid < target) l = m + 1
+            else r = m - 1
+        }
+        if (l <= r) res.push(array1[i], array2[m])
+    }
+    return res
+
+
+};
+findSwapValues([4, 1, 2, 1, 1, 2], [3, 6, 3, 3])
+
+
+
 
 smallestDifference([-2147483648, 1], [2147483647, 0])
