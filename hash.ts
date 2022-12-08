@@ -56,6 +56,25 @@ function getValidT9Words(num: string, words: string[]): string[] {
     return res
 };
 
+/**
+ * @link https://leetcode.cn/problems/pairs-with-sum-lcci/?favorite=xb9lfcwi
+ */
+function pairSums(nums: number[], target: number): number[][] {
+    let map = new Map<number, number>(), res: number[][] = []
+    for (let i = 0; i < nums.length; i++) {
+        if (map.get(target - nums[i])) {
+            res.push([nums[i], target - nums[i]])
+            let num = map.get(target - nums[i])
+            num--
+            map.set(target - nums[i], num)
+        } else {
+            let num = map.get(nums[i]) ?? 0
+            num++
+            map.set(nums[i], num)
+        }
+    }
+    return res
+};
 
 
 groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])

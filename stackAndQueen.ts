@@ -208,26 +208,37 @@ class SortedStack {
 }
 
 /**
- * @link https://leetcode.cn/problems/animal-shelter-lcci/?favorite=xb9lfcwi
+ * @link https://leetcode.cn/problems/lru-cache-lcci/?favorite=xb9lfcwi
  */
-class AnimalShelf {
-  constructor() {
-
+class LRUCache {
+  size: number
+  stack: Map<number, number>
+  constructor(capacity: number) {
+    this.size = capacity
+    this.stack = new Map<number, number>()
   }
 
-  enqueue(animal: number[]): void {
-
+  get(key: number): number {
+    if (!this.stack.has(key)) return -1
+    else {
+      const v = this.stack.get(key)
+      this.stack.delete(key)
+      this.stack.set(key, v)
+      return this.stack.get(key)
+    }
   }
 
-  dequeueAny(): number[] {
-
-  }
-
-  dequeueDog(): number[] {
-
-  }
-
-  dequeueCat(): number[] {
-
+  put(key: number, value: number): void {
+    if (this.stack.has(key)) {
+      this.get(key)
+      this.stack.set(key, value)
+    }
+    else {
+      if (this.stack.size === this.size) {
+        const k = this.stack.entries().next().value[0]
+        this.stack.delete(k)
+      }
+      this.stack.set(key, value)
+    }
   }
 }
