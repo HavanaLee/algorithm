@@ -2,7 +2,7 @@
 /**
  * @link https://leetcode.cn/problems/wiggle-sort-ii/
  */
-function wiggleSort(nums: number[]): void {
+export function wiggleSort(nums: number[]): void {
   const [...cp] = nums, n = nums.length
   cp.sort((a, b) => a - b)
   for (let i = Math.floor((n + 1) / 2) - 1, j = n - 1, idx = 0; idx < n; idx++, i--, j--) {
@@ -242,3 +242,41 @@ class LRUCache {
     }
   }
 }
+
+type sign = '+' | '-' | '/' | '*' | string & {} // 类型缩减
+
+/**
+ * @link https://leetcode.cn/problems/calculator-lcci/description/?favorite=xb9lfcwi
+ */
+function calculate(s: string): number {
+  const sign: sign[] = ['+', '-', '*', '/']
+  let stack: number[] = [], num = 0, symbol: sign = '+'
+  for (let i = 0; i < s.length; i++) {
+    if (!isNaN(Number(s[i])) && s[i] !== ' ') num = num * 10 + (+s[i])
+    if (sign.includes(s[i]) || i === s.length - 1) {
+      switch (symbol) {
+        case '+':
+          stack.push(num)
+          break;
+        case '-':
+          stack.push(-num)
+          break
+        case '*':
+          stack.push(stack.pop() * num)
+          break
+        case '/':
+          stack.push(stack.pop() / num | 0)
+          break
+      }
+      num = 0
+      symbol = s[i]
+    }
+  }
+  let ans = 0;
+  while (stack.length) {
+    ans += stack.pop();
+  }
+  return ans;
+
+};
+calculate("3+2*2")
