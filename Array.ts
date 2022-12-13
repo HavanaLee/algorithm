@@ -835,6 +835,21 @@ function pondSizes(land: number[][]): number[] {
   }
 };
 
+/**
+ * @link https://leetcode.cn/problems/find-closest-lcci/?favorite=xb9lfcwi
+ */
+function findClosest(words: string[], word1: string, word2: string): number {
+  let idx1 = -1, idx2 = -1, min = Number.MAX_SAFE_INTEGER
+  for (let i = 0; i < words.length; i++) {
+
+    if (words[i] == word1 || words[i] === word2) {
+      words[i] === word1 ? idx1 = i : idx2 = i
+      if (idx1 !== -1 && idx2 !== -1) min = Math.min(min, Math.abs(idx1 - idx2))
+    }
+  }
+  return min
+};
+
 maxAliveYear([1972, 1908, 1915, 1957, 1960, 1948, 1912, 1903, 1949, 1977, 1900, 1957, 1934, 1929, 1913, 1902, 1903, 1901], [1997, 1932, 1963, 1997, 1983, 2000, 1926, 1962, 1955, 1997, 1998, 1989, 1992, 1975, 1940, 1903, 1983, 1969])
 
 
