@@ -453,3 +453,28 @@ function pathSum(root: TreeNode | null, sum: number): number {
     return ret
   }
 };
+
+/**
+ * @link https://leetcode.cn/problems/binode-lcci/?favorite=xb9lfcwi
+ */
+function convertBiNode(root: TreeNode | null): TreeNode | null {
+  if (!root) return null
+  let res: TreeNode[] = [], stack: TreeNode[] = []
+  // 中序遍历
+  while (stack.length || root) {
+    while (root) {
+      stack.push(root)
+      root = root.left
+    }
+    root = stack.pop()
+    res.push(root)
+    root = root.right
+  }
+  for (let i = 0; i < res.length; i++) {
+    res[i].left = null
+    res[i].right = res[i + 1]
+  }
+  res[res.length - 1].left = null
+  res[res.length - 1].right = null
+  return res[0]
+};
