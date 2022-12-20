@@ -161,10 +161,27 @@ function findSwapValues(array1: number[], array2: number[]): number[] {
         if (l <= r) res.push(array1[i], array2[m])
     }
     return res
-
-
 };
 findSwapValues([4, 1, 2, 1, 1, 2], [3, 6, 3, 3])
+
+/**
+ * @link https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/
+ * @method 二分法
+ */
+function minimumSize(nums: number[], maxOperations: number): number {
+    let l = 1, r = nums.reduce((pre, cur) => Math.max(pre, cur), 0), ans = 0
+    while (l <= r) {
+        let ops = 0, y = Math.floor((r - l) / 2 + l)
+        for (const x of nums) {
+            ops += Math.floor((x - 1) / y)
+        }
+        if (ops <= maxOperations) {
+            ans = y
+            r = y - 1
+        } else l = y + 1
+    }
+    return ans
+};
 
 
 
