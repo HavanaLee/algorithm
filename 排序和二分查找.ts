@@ -186,4 +186,5 @@ function minimumSize(nums: number[], maxOperations: number): number {
 
 
 
+
 smallestDifference([-2147483648, 1], [2147483647, 0])

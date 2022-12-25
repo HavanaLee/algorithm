@@ -304,6 +304,25 @@ function monotoneIncreasingDigits(n: number): number {
   floor && (s[0] = +s[0] - 1 + '')
   return Number(s.join(''))
 };
+
+/**
+ * @link https://leetcode.cn/problems/largest-merge-of-two-strings/
+ */
+function largestMerge(word1: string, word2: string): string {
+  let l = 0, r = 0, merge = ''
+  while (l < word1.length || r < word2.length) {
+    // 字符串比较会默认转换为chartCode码来比较
+    if (l < word1.length && word1.slice(l) > word2.slice(r)) {
+      merge += word1[l]
+      l++
+    } else {
+      merge += word2[r]
+      r++
+    }
+
+  }
+  return merge
+};
 partitionLabels("ababcbacadefegdehijhklij")
 // findMinArrowShots([[-1, 1], [0, 1], [2, 3], [1, 2]])
 eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]])
