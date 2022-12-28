@@ -323,8 +323,31 @@ function largestMerge(word1: string, word2: string): string {
   }
   return merge
 };
+
+/**
+ * @link https://leetcode.cn/problems/minimum-length-of-string-after-deleting-similar-ends/
+ * @method 双指针
+ */
+function minimumLength(s: string): number {
+  let l = 0, r = s.length - 1
+  while (l < r) {
+    let start = s[l], end = s[r]
+    if (start !== end) break
+    while (s[l] === start) {
+      l++
+    }
+    while (s[r] === end) {
+      r--
+    }
+  }
+  return (r - l) < 0 ? 0 : r - l + 1
+};
+
 partitionLabels("ababcbacadefegdehijhklij")
 // findMinArrowShots([[-1, 1], [0, 1], [2, 3], [1, 2]])
-eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]])
+eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]]);
 
 // largestSumAfterKNegations([4, 2, 3], 1)
+
+
+
