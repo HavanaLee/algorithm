@@ -76,5 +76,24 @@ function pairSums(nums: number[], target: number): number[][] {
     return res
 };
 
+/**
+ * @link https://leetcode.cn/problems/two-out-of-three/
+ */
+function twoOutOfThree(nums1: number[], nums2: number[], nums3: number[]): number[] {
+    let map = new Map(), map2 = new Map(), res: number[] = []
+    for (const num of nums1) {
+        map.set(num, 1)
+    }
+    for (const num of nums2) {
+        if (map.has(num)) !res.includes(num) && res.push(num)
+        map2.set(num, 1)
+    }
+    for (const num of nums3) {
+        if (map.has(num)) !res.includes(num) && res.push(num)
+        if (map2.has(num)) !res.includes(num) && res.push(num)
+    }
+    return res
+};
+
 
 groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
