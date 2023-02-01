@@ -487,6 +487,29 @@ function insertBits(N: number, M: number, i: number, j: number): number {
 
 };
 
+/**
+ * @link https://leetcode.cn/problems/decode-the-message/
+ */
+function decodeMessage(key: string, message: string): string {
+  let cur = 'a', rules = new Map<string, string>()
+  for (let i = 0; i < key.length; i++) {
+    let c = key[i]
+    if (!rules.has(c) && c !== ' ') {
+      rules.set(c, cur)
+      // 静态 String.fromCharCode() 方法返回由指定的 UTF-16 代码单元序列创建的字符串
+      cur = String.fromCharCode(cur.charCodeAt(0) + 1)
+    }
+  }
+  let str = ''
+  for (let i = 0; i < message.length; i++) {
+    let c = message[i]
+    if (c !== ' ') {
+      c = rules.get(c)
+    }
+    str += c
+  }
+  return str
+};
 
 shortestToChar('aaab', 'b')
 

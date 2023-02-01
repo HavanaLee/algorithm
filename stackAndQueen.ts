@@ -277,6 +277,6 @@ function calculate(s: string): number {
     ans += stack.pop();
   }
   return ans;
-
 };
+
 calculate("3+2*2")
