@@ -886,7 +886,29 @@ function countHomogenous(s: string): number {
   sum += (cur + 1) * cur / 2
   return sum % MOD
 };
-maxAliveYear([1972, 1908, 1915, 1957, 1960, 1948, 1912, 1903, 1949, 1977, 1900, 1957, 1934, 1929, 1913, 1902, 1903, 1901], [1997, 1932, 1963, 1997, 1983, 2000, 1926, 1962, 1955, 1997, 1998, 1989, 1992, 1975, 1940, 1903, 1983, 1969])
+
+/**
+ * @link https://leetcode.cn/problems/check-if-matrix-is-x-matrix/
+ */
+function checkXMatrix(grid: number[][]): boolean {
+  let m = grid.length - 1, n = grid[0].length - 1
+  for (let i = 0; i <= m; i++) {
+    for (let j = 0; j <= n; j++) {
+      if (j === i || j === n - i) {
+        if (grid[i][j] === 0) return false
+      } else {
+        if (grid[i][j] !== 0) return false
+      }
+    }
+  }
+  return true
+};
+
+
+checkXMatrix([[2, 0, 0, 1], [0, 3, 1, 0], [0, 5, 2, 0], [4, 0, 0, 2]])
+
+
+// maxAliveYear([1972, 1908, 1915, 1957, 1960, 1948, 1912, 1903, 1949, 1977, 1900, 1957, 1934, 1929, 1913, 1902, 1903, 1901], [1997, 1932, 1963, 1997, 1983, 2000, 1926, 1962, 1955, 1997, 1998, 1989, 1992, 1975, 1940, 1903, 1983, 1969])
 
 
 // tictactoe(["OOXXOXXX", "XXXOXOXO", "OXOXXXOO", "XOXOXXXX", "OXOOXOOO", "XOOOOOOO", "OXXXOOOX", "XOXOOXXX"])
