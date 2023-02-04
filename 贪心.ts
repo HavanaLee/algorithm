@@ -343,6 +343,33 @@ function minimumLength(s: string): number {
   return (r - l) < 0 ? 0 : r - l + 1
 };
 
+/**
+ * @link https://leetcode.cn/problems/maximum-number-of-consecutive-values-you-can-make/description/
+ */
+function getMaximumConsecutive(coins: number[]): number {
+  let ans = 1
+  coins.sort((a, b) => a - b)
+  for (const c of coins) {
+    if (c > ans) break
+    ans += c
+  }
+  return ans
+};
+
+/**
+ * @link https://leetcode.cn/problems/count-number-of-bad-pairs/description/?languageTags=javascript
+ */
+function countBadPairs(nums: number[]): number {
+  let c = (n: number) => n * (n - 1) / 2 // 对数公式
+  let n = nums.length, ans = c(n), map = new Map<number, number>()
+  // 好数对 j - i == nums[j] - nums[i]  =>  nums[i] - i === nums[j] - j
+  for (let i = 0; i < n; i++)
+    map.set(nums[i] - i, (map.get(nums[i] - i) || 0) + 1)
+  for (const [k, v] of map)
+    ans -= c(v)
+  return ans
+};
+
 partitionLabels("ababcbacadefegdehijhklij")
 // findMinArrowShots([[-1, 1], [0, 1], [2, 3], [1, 2]])
 eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]]);
