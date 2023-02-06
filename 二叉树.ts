@@ -478,3 +478,12 @@ function convertBiNode(root: TreeNode | null): TreeNode | null {
   res[res.length - 1].right = null
   return res[0]
 };
+
+/**
+ * @link https://leetcode.cn/problems/evaluate-boolean-binary-tree/
+ */
+function evaluateTree(root: TreeNode | null): boolean {
+  if (!root.left) return root.val === 1
+  if (root.val === 2) return evaluateTree(root.left) || evaluateTree(root.right)
+  else return evaluateTree(root.left) && evaluateTree(root.right)
+};
