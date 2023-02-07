@@ -404,7 +404,7 @@ var inorderSuccessor = function (root: TreeNode | null, p: TreeNode | null): Tre
       root = root.left
     }
     root = stack.pop()
-    if (prev === p) return prev
+    if (prev === p) return root
     prev = root
     root = root.right
   }
