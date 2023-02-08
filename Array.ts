@@ -904,8 +904,51 @@ function checkXMatrix(grid: number[][]): boolean {
   return true
 };
 
+/**
+ * @link https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/
+ * @method 字典树
+ */
+function removeSubfolders(folder: string[]): string[] {
+  const root = new Trie()
+  for (let i = 0; i < folder.length; i++) {
+    const path = folder[i].split('/')
+    let cur = root
+    for (const name of path) {
+      if (!cur.children.has(name)) cur.children.set(name, new Trie())
+      cur = cur.children.get(name)
+    }
+    cur.ref = i
+  }
 
-checkXMatrix([[2, 0, 0, 1], [0, 3, 1, 0], [0, 5, 2, 0], [4, 0, 0, 2]])
+  const ans: string[] = []
+
+  const dfs = (folder: string[], ans: string[], cur: Trie) => {
+    if (cur.ref !== -1) {
+      ans.push(folder[cur.ref])
+      return
+    }
+    for (const child of cur.children.values()) {
+      dfs(folder, ans, child)
+    }
+  }
+
+  dfs(folder, ans, root)
+  return ans
+};
+
+class Trie {
+  ref: number
+  children: Map<any, any>
+  constructor() {
+    this.ref = -1
+    this.children = new Map()
+  }
+}
+
+removeSubfolders(["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"])
+
+
+// checkXMatrix([[2, 0, 0, 1], [0, 3, 1, 0], [0, 5, 2, 0], [4, 0, 0, 2]])
 
 
 // maxAliveYear([1972, 1908, 1915, 1957, 1960, 1948, 1912, 1903, 1949, 1977, 1900, 1957, 1934, 1929, 1913, 1902, 1903, 1901], [1997, 1932, 1963, 1997, 1983, 2000, 1926, 1962, 1955, 1997, 1998, 1989, 1992, 1975, 1940, 1903, 1983, 1969])
