@@ -913,6 +913,7 @@ function removeSubfolders(folder: string[]): string[] {
   for (let i = 0; i < folder.length; i++) {
     const path = folder[i].split('/')
     let cur = root
+    // 构建成树形结构 a->b->c 利用Trie的ref映射下标
     for (const name of path) {
       if (!cur.children.has(name)) cur.children.set(name, new Trie())
       cur = cur.children.get(name)
@@ -923,6 +924,7 @@ function removeSubfolders(folder: string[]): string[] {
   const ans: string[] = []
 
   const dfs = (folder: string[], ans: string[], cur: Trie) => {
+    // 已经存储成为了a->b->c的结构，在递归map的时候ref不为1说明就已经找到了路径，比如/a和/a/b的公共路径是/a，在a的时候ref是0就找到了folder中的数据
     if (cur.ref !== -1) {
       ans.push(folder[cur.ref])
       return

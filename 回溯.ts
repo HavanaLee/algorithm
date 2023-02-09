@@ -81,5 +81,44 @@ function generateParenthesis(n: number): string[] {
   return res
 };
 
+/**
+ * @link https://leetcode.cn/problems/letter-combinations-of-a-phone-number/description/
+ */
+function letterCombinations(digits: string): string[] {
+  if (digits.length === 0) return []
+  let res: string[] = [],
+    obj = {
+      '2': ['a', 'b', 'c'],
+      '3': ['d', 'e', 'f'],
+      '4': ['g', 'h', 'i'],
+      '5': ['j', 'k', 'l'],
+      '6': ['m', 'n', 'o'],
+      '7': ['p', 'q', 'r', 's'],
+      '8': ['t', 'u', 'v'],
+      '9': ['w', 'x', 'y', 'z']
+    }
+
+  function dfs(index: number, combination: string) {
+    // 终止条件
+    if (index === digits.length) {
+      res.push(combination)
+      return
+    }
+    const digit = digits[index]
+    const letters: string[] = obj[digit], len = letters.length
+    for (let i = 0; i < len; i++) {
+      // 先把这一次遍历到的字母加上
+      combination += letters[i]
+      dfs(index + 1, combination);
+      // 回溯，清除上一次的字母
+      combination = combination.substring(0, combination.length - 1)
+    }
+  }
+
+  dfs(0, '')
+  return res
+};
+
+letterCombinations('23')
 
 generateParenthesis(3)
