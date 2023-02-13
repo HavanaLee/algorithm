@@ -511,6 +511,45 @@ function decodeMessage(key: string, message: string): string {
   return str
 };
 
+/**
+ * @link https://leetcode.cn/problems/replace-the-substring-for-balanced-string/
+ */
+function balancedString(s: string): number {
+  let map = new Map<string, number>()
+  map.set('Q', 0)
+  map.set('W', 0)
+  map.set('E', 0)
+  map.set('R', 0)
+
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    map.set(c, map.get(c) + 1)
+  }
+
+  let sum = s.length, average = s.length / 4
+  if (check(map, average)) return 0
+  for (let l = 0, r = 0; l < s.length; l++) {
+    while (r < s.length && !check(map, average)) {
+      map.set(s[r], map.get(s[r]) - 1)
+      r++
+    }
+    if (!check(map, average)) break
+    sum = Math.min(sum, r - l)
+    map.set(s[l], map.get(s[l]) + 1)
+  }
+
+  return sum
+
+  function check<T extends Map<string, number>>(map: T, average: number): boolean {
+    if (map.get('Q') > average || map.get('W') > average || map.get('E') > average || map.get('R') > average) return false
+    return true
+  }
+};
+
+balancedString("WWWEQRQEWWQQQWQQQWEWEEWRRRRRWWQE")
+
+
+
 shortestToChar('aaab', 'b')
 
 mostCommonWord("Bob", ["hit"])
