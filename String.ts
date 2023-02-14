@@ -540,7 +540,7 @@ function balancedString(s: string): number {
 
   return sum
 
-  function check<T extends Map<string, number>>(map: T, average: number): boolean {
+  function check<T extends Map<string, number>, U>(map: T, average: number): U {
     if (map.get('Q') > average || map.get('W') > average || map.get('E') > average || map.get('R') > average) return false
     return true
   }

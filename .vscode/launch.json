@@ -7,7 +7,7 @@
       "request": "launch",
       "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
       "args": [
-        "${workspaceRoot}/String.ts"
+        "${workspaceRoot}/Array.ts"
       ],
       "cwd": "${workspaceRoot}",
       // "protocol": "inspector"

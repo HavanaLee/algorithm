@@ -719,235 +719,257 @@
 //   return image
 // };
 
-/**
- * @link https://leetcode.cn/problems/tic-tac-toe-lcci/?favorite=xb9lfcwi
- */
-function tictactoe(board: string[]): string {
-  const n = board.length, row0 = board[0].slice(0).split('') as string[] | boolean[]
-  let status = 'Draw', diagonalSame1 = true, diagonalSame2 = true
-  for (let i = 0; i < n; i++) {
-    let rowSame = true
-    for (let j = 0; j < n; j++) {
-      if (board[i][j] === ' ') status = 'Pending' // 有空位
-      if (j >= 1 && board[i][j] !== board[i][j - 1]) rowSame = false // 这一行不能获胜
-      if (i >= 1 && board[i][j] !== board[i - 1][j]) row0[j] = false // 这一列不能获胜
-    }
-    if (rowSame && board[i][0] != ' ') {
-      status = board[i][0]
-      return status
-    }
-    (board[0][0] !== board[n - 1][n - 1] || board[0][0] == ' ') && (diagonalSame1 = false)
-    if (board[0][0] === board[n - 1][n - 1] && i) {
-      if (board[i][i] !== board[i - 1][i - 1]) diagonalSame1 = false
-    }
-    (board[n - 1][0] !== board[0][n - 1] || board[0][n - 1] == ' ') && (diagonalSame2 = false)
-    if (board[n - 1][0] === board[0][n - 1] && i < n - 1) {
-      if (board[i][n - 1 - i] !== board[i + 1][n - i - 2]) diagonalSame2 = false
-    }
-  }
-  for (let i = 0; i < n; i++) {
-    if (board[0][i] === row0[i] && board[0][i] != ' ') {
-      status = board[0][i]
-      return status
-    }
-  }
-  if (diagonalSame1) {
-    status = board[0][0]
-    return status
-  }
-  if (diagonalSame2) {
-    status = board[0][n - 1]
-    return status
-  }
-  return status
-};
+// /**
+//  * @link https://leetcode.cn/problems/tic-tac-toe-lcci/?favorite=xb9lfcwi
+//  */
+// function tictactoe(board: string[]): string {
+//   const n = board.length, row0 = board[0].slice(0).split('') as string[] | boolean[]
+//   let status = 'Draw', diagonalSame1 = true, diagonalSame2 = true
+//   for (let i = 0; i < n; i++) {
+//     let rowSame = true
+//     for (let j = 0; j < n; j++) {
+//       if (board[i][j] === ' ') status = 'Pending' // 有空位
+//       if (j >= 1 && board[i][j] !== board[i][j - 1]) rowSame = false // 这一行不能获胜
+//       if (i >= 1 && board[i][j] !== board[i - 1][j]) row0[j] = false // 这一列不能获胜
+//     }
+//     if (rowSame && board[i][0] != ' ') {
+//       status = board[i][0]
+//       return status
+//     }
+//     (board[0][0] !== board[n - 1][n - 1] || board[0][0] == ' ') && (diagonalSame1 = false)
+//     if (board[0][0] === board[n - 1][n - 1] && i) {
+//       if (board[i][i] !== board[i - 1][i - 1]) diagonalSame1 = false
+//     }
+//     (board[n - 1][0] !== board[0][n - 1] || board[0][n - 1] == ' ') && (diagonalSame2 = false)
+//     if (board[n - 1][0] === board[0][n - 1] && i < n - 1) {
+//       if (board[i][n - 1 - i] !== board[i + 1][n - i - 2]) diagonalSame2 = false
+//     }
+//   }
+//   for (let i = 0; i < n; i++) {
+//     if (board[0][i] === row0[i] && board[0][i] != ' ') {
+//       status = board[0][i]
+//       return status
+//     }
+//   }
+//   if (diagonalSame1) {
+//     status = board[0][0]
+//     return status
+//   }
+//   if (diagonalSame2) {
+//     status = board[0][n - 1]
+//     return status
+//   }
+//   return status
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/living-people-lcci/description/?favorite=xb9lfcwi
+//  * @method 前缀和
+//  */
+// function maxAliveYear(birth: number[], death: number[]): number {
+//   const len = birth.length
+//   const aliveAry = Array.from({ length: 101 }, () => 0)
+
+//   for (let i = 0; i < len; i++) {
+//     const x = birth[i] - 1900, y = death[i] - 1900
+//     aliveAry[x] += 1
+//     aliveAry[y + 1] -= 1 // 当年死亡的人也要记录在当年的区间内，所以下一年人口才-1
+//   }
+
+//   let max = 0, minYear = 0, sum = 0
+//   for (let i = 0; i <= 100; i++) {
+//     sum += aliveAry[i]
+//     if (max < sum) {
+//       max = sum
+//       minYear = i + 1900
+//     }
+//   }
+//   return minYear
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/diving-board-lcci/?favorite=xb9lfcwi
+//  */
+// function divingBoard(shorter: number, longer: number, k: number): number[] {
+//   let res = [] as number[], short_num = k
+//   if (!k) return []
+//   // short和long一样长时不需要计算机，怎么摆放都是同一结果
+//   if (shorter === longer) return [shorter * k]
+
+//   while (short_num >= 0) {
+//     let long_num = k - short_num
+//     res.push(shorter * short_num + longer * long_num)
+//     short_num--
+//   }
+
+//   return res
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/pond-sizes-lcci/description/?favorite=xb9lfcwi
+//  * @method 深度优先搜索
+//  */
+// function pondSizes(land: number[][]): number[] {
+//   const row = land.length, col = land[0].length, res = [] as number[], direction = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]] // 每个水域相连的8个方向如果也是水域就可以连接成池塘
+//   for (let i = 0; i < row; i++) {
+//     for (let j = 0; j < col; j++) {
+//       // 从水域开始查找，周围的size是多少
+//       if (land[i][j] === 0) {
+//         const size = dfs(land, i, j)
+//         res.push(size)
+//       }
+//     }
+//   }
+//   res.sort((a, b) => a - b)
+//   return res
+
+//   function dfs(land: number[][], i: number, j: number): number {
+//     if (i < 0 || j < 0 || i >= row || j >= col) return 0 // 超出边界范围
+//     if (land[i][j] != 0) return 0
+//     land[i][j] = 1 // 因为是水塘一部分，赋值为1可以避免后续重复查找到这一个水塘
+//     let size = 1
+//     for (const v of direction) {
+//       size += dfs(land, i + v[0], j + v[1])
+//     }
+//     return size
+//   }
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/find-closest-lcci/?favorite=xb9lfcwi
+//  */
+// function findClosest(words: string[], word1: string, word2: string): number {
+//   let idx1 = -1, idx2 = -1, min = Number.MAX_SAFE_INTEGER
+//   for (let i = 0; i < words.length; i++) {
+
+//     if (words[i] == word1 || words[i] === word2) {
+//       words[i] === word1 ? idx1 = i : idx2 = i
+//       if (idx1 !== -1 && idx2 !== -1) min = Math.min(min, Math.abs(idx1 - idx2))
+//     }
+//   }
+//   return min
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/
+//  */
+
+// function finalValueAfterOperations(operations: string[]): number {
+//   let obj: { [key in string]: number } = {
+//     '++X': 1,
+//     'X++': 1,
+//     '--X': -1,
+//     'X--': -1
+//   }, ans = 0
+//   for (const opt of operations) {
+//     ans += obj[opt]
+//   }
+//   return ans
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/count-number-of-homogenous-substrings/
+//  */
+// function countHomogenous(s: string): number {
+//   let i = 1, sum = 0, cur = 1
+//   const MOD = 1000000007
+//   while (i < s.length) {
+//     if (s[i] === s[i - 1]) {
+//       cur++
+//     } else {
+//       // 实际上是一个等差数列, (m + 1) * m / 2
+//       sum += (cur + 1) * cur / 2
+//       cur = 1
+//     }
+//     i++
+//   }
+//   sum += (cur + 1) * cur / 2
+//   return sum % MOD
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/check-if-matrix-is-x-matrix/
+//  */
+// function checkXMatrix(grid: number[][]): boolean {
+//   let m = grid.length - 1, n = grid[0].length - 1
+//   for (let i = 0; i <= m; i++) {
+//     for (let j = 0; j <= n; j++) {
+//       if (j === i || j === n - i) {
+//         if (grid[i][j] === 0) return false
+//       } else {
+//         if (grid[i][j] !== 0) return false
+//       }
+//     }
+//   }
+//   return true
+// };
+
+// /**
+//  * @link https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/
+//  * @method 字典树
+//  */
+// function removeSubfolders(folder: string[]): string[] {
+//   const root = new Trie()
+//   for (let i = 0; i < folder.length; i++) {
+//     const path = folder[i].split('/')
+//     let cur = root
+//     // 构建成树形结构 a->b->c 利用Trie的ref映射下标
+//     for (const name of path) {
+//       if (!cur.children.has(name)) cur.children.set(name, new Trie())
+//       cur = cur.children.get(name)
+//     }
+//     cur.ref = i
+//   }
+
+//   const ans: string[] = []
+
+//   const dfs = (folder: string[], ans: string[], cur: Trie) => {
+//     // 已经存储成为了a->b->c的结构，在递归map的时候ref不为1说明就已经找到了路径，比如/a和/a/b的公共路径是/a，在a的时候ref是0就找到了folder中的数据
+//     if (cur.ref !== -1) {
+//       ans.push(folder[cur.ref])
+//       return
+//     }
+//     for (const child of cur.children.values()) {
+//       dfs(folder, ans, child)
+//     }
+//   }
+
+//   dfs(folder, ans, root)
+//   return ans
+// };
+
+// class Trie {
+//   ref: number
+//   children: Map<any, any>
+//   constructor() {
+//     this.ref = -1
+//     this.children = new Map()
+//   }
+// }
 
 /**
- * @link https://leetcode.cn/problems/living-people-lcci/description/?favorite=xb9lfcwi
+ * @link https://leetcode.cn/problems/longest-well-performing-interval/description/
  * @method 前缀和
  */
-function maxAliveYear(birth: number[], death: number[]): number {
-  const len = birth.length
-  const aliveAry = Array.from({ length: 101 }, () => 0)
-
-  for (let i = 0; i < len; i++) {
-    const x = birth[i] - 1900, y = death[i] - 1900
-    aliveAry[x] += 1
-    aliveAry[y + 1] -= 1 // 当年死亡的人也要记录在当年的区间内，所以下一年人口才-1
-  }
-
-  let max = 0, minYear = 0, sum = 0
-  for (let i = 0; i <= 100; i++) {
-    sum += aliveAry[i]
-    if (max < sum) {
-      max = sum
-      minYear = i + 1900
+function longestWPI(hours: number[]): number {
+  const n = hours.length, map = new Map<number, number>()
+  let sum = 0, res = 0
+  for (let i = 0; i < n; i++) {
+    sum += hours[i] > 8 ? 1 : -1
+    // 前缀和sum[i] > 0表示有一个长度为i + 1的区间是满足最长时间段的，因为只有两种情况，大于8为1，小于等于8为-1
+    if (sum > 0) res = Math.max(res, i + 1)
+    else {
+      // 因为只有1和-1两种情况，所以在i之前寻找下标l满足sum[i] - 1 = s[j] ，从map找到s[j]对应的下标j，最长区间则为res和i - j中的最大值
+      if (map.has(sum - 1)) res = Math.max(res, i - map.get(sum - 1))
     }
+    // 把sum[i]前缀和存储到map当中
+    if (!map.has(sum)) map.set(sum, i)
   }
-  return minYear
-};
-
-/**
- * @link https://leetcode.cn/problems/diving-board-lcci/?favorite=xb9lfcwi
- */
-function divingBoard(shorter: number, longer: number, k: number): number[] {
-  let res = [] as number[], short_num = k
-  if (!k) return []
-  // short和long一样长时不需要计算机，怎么摆放都是同一结果
-  if (shorter === longer) return [shorter * k]
-
-  while (short_num >= 0) {
-    let long_num = k - short_num
-    res.push(shorter * short_num + longer * long_num)
-    short_num--
-  }
-
   return res
 };
+longestWPI([0, 6, 6, 9, 9, 6, 9])
 
-/**
- * @link https://leetcode.cn/problems/pond-sizes-lcci/description/?favorite=xb9lfcwi
- * @method 深度优先搜索
- */
-function pondSizes(land: number[][]): number[] {
-  const row = land.length, col = land[0].length, res = [] as number[], direction = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]] // 每个水域相连的8个方向如果也是水域就可以连接成池塘
-  for (let i = 0; i < row; i++) {
-    for (let j = 0; j < col; j++) {
-      // 从水域开始查找，周围的size是多少
-      if (land[i][j] === 0) {
-        const size = dfs(land, i, j)
-        res.push(size)
-      }
-    }
-  }
-  res.sort((a, b) => a - b)
-  return res
-
-  function dfs(land: number[][], i: number, j: number): number {
-    if (i < 0 || j < 0 || i >= row || j >= col) return 0 // 超出边界范围
-    if (land[i][j] != 0) return 0
-    land[i][j] = 1 // 因为是水塘一部分，赋值为1可以避免后续重复查找到这一个水塘
-    let size = 1
-    for (const v of direction) {
-      size += dfs(land, i + v[0], j + v[1])
-    }
-    return size
-  }
-};
-
-/**
- * @link https://leetcode.cn/problems/find-closest-lcci/?favorite=xb9lfcwi
- */
-function findClosest(words: string[], word1: string, word2: string): number {
-  let idx1 = -1, idx2 = -1, min = Number.MAX_SAFE_INTEGER
-  for (let i = 0; i < words.length; i++) {
-
-    if (words[i] == word1 || words[i] === word2) {
-      words[i] === word1 ? idx1 = i : idx2 = i
-      if (idx1 !== -1 && idx2 !== -1) min = Math.min(min, Math.abs(idx1 - idx2))
-    }
-  }
-  return min
-};
-
-/**
- * @link https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/
- */
-
-function finalValueAfterOperations(operations: string[]): number {
-  let obj: { [key in string]: number } = {
-    '++X': 1,
-    'X++': 1,
-    '--X': -1,
-    'X--': -1
-  }, ans = 0
-  for (const opt of operations) {
-    ans += obj[opt]
-  }
-  return ans
-};
-
-/**
- * @link https://leetcode.cn/problems/count-number-of-homogenous-substrings/
- */
-function countHomogenous(s: string): number {
-  let i = 1, sum = 0, cur = 1
-  const MOD = 1000000007
-  while (i < s.length) {
-    if (s[i] === s[i - 1]) {
-      cur++
-    } else {
-      // 实际上是一个等差数列, (m + 1) * m / 2
-      sum += (cur + 1) * cur / 2
-      cur = 1
-    }
-    i++
-  }
-  sum += (cur + 1) * cur / 2
-  return sum % MOD
-};
-
-/**
- * @link https://leetcode.cn/problems/check-if-matrix-is-x-matrix/
- */
-function checkXMatrix(grid: number[][]): boolean {
-  let m = grid.length - 1, n = grid[0].length - 1
-  for (let i = 0; i <= m; i++) {
-    for (let j = 0; j <= n; j++) {
-      if (j === i || j === n - i) {
-        if (grid[i][j] === 0) return false
-      } else {
-        if (grid[i][j] !== 0) return false
-      }
-    }
-  }
-  return true
-};
-
-/**
- * @link https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/
- * @method 字典树
- */
-function removeSubfolders(folder: string[]): string[] {
-  const root = new Trie()
-  for (let i = 0; i < folder.length; i++) {
-    const path = folder[i].split('/')
-    let cur = root
-    // 构建成树形结构 a->b->c 利用Trie的ref映射下标
-    for (const name of path) {
-      if (!cur.children.has(name)) cur.children.set(name, new Trie())
-      cur = cur.children.get(name)
-    }
-    cur.ref = i
-  }
-
-  const ans: string[] = []
-
-  const dfs = (folder: string[], ans: string[], cur: Trie) => {
-    // 已经存储成为了a->b->c的结构，在递归map的时候ref不为1说明就已经找到了路径，比如/a和/a/b的公共路径是/a，在a的时候ref是0就找到了folder中的数据
-    if (cur.ref !== -1) {
-      ans.push(folder[cur.ref])
-      return
-    }
-    for (const child of cur.children.values()) {
-      dfs(folder, ans, child)
-    }
-  }
-
-  dfs(folder, ans, root)
-  return ans
-};
-
-class Trie {
-  ref: number
-  children: Map<any, any>
-  constructor() {
-    this.ref = -1
-    this.children = new Map()
-  }
-}
-
-removeSubfolders(["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"])
+// removeSubfolders(["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"])
 
 
 // checkXMatrix([[2, 0, 0, 1], [0, 3, 1, 0], [0, 5, 2, 0], [4, 0, 0, 2]])
