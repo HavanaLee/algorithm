@@ -125,4 +125,24 @@ function alertNames(keyName: string[], keyTime: string[]): string[] {
     return res
 };
 
+/**
+ * @link https://leetcode.cn/problems/maximum-number-of-pairs-in-array/
+ */
+function numberOfPairs(nums: number[]): number[] {
+    let map = new Map<number, number>(), n = nums.length, len = 0
+    for (let i = 0; i < n; i++) {
+        if (!map.has(nums[i])) map.set(nums[i], 1)
+        else {
+            map.set(nums[i], map.get(nums[i]) + 1)
+            if (map.get(nums[i]) === 2) {
+                map.delete(nums[i])
+                len++
+            }
+        }
+    }
+    return [len, map.size]
+};
+
+numberOfPairs([1, 3, 2, 1, 3, 2, 2])
+
 groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"])
